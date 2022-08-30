@@ -1,17 +1,47 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import ApolloClient from "apollo-boost";
+import { ApolloProvider, ApolloConsumer } from "@apollo/client";
+import { Query } from "@apollo/client/react/components";
+import { gql } from "apollo-boost";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+//apollo client setup
+export const client = new ApolloClient({
+  uri: "http://localhost:4000",
+});
+
+
+const GET_CATEGORIES_QUERY = gql`
+{
+  categories {
+    name
+  }
+}
+`
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={client}>
+      <App />
+
+      {/* <ApolloConsumer>
+        {client => {
+          client.query({query: gql`
+          {
+            categories {
+              name
+              products {
+                name
+              }
+            }
+          }
+          `}).then(res => console.log(res))
+          return null
+        }}
+      </ApolloConsumer> */}
+    </ApolloProvider>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
