@@ -1,0 +1,13 @@
+@use "./scss/reset";
+@use "./scss/variables" as *;
+@use "./scss/mixins";
+
+//shared
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+  font-family: 'Raleway', sans-serif;
+  }
