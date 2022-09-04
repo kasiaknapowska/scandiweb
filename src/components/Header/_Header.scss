@@ -1,0 +1,15 @@
+header {
+    padding: 1.5rem 6.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    .header_icons {
+        display: flex;
+        gap: 1rem;
+    }
+    .logo {
+        position: absolute;
+        left: calc(50vw - 30px);
+    }
+}
