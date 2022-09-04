@@ -9,7 +9,7 @@ class Header extends Component {
 
   render() {
     return (
-      <div className="header">
+      <header className="header">
         <div>WOMAN MAN KIDS</div>
         <Logo />
         <div>
@@ -18,7 +18,7 @@ class Header extends Component {
           </div>
           <img src={cart} />
         </div>
-      </div>
+      </header>
     );
   }
 }

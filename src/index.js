@@ -1,20 +1,30 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 
+import CategoryPage from "./pages/CategoryPage";
+import ProductPage from "./pages/ProductPage";
+import CartPage from "./pages/CartPage";
+
 // import { ApolloProvider, ApolloConsumer } from "@apollo/client";
-// import { Query } from "@apollo/client/react/components";
-// import { gql } from "apollo-boost";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       {/* <ApolloProvider client={client}> */}
-      <App />
-
+      <BrowserRouter>
+        <Routes>
+        <Route path="/" element={<App />}>
+          <Route index element={<CategoryPage />} />
+          <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/cart" element={<CartPage />} />
+        </Route>
+        </Routes>
+      </BrowserRouter>
       {/* </ApolloProvider> */}
     </Provider>
   </React.StrictMode>

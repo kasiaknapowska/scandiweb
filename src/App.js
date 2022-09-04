@@ -7,6 +7,7 @@ import { addCount, substractCount } from "./redux/counterSlice";
 
 import Products from "./components/Products/Products";
 import Header from "./components/Header";
+import { Outlet } from "react-router-dom";
 
 class App extends Component {
   constructor(props) {
@@ -29,11 +30,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header>
           <Header/>
-        </header>
-        {/* <Products /> */}
-        <h2>Categories</h2>
+          <Outlet/>
+        
         <button onClick={() => this.props.addCount()}>Add to cart</button>
         <button onClick={() => this.props.substractCount()}>Substract from cart</button>
         {this.state.categories.length > 0 &&
