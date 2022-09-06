@@ -21,39 +21,45 @@ class CurrencySelect extends Component {
 
   componentDidMount() {
     try {
-        client.query({ query: GET_CURRENCIES_QUERY }).then((res) => {
-            console.log(res)
-          this.setState({
-            currencies: res.data.currencies.map((currency) => ({
-              label: currency.label,
-              symbol: currency.symbol,
-            })),
-          });
+      client.query({ query: GET_CURRENCIES_QUERY }).then((res) => {
+        // console.log(res);
+        this.setState({
+          currencies: res.data.currencies.map((currency) => ({
+            label: currency.label,
+            symbol: currency.symbol,
+          })),
         });
+      });
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
     document.addEventListener("mousedown", this.handleClickOutside);
   }
 
   componentDidUpdate() {
-    console.log(this.props.currency);
+    // console.log(this.props.currency);
+    console.log(client)
   }
 
   componentWillUnmount() {
     document.removeEventListener("mousedown", this.handleClickOutside);
+    client.stop()
   }
 
   onChooseCurrency(e, currency) {
     this.props.changeCurrency(currency);
     this.setState({
-        isOpen: false,
-    })
+      isOpen: false,
+    });
   }
 
   handleClickOutside(e) {
-    if (this.state.isOpen && this.wrapperRef && !this.wrapperRef.current.contains(e.target)) {
-        this.setState({ isOpen: false })
+    if (
+      this.state.isOpen &&
+      this.wrapperRef &&
+      !this.wrapperRef.current.contains(e.target)
+    ) {
+      this.setState({ isOpen: false });
     }
   }
 
@@ -65,15 +71,21 @@ class CurrencySelect extends Component {
           onClick={() => this.setState({ isOpen: !this.state.isOpen })}
         >
           {" "}
-         {this.props.currency} <div className="arrow"></div>
+          {this.props.currency}{" "}
+          <div
+            className={classNames("arrow", {
+              arrow_down: !this.state.isOpen,
+              arrow_up: this.state.isOpen,
+            })}
+          ></div>
         </div>
         {this.state.isOpen && (
           <ul className="currency_select_list">
             {this.state.currencies.map((currency) => (
               <li
                 className={classNames("currency_select_item", {
-                    is_active: currency.symbol === this.props.currency,
-                  })}
+                  is_active: currency.symbol === this.props.currency,
+                })}
                 key={currency.label}
                 onClick={(e) => this.onChooseCurrency(e, currency.symbol)}
               >

@@ -51,6 +51,10 @@ class CategoryNavbar extends Component {
     }
   }
 
+  componentWillUnmount() {
+    client.stop()
+  }
+
   onChooseCategory(e, category) {
     this.props.changeCategory(category);
   }
