@@ -1,0 +1,30 @@
+header {
+  padding: 1rem;
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  @media screen and (min-width: 800px) {
+    padding: 1.5rem 6.25rem;
+    flex-direction: row;  
+    justify-content: space-between;
+  }
+  .header_icons {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    align-self: flex-end;
+    @media screen and (min-width: 800px) {
+        align-self: center;
+    }
+  }
+  .logo {
+    margin: 1rem;
+    @media screen and (min-width: 800px) {
+        position: absolute;
+        left: calc(50vw - 30px);
+        margin: 0;
+    }
+    
+  }
+}

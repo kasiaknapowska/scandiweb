@@ -1,0 +1,21 @@
+@use "../../scss/variables" as *;
+
+.category_navbar {
+  .nav_link {
+    display: inline-block;
+    padding: 1.5rem 1rem;
+    text-transform: uppercase;
+    border-bottom: 2px solid white;
+    text-decoration: none;
+    color: $colorNeutral;
+    &:hover {
+      cursor: pointer;
+      color: $colorPrimary;
+    }
+    &.is_active {
+      color: $colorPrimary;
+      border-bottom: 2px solid $colorPrimary;
+      font-weight: 600;
+    }
+  }
+}

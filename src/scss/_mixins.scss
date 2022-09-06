@@ -3,5 +3,6 @@
     font-weight: $weight;
     color: $color;
     line-height: 160%;
+    font-family: 'Raleway', sans-serif;
     @content;
   }

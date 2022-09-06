@@ -4,10 +4,20 @@
 
 //shared
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  @include mixins.font(400, $colorNeutral);
+}
+.container {
+  padding: 5rem 1rem;
+  @media screen and (min-width: 500px) {
+    padding: 5rem 6.25rem;
   }
-  body {
-  font-family: 'Raleway', sans-serif;
-  }
+}
+h1 {
+  font-size: 2.625rem;
+  text-transform: capitalize;
+}
