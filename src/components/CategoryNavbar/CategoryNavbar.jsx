@@ -32,9 +32,9 @@ class CategoryNavbar extends Component {
   }
 
   componentDidUpdate() {
-    console.log(this.props.category);
+    // console.log(this.props.category);
     // console.log(this.props.router.location.pathname)
-    console.log(this.props.router.params);
+    // console.log(this.props.router.params);
     // console.log(this.state.categories)
     const paramsCategory = this.props.router.params.category;
 

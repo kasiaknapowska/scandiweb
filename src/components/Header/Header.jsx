@@ -5,6 +5,7 @@ import { ReactComponent as Logo } from "../../assets/a-logo.svg";
 import cart from "../../assets/empty-cart.png";
 
 import CategoryNavbar from "../CategoryNavbar";
+import CurrencySelect from "../CurrencySelect";
 
 class Header extends Component {
   // constructor(props) {
@@ -19,9 +20,7 @@ class Header extends Component {
         <CategoryNavbar/>
         <Logo className="logo"/>
         <div className="header_icons">
-          <div className="currency_select">
-            $ <span> {">"}</span>
-          </div>
+          <CurrencySelect/>
           <img src={cart} className="cart_icon"/>
         </div>
       </header>

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Symbol_observable from "symbol-observable";
-import { BrowserRouter, Navigate, Route, Routes, Redirect } from "react-router-dom";
+// import Symbol_observable from "symbol-observable";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import App from "./App";

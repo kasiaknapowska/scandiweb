@@ -13,3 +13,12 @@ export const GET_CATEGORIES_QUERY = gql`
   }
 }
 `
+
+export const GET_CURRENCIES_QUERY = gql`
+{
+  currencies {
+    label
+    symbol
+  }
+}
+`
