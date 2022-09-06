@@ -20,14 +20,19 @@ class CurrencySelect extends Component {
   }
 
   componentDidMount() {
-    client.query({ query: GET_CURRENCIES_QUERY }).then((res) => {
-      this.setState({
-        currencies: res.data.currencies.map((currency) => ({
-          label: currency.label,
-          symbol: currency.symbol,
-        })),
-      });
-    });
+    try {
+        client.query({ query: GET_CURRENCIES_QUERY }).then((res) => {
+            console.log(res)
+          this.setState({
+            currencies: res.data.currencies.map((currency) => ({
+              label: currency.label,
+              symbol: currency.symbol,
+            })),
+          });
+        });
+    } catch (error) {
+        console.error(error);
+    }
     document.addEventListener("mousedown", this.handleClickOutside);
   }
 

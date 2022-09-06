@@ -20,15 +20,19 @@ class CategoryNavbar extends Component {
   }
 
   componentDidMount() {
-    client.query({ query: GET_CATEGORIES_QUERY }).then((res) => {
-      this.setState({
-        categories: res.data.categories.map((category) => category.name),
+    try {
+      client.query({ query: GET_CATEGORIES_QUERY }).then((res) => {
+        this.setState({
+          categories: res.data.categories.map((category) => category.name),
+        });
+        if (!this.props.router.params.category) {
+          this.props.changeCategory(res.data.categories[0].name);
+          this.props.router.navigate(`/${res.data.categories[0].name}`);
+        }
       });
-      if (!this.props.router.params.category) {
-        this.props.changeCategory(res.data.categories[0].name);
-        this.props.router.navigate(`/${res.data.categories[0].name}`);
-      }
-    });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   componentDidUpdate() {
