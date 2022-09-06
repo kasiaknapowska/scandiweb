@@ -5,7 +5,7 @@ import categoriesSlice from "./categoriesSlice";
 export const store = configureStore({
   reducer: {
     cartCounter: counterReducer,
-    category: categoriesSlice,
+    categories: categoriesSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });

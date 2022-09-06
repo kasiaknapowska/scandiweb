@@ -19,10 +19,10 @@ class Header extends Component {
         <CategoryNavbar/>
         <Logo className="logo"/>
         <div className="header_icons">
-          <div>
+          <div className="currency_select">
             $ <span> {">"}</span>
           </div>
-          <img src={cart} />
+          <img src={cart} className="cart_icon"/>
         </div>
       </header>
     );

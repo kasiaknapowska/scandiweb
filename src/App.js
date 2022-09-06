@@ -1,7 +1,6 @@
 import "./App.scss";
 import { Component } from "react";
 
-
 import { connect } from "react-redux";
 import { addCount, substractCount } from "./redux/counterSlice";
 
@@ -11,30 +10,24 @@ import { Outlet } from "react-router-dom";
 class App extends Component {
   constructor(props) {
     super(props);
-    
   }
 
-
   componentDidUpdate() {
-    console.log(this.props.count)
+    console.log(this.props.count);
   }
 
   render() {
     return (
       <div className="App">
-          <Header/>
-          <Outlet/>
-        
-        <button onClick={() => this.props.addCount()}>Add to cart</button>
-        <button onClick={() => this.props.substractCount()}>Substract from cart</button>
-        
+        <Header />
+        <Outlet />
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  count: state.cartCounter.count
+  count: state.cartCounter.count,
 });
 
 const mapDispatchToProps = { addCount, substractCount };

@@ -11,3 +11,6 @@
   body {
   @include mixins.font(400, $colorNeutral);
   }
+  .container {
+    padding: 5rem 6.25rem;
+  }

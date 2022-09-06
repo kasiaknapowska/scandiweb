@@ -10,7 +10,7 @@ class CategoryPage extends Component {
   render() {
     // console.log(this.props);
     return (
-      <div className="category_page">
+      <div className="container category_page">
         <h2>Category page</h2>
       </div>
     );
