@@ -1,6 +1,10 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import classNames from "classnames";
 
 import { client, GET_CURRENCIES_QUERY } from "../../utils/queries";
+
+import { changeCurrency } from "../../redux/currencySlice";
 
 import "./_CurrencySelect.scss";
 
@@ -11,6 +15,8 @@ class CurrencySelect extends Component {
       currencies: [],
       isOpen: false,
     };
+    this.wrapperRef = React.createRef();
+    this.handleClickOutside = this.handleClickOutside.bind(this);
   }
 
   componentDidMount() {
@@ -22,26 +28,50 @@ class CurrencySelect extends Component {
         })),
       });
     });
+    document.addEventListener("mousedown", this.handleClickOutside);
   }
 
   componentDidUpdate() {
-    console.log(this.state.currencies);
+    console.log(this.props.currency);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  }
+
+  onChooseCurrency(e, currency) {
+    this.props.changeCurrency(currency);
+    this.setState({
+        isOpen: false,
+    })
+  }
+
+  handleClickOutside(e) {
+    if (this.state.isOpen && this.wrapperRef && !this.wrapperRef.current.contains(e.target)) {
+        this.setState({ isOpen: false })
+    }
   }
 
   render() {
     return (
-      <div className="currency_select">
+      <div className="currency_select" ref={this.wrapperRef}>
         <div
           className="currency_select_header"
           onClick={() => this.setState({ isOpen: !this.state.isOpen })}
         >
           {" "}
-          $ {">"}
+         {this.props.currency} <div className="arrow"></div>
         </div>
         {this.state.isOpen && (
           <ul className="currency_select_list">
             {this.state.currencies.map((currency) => (
-              <li className="currency_select_item" key={currency.label}>
+              <li
+                className={classNames("currency_select_item", {
+                    is_active: currency.symbol === this.props.currency,
+                  })}
+                key={currency.label}
+                onClick={(e) => this.onChooseCurrency(e, currency.symbol)}
+              >
                 {currency.symbol} {currency.label}
               </li>
             ))}
@@ -52,4 +82,10 @@ class CurrencySelect extends Component {
   }
 }
 
-export default CurrencySelect;
+const mapStateToProps = (state) => ({
+  currency: state.currency.currency,
+});
+
+const mapDispatchToProps = { changeCurrency };
+
+export default connect(mapStateToProps, mapDispatchToProps)(CurrencySelect);

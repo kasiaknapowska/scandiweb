@@ -8,7 +8,6 @@ class CategoryPage extends Component {
 
   
   render() {
-    // console.log(this.props);
     return (
       <div className="container category_page">
         <h1>{this.props.category}</h1>
@@ -18,10 +17,8 @@ class CategoryPage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  category: state.categories.category,
+  category: state.category.category,
 });
 
 
 export default connect(mapStateToProps)(CategoryPage);
-
-// export default CategoryPage;

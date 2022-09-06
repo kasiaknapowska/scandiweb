@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import classNames from "classnames";
 
-import { changeCategory } from "../../redux/categoriesSlice";
+import { changeCategory } from "../../redux/categorySlice";
 import { client, GET_CATEGORIES_QUERY } from "../../utils/queries";
 import withRouter from "../../utils/router";
 
@@ -73,7 +73,7 @@ class CategoryNavbar extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  category: state.categories.category,
+  category: state.category.category,
 });
 
 const mapDispatchToProps = { changeCategory };
