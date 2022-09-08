@@ -22,7 +22,6 @@ class CurrencySelect extends Component {
   componentDidMount() {
     try {
       client.query({ query: GET_CURRENCIES_QUERY }).then((res) => {
-        // console.log(res);
         this.setState({
           currencies: res.data.currencies.map((currency) => ({
             label: currency.label,
@@ -36,14 +35,9 @@ class CurrencySelect extends Component {
     document.addEventListener("mousedown", this.handleClickOutside);
   }
 
-  componentDidUpdate() {
-    // console.log(this.props.currency);
-    // console.log(client)
-  }
-
   componentWillUnmount() {
     document.removeEventListener("mousedown", this.handleClickOutside);
-    client.stop()
+    client.stop();
   }
 
   onChooseCurrency(e, currency) {

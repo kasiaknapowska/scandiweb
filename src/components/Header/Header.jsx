@@ -8,20 +8,14 @@ import CategoryNavbar from "../CategoryNavbar";
 import CurrencySelect from "../CurrencySelect";
 
 class Header extends Component {
-  // constructor(props) {
-  //   super(props)
-  // }
-
-  
-
   render() {
     return (
       <header>
-        <CategoryNavbar/>
-        <Logo className="logo"/>
+        <CategoryNavbar />
+        <Logo className="logo" />
         <div className="header_icons">
-          <CurrencySelect/>
-          <img src={cart} className="cart_icon"/>
+          <CurrencySelect />
+          <img src={cart} className="cart_icon" />
         </div>
       </header>
     );

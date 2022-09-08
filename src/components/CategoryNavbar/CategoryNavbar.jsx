@@ -20,8 +20,8 @@ class CategoryNavbar extends Component {
   }
 
   componentDidMount() {
-    console.log('navbar mounted')
-    // console.log(this.props.router.params.category)
+    console.log("navbar mounted");
+
     try {
       client.query({ query: GET_CATEGORIES_QUERY }).then((res) => {
         this.setState({
@@ -32,7 +32,6 @@ class CategoryNavbar extends Component {
           this.props.changeCategory(res.data.categories[0].name);
           this.props.router.navigate(`/${res.data.categories[0].name}`);
         }
-
       });
     } catch (error) {
       console.error(error);
@@ -40,13 +39,10 @@ class CategoryNavbar extends Component {
   }
 
   componentDidUpdate() {
-    console.log("navbar updated")
-    // console.log(this.props.category);
+    console.log("navbar updated");
     // console.log(this.props.router.location.pathname)
-    // console.log(this.props.router.params);
-    // console.log(this.state.categories)
-    const paramsCategory = this.props.router.params.category;
 
+    const paramsCategory = this.props.router.params.category;
 
     if (
       this.state.categories.includes(paramsCategory) &&
@@ -57,7 +53,7 @@ class CategoryNavbar extends Component {
   }
 
   componentWillUnmount() {
-    client.stop()
+    client.stop();
   }
 
   onChooseCategory(e, category) {
@@ -65,7 +61,7 @@ class CategoryNavbar extends Component {
   }
 
   render() {
-    console.log("navbar render")
+    console.log("navbar render");
     return (
       <nav className="category_navbar">
         {this.state.categories.length > 0 &&

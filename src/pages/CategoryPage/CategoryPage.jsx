@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { client, GET_PRODUCTS_BY_CATEGORY } from "../../utils/queries";
 
+import "./_CategoryPage.scss"
+import Products from "../../components/Products";
+
 class CategoryPage extends Component {
   constructor(props) {
     super(props);
@@ -13,13 +16,11 @@ class CategoryPage extends Component {
   }
 
   componentDidMount() {
-    // this.getProductsByCategory("all");
-    console.log("category page mounted")
+    console.log("category page mounted");
   }
 
   componentDidUpdate(prevProps) {
-
-    console.log("category page updated")
+    console.log("category page updated");
     console.log(prevProps.category, this.props.category);
     if (prevProps.category !== this.props.category) {
       this.getProductsByCategory(this.props.category);
@@ -52,13 +53,15 @@ class CategoryPage extends Component {
   }
 
   render() {
-    console.log("category page render")
+    console.log("category page render");
     console.log(this.state.products);
-    
+
     return (
-      <div className="container category_page">
-        <h1>Category: {this.props.category}</h1>
-      </div>
+      <main className="container category_page">
+        <h1>{this.props.category}</h1>
+        {this.state.loading && <p>Loading...</p>}
+        {this.state.products && <Products products={this.state.products}/>}
+      </main>
     );
   }
 }
