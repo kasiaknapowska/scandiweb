@@ -14,7 +14,7 @@ import NotFound from "./pages/NotFound";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Provider store={store}>
       {/* <ApolloProvider client={client}> */}
       <BrowserRouter>
@@ -29,5 +29,5 @@ root.render(
       </BrowserRouter>
       {/* </ApolloProvider> */}
     </Provider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );

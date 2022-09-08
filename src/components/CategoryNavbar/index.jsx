@@ -1,1 +1,1 @@
-export {default} from "./CategoryNavbar";
+export { default } from "./CategoryNavbar";

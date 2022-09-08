@@ -15,10 +15,29 @@ export const GET_CATEGORIES_QUERY = gql`
 `
 
 export const GET_CURRENCIES_QUERY = gql`
-{
+query {
   currencies {
     label
     symbol
+  }
+}
+`
+
+export const GET_PRODUCTS_BY_CATEGORY = gql`
+query GetProductsByCategory($title: String!) {
+  category(input: {title: $title}) {
+    products {
+      id
+      name
+      inStock
+      gallery
+      prices {
+        currency {
+          symbol
+        }
+        amount
+      }
+    }
   }
 }
 `

@@ -38,7 +38,7 @@ class CurrencySelect extends Component {
 
   componentDidUpdate() {
     // console.log(this.props.currency);
-    console.log(client)
+    // console.log(client)
   }
 
   componentWillUnmount() {
