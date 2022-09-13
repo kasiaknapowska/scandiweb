@@ -10,24 +10,24 @@ import ProductPage from "./pages/ProductPage";
 import CartPage from "./pages/CartPage";
 import NotFound from "./pages/NotFound";
 
-// import { ApolloProvider, ApolloConsumer } from "@apollo/client";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      {/* <ApolloProvider client={client}> */}
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App/>}>
-            <Route index path=":category" element={<CategoryPage />} />
-            <Route path=":category/:productId" element={<ProductPage />} />
-            <Route path="cart" element={<CartPage />} />
-            {/* <Route path="*" element={<NotFound/>} /> */}
-          </Route>
-        </Routes>
-      </BrowserRouter>
-      {/* </ApolloProvider> */}
-    </Provider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <Provider store={store}>
+  
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route index element={<CategoryPage />}/>
+          <Route path=":category" element={<CategoryPage />}/>
+          <Route path=":category/:productId" element={<ProductPage />} />
+          <Route path="cart" element={<CartPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+    
+  </Provider>
+  // </React.StrictMode>
 );

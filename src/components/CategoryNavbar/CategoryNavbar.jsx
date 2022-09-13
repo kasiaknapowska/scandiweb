@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import classNames from "classnames";
 
 import { changeCategory } from "../../redux/categorySlice";
-import { client, GET_CATEGORIES_QUERY } from "../../utils/queries";
+import { client, GET_CATEGORIES_QUERY, makeQuery } from "../../utils/queries";
 import withRouter from "../../utils/router";
 
 class CategoryNavbar extends Component {
@@ -20,26 +20,39 @@ class CategoryNavbar extends Component {
   }
 
   componentDidMount() {
-    try {
-      client.query({ query: GET_CATEGORIES_QUERY }).then((res) => {
-        this.setState({
-          categories: res.data.categories.map((category) => category.name),
-        });
-        if (!this.props.router.params.category) {
-          this.props.changeCategory(res.data.categories[0].name);
-          this.props.router.navigate(`/${res.data.categories[0].name}`);
-        }
+    console.log("navbar mounted");
+
+    // try {
+    //   client.query({ query: GET_CATEGORIES_QUERY }).then((res) => {
+    //     this.setState({
+    //       categories: res.data.categories.map((category) => category.name),
+    //     });
+
+    //     if (!this.props.router.params.category) {
+    //       this.props.changeCategory(res.data.categories[0].name);
+    //       this.props.router.navigate(`/${res.data.categories[0].name}`);
+    //     }
+    //   });
+    // } catch (error) {
+    //   console.error(error);
+    // }
+
+    makeQuery(GET_CATEGORIES_QUERY, (res) => {
+      this.setState({
+        categories: res.data.categories.map((category) => category.name),
       });
-    } catch (error) {
-      console.error(error);
-    }
+
+      if (!this.props.router.params.category) {
+        this.props.changeCategory(res.data.categories[0].name);
+        this.props.router.navigate(`/${res.data.categories[0].name}`);
+      }
+    });
   }
 
   componentDidUpdate() {
-    // console.log(this.props.category);
+    console.log("navbar updated");
     // console.log(this.props.router.location.pathname)
-    // console.log(this.props.router.params);
-    // console.log(this.state.categories)
+
     const paramsCategory = this.props.router.params.category;
 
     if (
@@ -47,12 +60,11 @@ class CategoryNavbar extends Component {
       this.props.category !== paramsCategory
     ) {
       this.props.changeCategory(paramsCategory);
-      console.log("updated");
-    }
+    } 
   }
 
   componentWillUnmount() {
-    client.stop()
+    client.stop();
   }
 
   onChooseCategory(e, category) {
@@ -60,6 +72,7 @@ class CategoryNavbar extends Component {
   }
 
   render() {
+    console.log("navbar render");
     return (
       <nav className="category_navbar">
         {this.state.categories.length > 0 &&

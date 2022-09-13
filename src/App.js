@@ -12,9 +12,9 @@ class App extends Component {
     super(props);
   }
 
-  componentDidUpdate() {
-    console.log(this.props.count);
-  }
+  // componentDidUpdate() {
+  //   console.log(this.props.count);
+  // }
 
   render() {
     return (
