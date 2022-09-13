@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   client,
-  GET_PRODUCTS_BY_CATEGORY,
+  GET_PRODUCTS_BY_CATEGORY_QUERY,
   makeQuery,
 } from "../../utils/queries";
 
@@ -13,7 +13,7 @@ class CategoryPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true,
+      loading: undefined,
       products: null,
     };
     // this.getProducts =  this.getProducts.bind(this)
@@ -52,7 +52,7 @@ class CategoryPage extends Component {
     // }
 
     makeQuery(
-      GET_PRODUCTS_BY_CATEGORY,
+      GET_PRODUCTS_BY_CATEGORY_QUERY,
       (res) => {
         // if (res.errors) console.error(res.errors.map((error) => error.message));
 
@@ -85,6 +85,7 @@ class CategoryPage extends Component {
 
 const mapStateToProps = (state) => ({
   category: state.category.category,
+  currency: state.currency.currency,
 });
 
 export default connect(mapStateToProps)(CategoryPage);

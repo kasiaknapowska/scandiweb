@@ -60,7 +60,7 @@ class CategoryNavbar extends Component {
       this.props.category !== paramsCategory
     ) {
       this.props.changeCategory(paramsCategory);
-    }
+    } 
   }
 
   componentWillUnmount() {

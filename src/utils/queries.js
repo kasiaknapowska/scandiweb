@@ -37,7 +37,7 @@ export const GET_CURRENCIES_QUERY = gql`
   }
 `;
 
-export const GET_PRODUCTS_BY_CATEGORY = gql`
+export const GET_PRODUCTS_BY_CATEGORY_QUERY = gql`
   query GetProductsByCategory($title: String!) {
     category(input: { title: $title }) {
       products {

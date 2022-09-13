@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import "./_Header.scss";
 import { ReactComponent as Logo } from "../../assets/a-logo.svg";
-import cart from "../../assets/empty-cart.png";
+import cart from "../../assets/grey-cart.svg";
 
 import CategoryNavbar from "../CategoryNavbar";
 import CurrencySelect from "../CurrencySelect";
