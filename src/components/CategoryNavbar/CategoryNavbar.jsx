@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import classNames from "classnames";
 
 import { changeCategory } from "../../redux/categorySlice";
-import { client, GET_CATEGORIES_QUERY } from "../../utils/queries";
+import { client, GET_CATEGORIES_QUERY, makeQuery } from "../../utils/queries";
 import withRouter from "../../utils/router";
 
 class CategoryNavbar extends Component {
@@ -22,20 +22,31 @@ class CategoryNavbar extends Component {
   componentDidMount() {
     console.log("navbar mounted");
 
-    try {
-      client.query({ query: GET_CATEGORIES_QUERY }).then((res) => {
-        this.setState({
-          categories: res.data.categories.map((category) => category.name),
-        });
+    // try {
+    //   client.query({ query: GET_CATEGORIES_QUERY }).then((res) => {
+    //     this.setState({
+    //       categories: res.data.categories.map((category) => category.name),
+    //     });
 
-        if (!this.props.router.params.category) {
-          this.props.changeCategory(res.data.categories[0].name);
-          this.props.router.navigate(`/${res.data.categories[0].name}`);
-        }
+    //     if (!this.props.router.params.category) {
+    //       this.props.changeCategory(res.data.categories[0].name);
+    //       this.props.router.navigate(`/${res.data.categories[0].name}`);
+    //     }
+    //   });
+    // } catch (error) {
+    //   console.error(error);
+    // }
+
+    makeQuery(GET_CATEGORIES_QUERY, (res) => {
+      this.setState({
+        categories: res.data.categories.map((category) => category.name),
       });
-    } catch (error) {
-      console.error(error);
-    }
+
+      if (!this.props.router.params.category) {
+        this.props.changeCategory(res.data.categories[0].name);
+        this.props.router.navigate(`/${res.data.categories[0].name}`);
+      }
+    });
   }
 
   componentDidUpdate() {

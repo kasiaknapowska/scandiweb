@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { client, GET_PRODUCTS_BY_CATEGORY } from "../../utils/queries";
+import {
+  client,
+  GET_PRODUCTS_BY_CATEGORY,
+  makeQuery,
+} from "../../utils/queries";
 
-import "./_CategoryPage.scss"
+import "./_CategoryPage.scss";
 import Products from "../../components/Products";
 
 class CategoryPage extends Component {
@@ -28,24 +32,37 @@ class CategoryPage extends Component {
   }
 
   getProductsByCategory(category) {
-    try {
-      client
-        .query({
-          query: GET_PRODUCTS_BY_CATEGORY,
-          variables: { title: category },
-        })
-        .then((res) => {
-          if (res.errors)
-            console.error(res.errors.map((error) => error.message));
+    // try {
+    //   client
+    //     .query({
+    //       query: GET_PRODUCTS_BY_CATEGORY,
+    //       variables: { title: category },
+    //     })
+    //     .then((res) => {
+    //       if (res.errors)
+    //         console.error(res.errors.map((error) => error.message));
 
-          this.setState({
-            loading: res.loading,
-            products: res.data.category.products.map((product) => product),
-          });
+    //       this.setState({
+    //         loading: res.loading,
+    //         products: res.data.category.products.map((product) => product),
+    //       });
+    //     });
+    // } catch (error) {
+    //   console.error(error);
+    // }
+
+    makeQuery(
+      GET_PRODUCTS_BY_CATEGORY,
+      (res) => {
+        // if (res.errors) console.error(res.errors.map((error) => error.message));
+
+        this.setState({
+          loading: res.loading,
+          products: res.data.category.products.map((product) => product),
         });
-    } catch (error) {
-      console.error(error);
-    }
+      },
+      { title: category }
+    );
   }
 
   componentWillUnmount() {
@@ -60,7 +77,7 @@ class CategoryPage extends Component {
       <main className="container category_page">
         <h1>{this.props.category}</h1>
         {this.state.loading && <p>Loading...</p>}
-        {this.state.products && <Products products={this.state.products}/>}
+        {this.state.products && <Products products={this.state.products} />}
       </main>
     );
   }

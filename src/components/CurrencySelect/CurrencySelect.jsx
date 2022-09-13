@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import classNames from "classnames";
 
-import { client, GET_CURRENCIES_QUERY } from "../../utils/queries";
+import { client, GET_CURRENCIES_QUERY, makeQuery } from "../../utils/queries";
 
 import { changeCurrency } from "../../redux/currencySlice";
 
@@ -20,18 +20,26 @@ class CurrencySelect extends Component {
   }
 
   componentDidMount() {
-    try {
-      client.query({ query: GET_CURRENCIES_QUERY }).then((res) => {
-        this.setState({
-          currencies: res.data.currencies.map((currency) => ({
-            label: currency.label,
-            symbol: currency.symbol,
-          })),
-        });
+    // try {
+    //   client.query({ query: GET_CURRENCIES_QUERY }).then((res) => {
+    //     this.setState({
+    //       currencies: res.data.currencies.map((currency) => ({
+    //         label: currency.label,
+    //         symbol: currency.symbol,
+    //       })),
+    //     });
+    //   });
+    // } catch (error) {
+    //   console.error(error);
+    // }
+    makeQuery(GET_CURRENCIES_QUERY, (res) => {
+      this.setState({
+        currencies: res.data.currencies.map((currency) => ({
+          label: currency.label,
+          symbol: currency.symbol,
+        })),
       });
-    } catch (error) {
-      console.error(error);
-    }
+    });
     document.addEventListener("mousedown", this.handleClickOutside);
   }
 
