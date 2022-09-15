@@ -7,18 +7,31 @@ import classNames from "classnames";
 import { changeCategory } from "../../redux/categorySlice";
 
 import parse from "html-react-parser";
-import TextType from "../Attributes/TextType";
-import SwatchType from "../Attributes/SwatchType";
+
+import Attributes from "../Attributes";
 
 class ProductDetails extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      attributesChosen: {}
+    }
+    this.setAttribute = this.setAttribute.bind(this);
   }
+
+setAttribute(id, value) {
+
+this.setState(prevState => ({
+attributesChosen: {...prevState.attributesChosen, [id]: value}
+}))
+}
 
   render() {
     const price = this.props.product.prices.filter(
       (price) => price.currency.symbol === this.props.currency
     );
+
+    console.log(this.state.attributesChosen)
 
     return (
       <div className="product_details">
@@ -30,12 +43,7 @@ class ProductDetails extends Component {
           return (
             <div key={attribute.id + index}>
               <h3>{attribute.name}</h3>
-              {attribute.type === "text" && (
-                <TextType items={attribute.items} />
-              )}
-              {attribute.type === "swatch" && (
-                <SwatchType items={attribute.items} />
-              )}
+              <Attributes attribute={attribute} setAttribute={this.setAttribute}/>
             </div>
           );
         })}

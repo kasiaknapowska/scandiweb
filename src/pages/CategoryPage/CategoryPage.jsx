@@ -5,6 +5,7 @@ import {
   GET_PRODUCTS_BY_CATEGORY_QUERY,
   makeQuery,
 } from "../../utils/queries";
+import withRouter from "../../utils/router";
 
 import "./_CategoryPage.scss";
 import Products from "../../components/Products";
@@ -21,12 +22,15 @@ class CategoryPage extends Component {
 
   componentDidMount() {
     console.log("category page mounted");
+    if (this.props.router.params.category) {
+      this.getProductsByCategory(this.props.router.params.category);
+    }
   }
 
   componentDidUpdate(prevProps) {
     console.log("category page updated");
     console.log(prevProps.category, this.props.category);
-    if (prevProps.category !== this.props.category) {
+    if (prevProps.category !== this.props.category ) {
       this.getProductsByCategory(this.props.category);
     }
   }
@@ -54,7 +58,7 @@ class CategoryPage extends Component {
   render() {
     console.log("category page render");
     console.log(this.state.products);
-
+    
     return (
       <main className="container category_page">
         <h1>{this.props.category}</h1>
@@ -70,4 +74,4 @@ const mapStateToProps = (state) => ({
   currency: state.currency.currency,
 });
 
-export default connect(mapStateToProps)(CategoryPage);
+export default withRouter(connect(mapStateToProps)(CategoryPage));

@@ -1,9 +1,19 @@
-@use "../../../scss/variables" as *;
+@use "../../scss/variables" as *;
 
-.text_type {
+.swatch {
+    display: flex;
+    gap: .5rem;
+    div {
+        width: 2rem;
+        height: 2rem;
+        border: 1px solid $colorNeutralLight;
+        cursor: pointer;
+    }
+}
+.text {
     display: flex;
     gap: .75rem;
-    .text_type_item {
+    div {
         border: 1px solid $colorNeutral;
         padding: 0.75rem;
         min-width: 3.5rem;
