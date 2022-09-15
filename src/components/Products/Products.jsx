@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import "./_Products.scss";
-import Product from "../Product";
+import ProductCard from "../ProductCard";
 
 
 class Products extends Component {
@@ -14,7 +14,7 @@ class Products extends Component {
   console.log(this.props.products)
     return (
       <div className="products">
-        {this.props.products.map(product => <Product key={product.id} product={product}/>)}
+        {this.props.products.map(product => <ProductCard key={product.id} product={product}/>)}
       </div>
     );
   }

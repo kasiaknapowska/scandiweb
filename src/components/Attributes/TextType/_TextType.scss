@@ -1,0 +1,14 @@
+@use "../../../scss/variables" as *;
+
+.text_type {
+    display: flex;
+    gap: .75rem;
+    .text_type_item {
+        border: 1px solid $colorNeutral;
+        padding: 0.75rem;
+        min-width: 3.5rem;
+        text-align: center;
+        cursor: pointer;
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+}

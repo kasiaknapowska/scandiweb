@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import withRouter from "../../utils/router";
 import classNames from "classnames";
-import "./_Product.scss";
+import "./_ProductCard.scss";
 import cart from "../../assets/white-cart.svg";
 
-class Product extends Component {
+class ProductCard extends Component {
   // constructor(props) {
   //   super(props)
   // }
@@ -19,7 +19,7 @@ class Product extends Component {
 
     return (
       <div
-        className={classNames("product", { outOfStock: !inStock })}
+        className={classNames("product_card", { outOfStock: !inStock })}
         onClick={() =>
           inStock ? this.props.router.navigate(
             `${this.props.router.location.pathname}/${this.props.product.id}`
@@ -47,4 +47,4 @@ const mapStateToProps = (state) => ({
   currency: state.currency.currency,
 });
 
-export default withRouter(connect(mapStateToProps)(Product));
+export default withRouter(connect(mapStateToProps)(ProductCard));

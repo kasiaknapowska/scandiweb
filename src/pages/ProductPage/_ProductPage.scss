@@ -1,0 +1,49 @@
+@use "../../scss/variables" as *;
+.product_page {
+  .flex_container {
+    display: flex;
+  }
+  .images {
+    display: flex;
+    width: 60vw;
+    .preview_container {
+      max-height: 40vw;
+      direction: rtl;
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+      &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: #dedfe4;
+        height: 3rem;
+        border-radius: 10px;
+      }
+      &::-webkit-scrollbar-thumb:hover {
+        background: $colorNeutralLight;
+      }
+    }
+    .thumbnail {
+      width: 10vw;
+      height: 10vw;
+      background-size: cover;
+      background-position: left;
+      margin-bottom: 1rem;
+      margin-left: 1rem;
+      cursor: pointer;
+      direction: ltr;
+    }
+    .preview {
+      height: 40vw;
+      width: 40vw;
+      object-fit: cover;
+      object-position: center top;
+      margin: 0 3rem 0 2rem;
+    }
+  }
+}

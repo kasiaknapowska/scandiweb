@@ -32,24 +32,6 @@ class CategoryPage extends Component {
   }
 
   getProductsByCategory(category) {
-    // try {
-    //   client
-    //     .query({
-    //       query: GET_PRODUCTS_BY_CATEGORY,
-    //       variables: { title: category },
-    //     })
-    //     .then((res) => {
-    //       if (res.errors)
-    //         console.error(res.errors.map((error) => error.message));
-
-    //       this.setState({
-    //         loading: res.loading,
-    //         products: res.data.category.products.map((product) => product),
-    //       });
-    //     });
-    // } catch (error) {
-    //   console.error(error);
-    // }
 
     makeQuery(
       GET_PRODUCTS_BY_CATEGORY_QUERY,
