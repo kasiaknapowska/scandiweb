@@ -20,18 +20,7 @@ class CurrencySelect extends Component {
   }
 
   componentDidMount() {
-    // try {
-    //   client.query({ query: GET_CURRENCIES_QUERY }).then((res) => {
-    //     this.setState({
-    //       currencies: res.data.currencies.map((currency) => ({
-    //         label: currency.label,
-    //         symbol: currency.symbol,
-    //       })),
-    //     });
-    //   });
-    // } catch (error) {
-    //   console.error(error);
-    // }
+
     makeQuery(GET_CURRENCIES_QUERY, (res) => {
       this.setState({
         currencies: res.data.currencies.map((currency) => ({

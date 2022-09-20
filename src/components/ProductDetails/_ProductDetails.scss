@@ -1,0 +1,33 @@
+@use "../../scss/variables" as *;
+@use "../../scss/mixins";
+
+.product_details {
+  width: 40vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+ 
+  h1 {
+    font-size: 1.875rem;
+    font-weight: 600;
+    line-height: 120%;
+    margin-bottom: .5rem;
+  }
+  h2 {
+    font-size: 1.875rem;
+    margin-bottom: 1rem;
+  }
+  h3 {
+    font-family: "Roboto Condensed", sans-serif;
+    font-weight: 700;
+    font-size: 1.125rem;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  p {
+    font-family: "Roboto Condensed", sans-serif;
+  }
+  .product_price {
+    @include mixins.font(700, $colorNeutral, 1.5rem);
+  }
+}

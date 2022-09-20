@@ -5,9 +5,10 @@ import {
   GET_PRODUCTS_BY_CATEGORY_QUERY,
   makeQuery,
 } from "../../utils/queries";
+import withRouter from "../../utils/router";
 
 import "./_CategoryPage.scss";
-import Products from "../../components/Products";
+import ProductCard from "../../components/ProductCard";
 
 class CategoryPage extends Component {
   constructor(props) {
@@ -21,35 +22,20 @@ class CategoryPage extends Component {
 
   componentDidMount() {
     console.log("category page mounted");
+    if (this.props.router.params.category) {
+      this.getProductsByCategory(this.props.router.params.category);
+    }
   }
 
   componentDidUpdate(prevProps) {
     console.log("category page updated");
     console.log(prevProps.category, this.props.category);
-    if (prevProps.category !== this.props.category) {
+    if (prevProps.category !== this.props.category ) {
       this.getProductsByCategory(this.props.category);
     }
   }
 
   getProductsByCategory(category) {
-    // try {
-    //   client
-    //     .query({
-    //       query: GET_PRODUCTS_BY_CATEGORY,
-    //       variables: { title: category },
-    //     })
-    //     .then((res) => {
-    //       if (res.errors)
-    //         console.error(res.errors.map((error) => error.message));
-
-    //       this.setState({
-    //         loading: res.loading,
-    //         products: res.data.category.products.map((product) => product),
-    //       });
-    //     });
-    // } catch (error) {
-    //   console.error(error);
-    // }
 
     makeQuery(
       GET_PRODUCTS_BY_CATEGORY_QUERY,
@@ -72,12 +58,14 @@ class CategoryPage extends Component {
   render() {
     console.log("category page render");
     console.log(this.state.products);
-
+    
     return (
       <main className="container category_page">
         <h1>{this.props.category}</h1>
+        <div className="products">
         {this.state.loading && <p>Loading...</p>}
-        {this.state.products && <Products products={this.state.products} />}
+        {this.state.products && this.state.products.map(product => <ProductCard key={product.id} product={product}/>)}
+      </div>
       </main>
     );
   }
@@ -88,4 +76,4 @@ const mapStateToProps = (state) => ({
   currency: state.currency.currency,
 });
 
-export default connect(mapStateToProps)(CategoryPage);
+export default withRouter(connect(mapStateToProps)(CategoryPage));

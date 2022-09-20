@@ -11,10 +11,22 @@
 body {
   @include mixins.font(400, $colorNeutral);
 }
+
 .container {
   padding: 5rem 1rem;
   @media screen and (min-width: 500px) {
     padding: 5rem 6.25rem;
   }
 }
-
+button {
+  padding: 1rem 3rem;
+  background-color: $colorPrimary;
+  color: white;
+  border: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 1rem 0;
+  &:hover {
+    background-color: $colorPrimaryDark;
+  }
+}

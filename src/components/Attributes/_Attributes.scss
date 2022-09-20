@@ -1,0 +1,32 @@
+@use "../../scss/variables" as *;
+
+.swatch {
+    display: flex;
+    gap: .5rem;
+    div {
+        width: 2rem;
+        height: 2rem;
+        border: 1px solid $colorNeutralLight;
+        cursor: pointer;
+    }
+    .is_active {
+        border: 2px solid $colorPrimary;
+        box-shadow:0px 0px 0px 1px white inset;
+    }
+}
+.text {
+    display: flex;
+    gap: .75rem;
+    div {
+        border: 1px solid $colorNeutral;
+        padding: 0.75rem;
+        min-width: 3.5rem;
+        text-align: center;
+        cursor: pointer;
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+    .is_active {
+        background-color: $colorNeutral;
+        color: white;
+    }
+}
