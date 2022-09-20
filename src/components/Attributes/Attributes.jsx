@@ -18,8 +18,8 @@ class Attributes extends Component {
                   : null
               }
               key={item.id}
-              onClick={() => this.props.setAttributes(this.props.attribute.name, item.value)}
-              className={classNames("hey", {is_active: this.props.attributesChosen[this.props.attribute.name] === item.value})}
+              onClick={() => this.props.setAttributes(this.props.attribute.id, item.value)}
+              className={classNames({is_active: this.props.attributesChosen[this.props.attribute.id.toLowerCase().replaceAll(" ", "-")] === item.value})}
             >
               {this.props.attribute.type === "text" ? item.value : null}
             </div>

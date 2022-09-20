@@ -3,12 +3,8 @@ import "./_ProductDetails.scss";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-
 import { addCount } from "../../redux/counterSlice";
-import {
-  addtoCart,
-  editAttributes,
-} from "../../redux/cartSlice";
+import { addToCart } from "../../redux/cartSlice";
 
 import parse from "html-react-parser";
 
@@ -19,22 +15,52 @@ class ProductDetails extends Component {
     super(props);
     this.state = {
       attributesChosen: {},
+      error: null,
     };
     this.setAttributes = this.setAttributes.bind(this);
   }
 
-  setAttributes(name, value) {
+  setAttributes(id, value) {
     this.setState((prevState) => ({
-      attributesChosen: { ...prevState.attributesChosen, [name]: value },
+      attributesChosen: {
+        ...prevState.attributesChosen,
+        [id.toLowerCase().replaceAll(" ", "-")]: value,
+      },
     }));
+  }
+
+  addItemToCart({ id, name, brand, gallery, prices }, attributesChosen) {
+    const areAttributesChosen = this.props.product.attributes.every(
+      (attribute) =>
+        Object.keys(attributesChosen).includes(attribute.id.toLowerCase().replaceAll(" ", "-"))
+    );
+   
+    const item = {
+      id,
+      name,
+      brand,
+      gallery,
+      prices,
+      attributesChosen,
+    };
+    if (areAttributesChosen) {
+      this.setState({error: null})
+      this.props.addCount();
+      this.props.addToCart(item);
+    } else {
+      // this.setState({error: `Choose ${this.props.product.attributes.map(attribute => ` ${attribute.id} `)}`.replaceAll(',', '&' )})
+      this.setState({error: `Choose options`})
+    }
   }
 
   render() {
     const price = this.props.product.prices.filter(
       (price) => price.currency.symbol === this.props.currency
     );
+ 
+    console.log(this.props.count);
+    console.log(this.props.cart);
 
-    console.log(this.state.attributesChosen);
 
     return (
       <div className="product_details">
@@ -61,8 +87,18 @@ class ProductDetails extends Component {
             {price[0].amount.toFixed(2)}
           </p>
         </div>
-        <button>Add to cart</button>
-        {parse(this.props.product.description)}
+        <div className="button_container">
+        <button
+          onClick={() =>
+            this.addItemToCart(this.props.product, this.state.attributesChosen)
+          }
+        >
+          Add to cart
+        </button>
+        {this.state.error && <span className="error">{this.state.error}</span>}
+        </div>
+       {this.props.product.description.startsWith("<") && parse(this.props.product.description)}
+       {!this.props.product.description.startsWith("<") && <p>{this.props.product.description}</p>}
       </div>
     );
   }
@@ -70,12 +106,13 @@ class ProductDetails extends Component {
 
 const mapStateToProps = (state) => ({
   currency: state.currency.currency,
+  count: state.cartCounter.count,
+  cart: state.cart.items,
 });
 
 const mapDispatchToProps = {
   addCount,
-  addtoCart,
-  editAttributes,
+  addToCart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);

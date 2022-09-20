@@ -24,9 +24,22 @@
     text-transform: uppercase;
     margin-bottom: 1rem;
   }
-  p {
+  div {
     font-family: "Roboto Condensed", sans-serif;
   }
+  p {
+    font-family: "Roboto", sans-serif;
+  }
+ .button_container {
+  position: relative;
+  .error {
+    color: red;
+    display: block;
+    position: absolute;
+    top: -1rem;
+    text-transform: uppercase;
+  }
+ }
   .product_price {
     @include mixins.font(700, $colorNeutral, 1.5rem);
   }
