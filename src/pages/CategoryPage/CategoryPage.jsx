@@ -8,7 +8,7 @@ import {
 import withRouter from "../../utils/router";
 
 import "./_CategoryPage.scss";
-import Products from "../../components/Products";
+import ProductCard from "../../components/ProductCard";
 
 class CategoryPage extends Component {
   constructor(props) {
@@ -62,8 +62,10 @@ class CategoryPage extends Component {
     return (
       <main className="container category_page">
         <h1>{this.props.category}</h1>
+        <div className="products">
         {this.state.loading && <p>Loading...</p>}
-        {this.state.products && <Products products={this.state.products} />}
+        {this.state.products && this.state.products.map(product => <ProductCard key={product.id} product={product}/>)}
+      </div>
       </main>
     );
   }

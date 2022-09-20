@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./_Attributes.scss";
+import classNames from "classnames";
 
 class Attributes extends Component {
   // constructor(props) {
@@ -17,7 +18,8 @@ class Attributes extends Component {
                   : null
               }
               key={item.id}
-              onClick={() => this.props.setAttribute(this.props.attribute.name, item.value)}
+              onClick={() => this.props.setAttributes(this.props.attribute.name, item.value)}
+              className={classNames("hey", {is_active: this.props.attributesChosen[this.props.attribute.name] === item.value})}
             >
               {this.props.attribute.type === "text" ? item.value : null}
             </div>
