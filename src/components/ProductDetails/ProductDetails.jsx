@@ -29,7 +29,7 @@ class ProductDetails extends Component {
     }));
   }
 
-  addItemToCart({ id, name, brand, gallery, prices }, attributesChosen) {
+  addItemToCart({ id, name, brand, gallery, prices, attributes }, attributesChosen) {
     const areAttributesChosen = this.props.product.attributes.every(
       (attribute) =>
         Object.keys(attributesChosen).includes(attribute.id.toLowerCase().replaceAll(" ", "-"))
@@ -41,6 +41,7 @@ class ProductDetails extends Component {
       brand,
       gallery,
       prices,
+      attributes,
       attributesChosen,
     };
     if (areAttributesChosen) {
@@ -76,6 +77,7 @@ class ProductDetails extends Component {
                 attribute={attribute}
                 setAttributes={this.setAttributes}
                 attributesChosen={this.state.attributesChosen}
+                onClick={true}
               />
             </div>
           );
@@ -89,6 +91,7 @@ class ProductDetails extends Component {
         </div>
         <div className="button_container">
         <button
+        className="btn_primary"
           onClick={() =>
             this.addItemToCart(this.props.product, this.state.attributesChosen)
           }

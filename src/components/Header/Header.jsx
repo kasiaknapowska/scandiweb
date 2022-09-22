@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { setMinicartOpen } from "../../redux/minicartSlice";
 
 import "./_Header.scss";
 import { ReactComponent as Logo } from "../../assets/a-logo.svg";
@@ -19,8 +20,10 @@ class Header extends Component {
         <Logo className="logo" />
         <div className="header_icons">
           <CurrencySelect />
+          <div className="cart" onClick={() => this.props.setMinicartOpen(this.props.minicart ? false : true)}>
           <img src={cart} className="cart_icon" />
           {this.props.count > 0 && <div className="cart_count">{this.props.count}</div>}
+          </div>
         </div>
       </header>
     );
@@ -29,6 +32,11 @@ class Header extends Component {
 
 const mapStateToProps = (state) => ({
   count: state.cartCounter.count,
+  minicart: state.minicart.isOpen,
 });
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = {
+  setMinicartOpen
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

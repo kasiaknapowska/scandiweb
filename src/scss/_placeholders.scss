@@ -1,0 +1,16 @@
+@use "./variables" as *;
+%scrollbar {
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+      &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: #dedfe4;
+        height: 3rem;
+      }
+      &::-webkit-scrollbar-thumb:hover {
+        background: $colorNeutralLight;
+      }
+}

@@ -1,15 +1,29 @@
 @use "../../scss/variables" as *;
 
 header {
-  padding: 1rem;
-  position: relative;
+  padding: 1rem 2rem;
+  padding-bottom: 0;
+  position: fixed;
+  z-index: 5;
+  background-color: white;
+  width: 100vw;
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
   @media screen and (min-width: 800px) {
     padding: 1.5rem 6.25rem;
+    padding-bottom: 0;
     flex-direction: row;  
     justify-content: space-between;
+  }
+  .logo {
+    margin: 1rem;
+    @media screen and (min-width: 800px) {
+        position: absolute;
+        left: calc(50vw - 30px);
+        margin: 0;
+    }
+    
   }
   .header_icons {
     display: flex;
@@ -19,6 +33,9 @@ header {
     position: relative;
     @media screen and (min-width: 800px) {
         align-self: center;
+    }
+    .cart{
+      cursor: pointer;
     }
     .cart_count {
       text-align: center;
@@ -37,13 +54,5 @@ header {
       font-weight: 700;
     }
   }
-  .logo {
-    margin: 1rem;
-    @media screen and (min-width: 800px) {
-        position: absolute;
-        left: calc(50vw - 30px);
-        margin: 0;
-    }
-    
-  }
+
 }
