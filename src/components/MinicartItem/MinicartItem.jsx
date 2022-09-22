@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { substractFromCart, addToCart } from "../../redux/cartSlice";
+import { addCount, substractCount } from "../../redux/counterSlice";
 import Attributes from "../Attributes";
 import "./_MinicartItem.scss";
 
@@ -8,8 +10,16 @@ class MinicartItem extends Component {
     super(props);
   }
 
+  addItem(item) {
+    this.props.addToCart(item)
+    this.props.addCount()
+  }
+  substractItem(item) {
+    this.props.substractFromCart(item)
+    this.props.substractCount()
+  }
+
   render() {
-    console.log(this.props.item);
     return (
       <div className="minicart_item">
         <div className="minicart_item_details">
@@ -47,9 +57,14 @@ class MinicartItem extends Component {
           </div>
         </div>
         <div className="minicart_item_quantity">
-          <div>+</div>
+          <div onClick={() => this.addItem(this.props.item)}>+</div>
           <h3>{this.props.item.quantity}</h3>
-          <div className="substract">-</div>
+          <div
+            className="substract"
+            onClick={() => this.substractItem(this.props.item)}
+          >
+            -
+          </div>
         </div>
         <div
           className="minicart_item_img"
@@ -61,9 +76,14 @@ class MinicartItem extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  // cart: state.cart.items,
-  // count: state.cartCounter.count,
   currency: state.currency.currency,
 });
 
-export default connect(mapStateToProps)(MinicartItem);
+const mapDispatchToProps = {
+  substractFromCart,
+  addToCart,
+  addCount,
+  substractCount,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MinicartItem);

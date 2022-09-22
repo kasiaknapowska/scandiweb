@@ -25,11 +25,13 @@ class CategoryPage extends Component {
     if (this.props.router.params.category) {
       this.getProductsByCategory(this.props.router.params.category);
     }
+    
   }
 
   componentDidUpdate(prevProps) {
     console.log("category page updated");
     console.log(prevProps.category, this.props.category);
+    console.log(this.props.router.params.category)
     if (prevProps.category !== this.props.category ) {
       this.getProductsByCategory(this.props.category);
     }

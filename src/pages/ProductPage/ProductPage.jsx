@@ -37,7 +37,7 @@ class ProductPage extends Component {
   }
 
   render() {
-    console.log(this.props.router.params.productId);
+    // console.log(this.props.router.params.productId);
   
     return (
       <main className="container product_page">

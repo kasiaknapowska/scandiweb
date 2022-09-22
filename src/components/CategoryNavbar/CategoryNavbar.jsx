@@ -27,7 +27,8 @@ class CategoryNavbar extends Component {
         categories: res.data.categories.map((category) => category.name),
       });
 
-      if (!this.props.router.params.category) {
+      
+      if (this.props.router.location.pathname === "/") {
         this.props.changeCategory(res.data.categories[0].name);
         this.props.router.navigate(`/${res.data.categories[0].name}`);
       }
@@ -58,6 +59,7 @@ class CategoryNavbar extends Component {
 
   render() {
     console.log("navbar render");
+    console.log("router", this.props.router.params)
     return (
       <nav className="category_navbar">
         {this.state.categories.length > 0 &&
