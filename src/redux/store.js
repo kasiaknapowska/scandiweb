@@ -4,6 +4,7 @@ import categorySlice from "./categorySlice";
 import currencySlice from "./currencySlice";
 import cartSlice from "./cartSlice";
 import minicartSlice from "./minicartSlice";
+import priceSlice from "./priceSlice";
 
 export const store = configureStore({
   reducer: {
