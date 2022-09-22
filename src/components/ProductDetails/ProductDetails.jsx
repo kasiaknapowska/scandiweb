@@ -58,10 +58,6 @@ class ProductDetails extends Component {
     const price = this.props.product.prices.filter(
       (price) => price.currency.symbol === this.props.currency
     );
- 
-    console.log(this.props.count);
-    console.log(this.props.cart);
-
 
     return (
       <div className="product_details">

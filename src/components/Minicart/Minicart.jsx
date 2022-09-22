@@ -10,7 +10,7 @@ class Minicart extends Component {
   }
 
   render() {
-    console.log(this.props.items);
+    console.log(this.props.cart);
     return (
       <div className="minicart_bg">
         <div className="minicart">
@@ -20,15 +20,18 @@ class Minicart extends Component {
           {this.props.count > 0 && (
             <>
               {this.props.cart.map((item, index) => (
-                <MinicartItem key={item.id + index} item={item}/>
+                <MinicartItem key={item.id + index} item={item} />
               ))}
+              <div className="total">
+                <span>Total</span>
+                <h1>$ ...</h1>
+              </div>
+              <div className="buttons_container">
+                <button className="btn_secondary btn_minicart">view bag</button>
+                <button className="btn_primary btn_minicart">check out</button>
+              </div>
             </>
           )}
-          <div className="total">
-            <span>Total</span>
-            <h1>$ ...</h1>
-          </div>
-          <div className="buttons_container"><button className="btn_secondary btn_minicart">view bag</button><button className="btn_primary btn_minicart">check out</button></div>
         </div>
       </div>
     );

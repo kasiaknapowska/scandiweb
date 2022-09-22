@@ -4,17 +4,13 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import { addCount, substractCount } from "./redux/counterSlice";
 
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import { Outlet } from "react-router-dom";
-import Minicart from "./components/Minicart/Minicart";
+import Minicart from "./components/Minicart";
 
 class App extends Component {
   constructor(props) {
     super(props);
-  }
-
-  componentDidUpdate() {
-    console.log(this.props.minicart);
   }
 
   render() {

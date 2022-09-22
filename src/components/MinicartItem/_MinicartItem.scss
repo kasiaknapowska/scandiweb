@@ -44,7 +44,9 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-
+    h3 {
+      margin: 0;
+    }
     div {
       cursor: pointer;
       font-size: 1.5rem;
@@ -61,7 +63,7 @@
   }
   .minicart_item_img {
     width: 7rem;
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
   }
