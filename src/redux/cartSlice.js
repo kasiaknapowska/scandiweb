@@ -5,6 +5,7 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState: {
     items: [],
+    totalPrice: [],
   },
   reducers: {
     addToCart: (state, action) => {
@@ -25,6 +26,8 @@ export const cartSlice = createSlice({
       } else {
         state.items = [...state.items, { ...action.payload, quantity: 1 }];
       }
+
+      cartSlice.caseReducers.setTotalPrice(state);
     },
     substractFromCart: (state, action) => {
       if (action.payload.quantity > 1) {
@@ -43,6 +46,33 @@ export const cartSlice = createSlice({
             ) || item.id !== action.payload.id
         );
       }
+
+      cartSlice.caseReducers.setTotalPrice(state);
+    },
+    setTotalPrice: (state) => {
+    if (state.items.length === 0) return
+    const pricesMultipliedByQuantity = state.items.map((item) => {
+      return item.prices.map((price) => ({
+        currency: { symbol: price.currency.symbol },
+        amount: price.amount * item.quantity,
+      }));
+    });
+
+    const currencySymbols = pricesMultipliedByQuantity[0].map(
+      (el) => el.currency.symbol
+    );
+    const filtered = currencySymbols.map((symbol) =>
+      pricesMultipliedByQuantity
+        .flat()
+        .filter((el) => el.currency.symbol === symbol)
+    );
+
+    state.totalPrice = filtered.map((el) =>
+      el.reduce((total, item) => ({
+        currency: el[0].currency,
+        amount: total.amount + item.amount,
+      }))
+    );
     },
   },
 });

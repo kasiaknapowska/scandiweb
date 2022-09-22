@@ -96,8 +96,8 @@ class ProductDetails extends Component {
         </button>
         {this.state.error && <span className="error">{this.state.error}</span>}
         </div>
-       {this.props.product.description.startsWith("<") && parse(this.props.product.description)}
-       {!this.props.product.description.startsWith("<") && <p>{this.props.product.description}</p>}
+       {this.props.product.description.includes('<') && parse(this.props.product.description)}
+       {!this.props.product.description.includes('<') && <p>{this.props.product.description}</p>}
       </div>
     );
   }
