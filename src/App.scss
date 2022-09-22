@@ -40,7 +40,8 @@ button {
   border: 1px solid $colorNeutral;
   color: $colorNeutral;
   &:hover {
-    background-color: $colorNeutral;
+    background-color: $colorNeutralLight;
+    border-color: $colorNeutralLight;;
     color: white;
   }
 }

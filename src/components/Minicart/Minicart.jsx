@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Attributes from "../Attributes";
+import MinicartItem from "../MinicartItem";
 import "./_Minicart.scss";
 
 class Minicart extends Component {
@@ -10,9 +11,6 @@ class Minicart extends Component {
 
   render() {
     console.log(this.props.items);
-    // const price = this.props.items.prices.filter(
-    //   (price) => price.currency.symbol === this.props.currency
-    // );
     return (
       <div className="minicart_bg">
         <div className="minicart">
@@ -22,42 +20,11 @@ class Minicart extends Component {
           {this.props.count > 0 && (
             <>
               {this.props.cart.map((item, index) => (
-                <div key={item.id + index}>
-                  <h2>
-                    {item.name}
-                    <br></br>
-                    {item.brand}
-                  </h2>
-                  <h3>
-                    {
-                      item.prices.filter(
-                        (price) => price.currency.symbol === this.props.currency
-                      )[0].currency.symbol
-                    }{" "}
-                    <span style={{ width: "2px" }}></span>
-                    {item.prices
-                      .filter(
-                        (price) => price.currency.symbol === this.props.currency
-                      )[0]
-                      .amount.toFixed(2)}
-                  </h3>
-                  <div>{item.attributes.map(attribute => {
-                    return (
-                        <div key={attribute.id + index}>
-                          <p>{attribute.name}</p>
-                          <Attributes
-                            attribute={attribute}
-                            attributesChosen={item.attributesChosen}
-                            onClick={false}
-                          />
-                        </div>
-                      );
-                  })}</div>
-                </div>
+                <MinicartItem key={item.id + index} item={item}/>
               ))}
             </>
           )}
-          <div>
+          <div className="total">
             <span>Total</span>
             <h1>$ ...</h1>
           </div>
