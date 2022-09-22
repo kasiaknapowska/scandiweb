@@ -1,4 +1,5 @@
 @use "../../scss/variables" as *;
+@use "../../scss/placeholders";
 .product_page {
  
   .flex_container {
@@ -12,22 +13,8 @@
       direction: rtl;
       overflow-y: auto;
       overflow-x: hidden;
-
-      &::-webkit-scrollbar {
-        width: 10px;
-      }
-      &::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 10px;
-      }
-      &::-webkit-scrollbar-thumb {
-        background: #dedfe4;
-        height: 3rem;
-        border-radius: 10px;
-      }
-      &::-webkit-scrollbar-thumb:hover {
-        background: $colorNeutralLight;
-      }
+      @extend %scrollbar;
+ 
     }
     .thumbnail {
       width: 10vw;

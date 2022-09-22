@@ -33,7 +33,7 @@ class ProductCard extends Component {
           </div>
           <img src={image} />
         </div>
-        <h2 className="product_name">{this.props.product.name}</h2>
+        <h2 className="product_name">{this.props.product.name} {this.props.product.brand}</h2>
         <p className="product_price">
           {price[0].currency.symbol} <span style={{ width: "2px" }}></span>
           {price[0].amount.toFixed(2)}

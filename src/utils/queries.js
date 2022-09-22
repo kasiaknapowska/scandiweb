@@ -43,6 +43,7 @@ export const GET_PRODUCTS_BY_CATEGORY_QUERY = gql`
       products {
         id
         name
+        brand
         inStock
         gallery
         prices {
@@ -59,6 +60,7 @@ export const GET_PRODUCTS_BY_CATEGORY_QUERY = gql`
 export const GET_PRODUCT_DETAILS_QUERY = gql`
   query GetProductDetails($id: String!) {
     product(id: $id) {
+      id
       name
       brand
       description

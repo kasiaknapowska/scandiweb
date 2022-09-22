@@ -11,22 +11,37 @@
 body {
   @include mixins.font(400, $colorNeutral);
 }
-
 .container {
-  padding: 5rem 1rem;
+  padding: 17rem 1rem 5rem 1rem;
   @media screen and (min-width: 500px) {
-    padding: 5rem 6.25rem;
+    padding: 17rem 6.25rem 5rem 6.25rem;
+  }
+  @media screen and (min-width: 800px) {
+    padding-top: 12rem;
   }
 }
 button {
-  padding: 1rem 3rem;
-  background-color: $colorPrimary;
-  color: white;
+  padding: 1rem 1.5rem;
   border: none;
   text-transform: uppercase;
   font-weight: 600;
   margin: 1rem 0;
+ 
+}
+.btn_primary {
+  background-color: $colorPrimary;
+  color: white;
   &:hover {
     background-color: $colorPrimaryDark;
+  }
+}
+.btn_secondary {
+  background-color: white;
+  border: 1px solid $colorNeutral;
+  color: $colorNeutral;
+  &:hover {
+    background-color: $colorNeutralLight;
+    border-color: $colorNeutralLight;;
+    color: white;
   }
 }

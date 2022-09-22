@@ -24,7 +24,6 @@ class ProductPage extends Component {
       GET_PRODUCT_DETAILS_QUERY,
       (res) => {
         // if (res.errors) console.error(res.errors.map((error) => error.message));
-
         this.setState({
           loading: res.loading,
           product: res.data.product,
@@ -39,7 +38,7 @@ class ProductPage extends Component {
 
   render() {
     console.log(this.props.router.params.productId);
-    console.log(this.state.product);
+  
     return (
       <main className="container product_page">
         {this.state.loading && <p>Loading...</p>}
