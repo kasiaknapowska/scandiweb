@@ -1,34 +1,40 @@
+import classNames from "classnames";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { substractFromCart, addToCart } from "../../redux/cartSlice";
 import { addCount, substractCount } from "../../redux/counterSlice";
 import Attributes from "../Attributes";
-import "./_MinicartItem.scss";
+import "./_CartItem.scss";
 
-class MinicartItem extends Component {
+class CartItem extends Component {
   constructor(props) {
     super(props);
   }
 
   addItem(item) {
-    this.props.addToCart(item)
-    this.props.addCount()
+    this.props.addToCart(item);
+    this.props.addCount();
   }
   substractItem(item) {
-    this.props.substractFromCart(item)
-    this.props.substractCount()
+    this.props.substractFromCart(item);
+    this.props.substractCount();
   }
 
   render() {
     return (
-      <div className="minicart_item">
-        <div className="minicart_item_details">
+      <div
+        className={classNames("cart_element", {
+          minicart_item: this.props.type === "minicart",
+          cart_item: this.props.type === "cart",
+        })}
+      >
+        <div className="item_details">
           <h2>
-            {this.props.item.name}
+            <span>{this.props.item.name}</span>
             <br></br>
             {this.props.item.brand}
           </h2>
-          <h3>
+          <p>
             {
               this.props.item.prices.filter(
                 (price) => price.currency.symbol === this.props.currency
@@ -40,12 +46,12 @@ class MinicartItem extends Component {
                 (price) => price.currency.symbol === this.props.currency
               )[0]
               .amount.toFixed(2)}
-          </h3>
+          </p>
           <div>
             {this.props.item.attributes.map((attribute, index) => {
               return (
                 <div key={attribute.id + index}>
-                  <p>{attribute.name}</p>
+                  <h3>{attribute.name}</h3>
                   <Attributes
                     attribute={attribute}
                     attributesChosen={this.props.item.attributesChosen}
@@ -56,9 +62,9 @@ class MinicartItem extends Component {
             })}
           </div>
         </div>
-        <div className="minicart_item_quantity">
+        <div className="item_quantity">
           <div onClick={() => this.addItem(this.props.item)}>+</div>
-          <h3>{this.props.item.quantity}</h3>
+          <span>{this.props.item.quantity}</span>
           <div
             className="substract"
             onClick={() => this.substractItem(this.props.item)}
@@ -67,7 +73,7 @@ class MinicartItem extends Component {
           </div>
         </div>
         <div
-          className="minicart_item_img"
+          className="item_img"
           style={{ backgroundImage: `url(${this.props.item.gallery[0]})` }}
         ></div>
       </div>
@@ -86,4 +92,4 @@ const mapDispatchToProps = {
   substractCount,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MinicartItem);
+export default connect(mapStateToProps, mapDispatchToProps)(CartItem);

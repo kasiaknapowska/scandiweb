@@ -1,0 +1,7 @@
+@use "../../scss/variables" as *;
+@use "../../scss/mixins";
+h1 {
+    @include mixins.font(700, $colorNeutral, 2rem) {
+        text-transform: uppercase;
+    };
+  }

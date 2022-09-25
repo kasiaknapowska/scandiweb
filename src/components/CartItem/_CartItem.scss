@@ -1,0 +1,136 @@
+@use "../../scss/variables" as *;
+@use "../../scss/mixins";
+
+.cart_element {
+  display: flex;
+  justify-content: space-between;
+  .item_details {
+    flex-shrink: 0;
+  }
+  .swatch, .text {
+    div {
+      cursor: default;
+    }
+  }
+  .item_quantity {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    span {
+      font-weight: 500;
+    }
+    div {
+      cursor: pointer;
+      font-weight: 300;
+      border: 1px solid $colorNeutral;
+      text-align: center;  
+    }
+  }
+  .item_img {
+    
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+
+.minicart_item {
+  gap: 0.8rem;
+  margin: 0.25rem 0;
+  .item_details {
+    width: 7.5rem;
+  }
+  .swatch {
+    gap: 0.5rem;
+    div {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+  .text {
+    gap: 0.5rem;
+    div {
+      padding: 0 3px;
+      min-width: 1.5rem;
+      font-size: 0.875rem;
+      line-height: 22px;
+    }
+  }
+
+  h2 {
+    font-weight: 300;
+  }
+  h3 {
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+  p {
+    font-weight: 500;
+    margin-top: 0.5rem;
+  }
+  
+  .item_quantity {
+
+    div {
+      font-size: 1.5rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      line-height: 1.4rem;
+      &.substract {
+        line-height: 1.1rem;
+      }
+    }
+  }
+  .item_img {
+    width: 7rem;
+  }
+}
+
+.cart_item {
+  gap: 1.5rem;
+  margin: 3.5rem 0;
+  .item_details {
+    width: 70%;
+  }
+
+  h2 {
+    line-height: 2.5rem;
+    font-size: 1.875rem;
+    font-weight: 400;
+    span {
+      font-weight: 600;
+    }
+  }
+  p {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 1.25rem 0;
+  }
+  h3 {
+    @include mixins.font(700, $colorNeutral, 1.125rem) {
+      font-family: "Roboto Condensed", sans-serif;
+      text-transform: uppercase;
+      margin-top: 1rem;
+    }
+  }
+  .item_quantity {
+    span {
+      font-size: 1.5rem;
+    }
+    div {
+      font-size: 2.5rem;
+      width: 2.8rem;
+      height: 2.8rem;
+      line-height: 2.7rem;
+      &.substract {
+        line-height: 2.2rem;
+      }
+    }
+  }
+  .item_img {
+    width: 12.5rem;
+  }
+}
