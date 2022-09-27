@@ -1,7 +1,33 @@
 @use "../../scss/variables" as *;
 @use "../../scss/mixins";
-h1 {
-    @include mixins.font(700, $colorNeutral, 2rem) {
-        text-transform: uppercase;
-    };
-  }
+
+.cart_page {
+    h1 {
+        @include mixins.font(700, $colorNeutral, 2rem) {
+            text-transform: uppercase;
+            margin-bottom: 3.5rem;
+        };
+      }
+      .line {
+        width: 100%;
+        height: 1px;
+        background-color: $colorNeutralVeryLight;
+      }
+      table {
+        margin-top: 2rem;
+        font-size: 1.5rem;
+        tr {
+            height: 2.5rem;
+        }
+        th {
+            text-align: left;
+            padding-right: .5rem;
+        }
+        td {
+            font-weight: 700;
+        }
+      }
+      .btn_order {
+        width: 17rem;
+      }
+}

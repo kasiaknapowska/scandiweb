@@ -7,7 +7,8 @@
   .item_details {
     flex-shrink: 0;
   }
-  .swatch, .text {
+  .swatch,
+  .text {
     div {
       cursor: default;
     }
@@ -24,17 +25,15 @@
       cursor: pointer;
       font-weight: 300;
       border: 1px solid $colorNeutral;
-      text-align: center;  
+      text-align: center;
     }
   }
   .item_img {
-    
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
   }
 }
-
 
 .minicart_item {
   gap: 0.8rem;
@@ -71,9 +70,8 @@
     font-weight: 500;
     margin-top: 0.5rem;
   }
-  
-  .item_quantity {
 
+  .item_quantity {
     div {
       font-size: 1.5rem;
       width: 1.5rem;
@@ -91,7 +89,7 @@
 
 .cart_item {
   gap: 1.5rem;
-  margin: 3.5rem 0;
+  margin: 2rem 0;
   .item_details {
     width: 70%;
   }
@@ -132,5 +130,15 @@
   }
   .item_img {
     width: 12.5rem;
+    background-size: cover;
+    background-position: top;
+    position: relative;
+    .arrows_container {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: .5rem;
+    }
   }
 }
