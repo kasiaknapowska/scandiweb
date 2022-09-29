@@ -20,7 +20,10 @@ class CategoryPage extends Component {
   }
 
   componentDidMount() {
-    if (this.props.router.params.category) {
+    if (
+      this.props.router.params.category &&
+      this.props.categories.includes(this.props.router.params.category)
+    ) {
       this.getProductsByCategory(this.props.router.params.category);
     }
   }
@@ -49,7 +52,6 @@ class CategoryPage extends Component {
   }
 
   render() {
-   
     return (
       <main className="container category_page">
         <h1>{this.props.category}</h1>
@@ -67,6 +69,7 @@ class CategoryPage extends Component {
 
 const mapStateToProps = (state) => ({
   category: state.category.category,
+  categories: state.category.categories,
   currency: state.currency.currency,
 });
 
