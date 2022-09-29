@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import classNames from "classnames";
 
 import { changeCategory } from "../../redux/categorySlice";
-import withRouter from "../../utils/router";
 
 import "./_CategoryNavbar.scss";
 
@@ -41,6 +40,4 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = { changeCategory };
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(CategoryNavbar)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryNavbar);
