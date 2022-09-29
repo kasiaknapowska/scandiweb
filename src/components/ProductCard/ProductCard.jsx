@@ -50,7 +50,7 @@ class ProductCard extends Component {
       >
         <div className="product_img_container">
           {!inStock && <p>out of stock</p>}
-          {this.props.product.attributes.length === 0 && (
+          {this.props.product.attributes.length === 0 && inStock && (
             <div className="circle">
               <img
                 src={cart}
