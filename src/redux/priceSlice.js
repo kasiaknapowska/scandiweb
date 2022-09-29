@@ -25,7 +25,7 @@
      
 //     },
 //     substractPrice: (state, action) => {
-//          ...
+//          ... //not finished yet
 //     },
 //   },
 // });

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import withRouter from "../../utils/router";
 import { setMinicartOpen } from "../../redux/minicartSlice";
-import MinicartItem from "../MinicartItem";
+import CartItem from "../CartItem";
 import "./_Minicart.scss";
 
 class Minicart extends Component {
@@ -15,7 +15,6 @@ class Minicart extends Component {
     this.props.setMinicartOpen(false);
   }
   render() {
-    // console.log(this.props.price);
     const price = this.props.totalPrice.filter(
       (price) => price.currency.symbol === this.props.currency
     );
@@ -28,7 +27,7 @@ class Minicart extends Component {
           {this.props.count > 0 && (
             <>
               {this.props.cart.map((item, index) => (
-                <MinicartItem key={item.id + index} item={item} />
+                <CartItem key={item.id + index} item={item} type="minicart"/>
               ))}
               <div className="total">
                 <span>Total</span>

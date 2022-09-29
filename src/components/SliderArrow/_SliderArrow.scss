@@ -1,0 +1,23 @@
+.slider_arrow {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.73);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  div {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-top: 2px solid white;
+    border-right: 2px solid white;
+    &.next {
+      transform: rotate(45deg);
+      margin-right: 3px;
+    }
+    &.previous {
+      transform: rotate(-135deg);
+      margin-left: 3px;
+    }
+  }
+}

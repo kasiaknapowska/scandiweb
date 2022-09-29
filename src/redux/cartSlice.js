@@ -9,7 +9,6 @@ export const cartSlice = createSlice({
   },
   reducers: {
     addToCart: (state, action) => {
-      // if (Number.isNaN(action.payload)) return;
 
       const isItemInCart = state.items.find(
         (prod) =>

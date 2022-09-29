@@ -1,12 +1,13 @@
 import React, { Component } from "react";
+import "./_NotFound.scss"
 
 class NotFound extends Component {
 
   render() {
     return (
-      <div className="container not_found">
-        <h2>Page not found</h2>
-      </div>
+      <main className="container not_found">
+        <h1>Page not found</h1>
+      </main>
     );
   }
 }
