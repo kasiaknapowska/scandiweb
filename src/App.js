@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { Outlet } from "react-router-dom";
 
 import { changeCategory, setCategories } from "./redux/categorySlice";
+import { setCartItems } from "./redux/cartSlice";
+import { setCount } from "./redux/counterSlice";
 import { client, GET_CATEGORIES_QUERY, makeQuery } from "./utils/queries";
 import withRouter from "./utils/router";
 
@@ -30,9 +32,13 @@ class App extends Component {
         this.props.router.navigate("/not-found");
       }
     });
+
+    localStorage.getItem("cart") && this.props.setCartItems(JSON.parse(localStorage.getItem("cart")));
+    localStorage.getItem("count") && this.props.setCount(+localStorage.getItem("count"))
+    console.log(JSON.parse(localStorage.getItem("cart")))
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     const paramsCategory = this.props.router.params.category;
 
     if (
@@ -41,6 +47,13 @@ class App extends Component {
     ) {
       this.props.changeCategory(paramsCategory);
     }
+
+   if (prevProps.count !== this.props.count) {
+    localStorage.setItem("cart", JSON.stringify(this.props.cart))
+    localStorage.setItem("count", this.props.count.toString())
+   } 
+   
+
   }
 
   componentWillUnmount() {
@@ -48,6 +61,8 @@ class App extends Component {
   }
 
   render() {
+console.log(this.props.cart)
+console.log(this.props.totalPrice)
     return (
       <div className="App">
         <Header />
@@ -62,8 +77,11 @@ const mapStateToProps = (state) => ({
   minicart: state.minicart.isOpen,
   categories: state.category.categories,
   category: state.category.category,
+  cart: state.cart.items,
+  totalPrice: state.cart.totalPrice,
+  count: state.cartCounter.count,
 });
 
-const mapDispatchToProps = { changeCategory, setCategories };
+const mapDispatchToProps = { changeCategory, setCategories, setCartItems, setCount };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
