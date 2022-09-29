@@ -3,9 +3,9 @@ import "./_Attributes.scss";
 import classNames from "classnames";
 
 class Attributes extends Component {
-  // constructor(props) {
-  //   super(props)
-  // }
+  constructor(props) {
+    super(props)
+  }
 
   render() {
     return (

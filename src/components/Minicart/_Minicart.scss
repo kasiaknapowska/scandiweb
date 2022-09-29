@@ -1,12 +1,21 @@
 // @use "../../scss/variables" as *;
 @use "../../scss/placeholders";
 .minicart_bg {
+  
   background-color: rgba(57, 55, 72, 0.22);
   width: 100vw;
   height: 100%;
   position: fixed;
   top: 100px;
   .minicart {
+    @media screen and (max-width: 500px) {
+      min-width: 100%;
+      left: 0;
+      padding: 3rem 2rem;
+    }
+  @media screen and (max-width: 800px) {
+    top: 5rem;
+  }
     min-width: 20rem;
     max-width: 22rem;
     min-height: 10rem;

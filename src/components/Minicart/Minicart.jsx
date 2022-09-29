@@ -15,7 +15,6 @@ class Minicart extends Component {
     this.props.setMinicartOpen(false);
   }
   render() {
-    // console.log(this.props.price);
     const price = this.props.totalPrice.filter(
       (price) => price.currency.symbol === this.props.currency
     );

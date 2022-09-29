@@ -1,14 +1,13 @@
-import "./_ProductDetails.scss";
-
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import parse from "html-react-parser";
 
 import { addCount } from "../../redux/counterSlice";
 import { addToCart } from "../../redux/cartSlice";
 
-import parse from "html-react-parser";
-
 import Attributes from "../Attributes";
+
+import "./_ProductDetails.scss";
 
 class ProductDetails extends Component {
   constructor(props) {
@@ -29,12 +28,17 @@ class ProductDetails extends Component {
     }));
   }
 
-  addItemToCart({ id, name, brand, gallery, prices, attributes }, attributesChosen) {
+  addItemToCart(
+    { id, name, brand, gallery, prices, attributes },
+    attributesChosen
+  ) {
     const areAttributesChosen = this.props.product.attributes.every(
       (attribute) =>
-        Object.keys(attributesChosen).includes(attribute.id.toLowerCase().replaceAll(" ", "-"))
+        Object.keys(attributesChosen).includes(
+          attribute.id.toLowerCase().replaceAll(" ", "-")
+        )
     );
-   
+
     const item = {
       id,
       name,
@@ -45,12 +49,12 @@ class ProductDetails extends Component {
       attributesChosen,
     };
     if (areAttributesChosen) {
-      this.setState({error: null})
+      this.setState({ error: null });
       this.props.addCount();
       this.props.addToCart(item);
     } else {
-      // this.setState({error: `Choose ${this.props.product.attributes.map(attribute => ` ${attribute.id} `)}`.replaceAll(',', '&' )})
-      this.setState({error: `Choose options`})
+      // this.setState({error: `Choose ${this.props.product.attributes.map(attribute => ` ${attribute.id} `)}`.replaceAll(',', '&' )}) //this print all attributes that have to be choosen
+      this.setState({ error: `Choose options` });
     }
   }
 
@@ -58,26 +62,27 @@ class ProductDetails extends Component {
     const price = this.props.product.prices.filter(
       (price) => price.currency.symbol === this.props.currency
     );
-
     return (
       <div className="product_details">
+          {!this.props.product.inStock && <p>Out of stock</p>}
         <div>
           <h1>{this.props.product.name}</h1>
           <h2>{this.props.product.brand}</h2>
         </div>
-        {this.props.product.attributes.map((attribute, index) => {
-          return (
-            <div key={attribute.id + index}>
-              <h3>{attribute.name}</h3>
-              <Attributes
-                attribute={attribute}
-                setAttributes={this.setAttributes}
-                attributesChosen={this.state.attributesChosen}
-                onClick={true}
-              />
-            </div>
-          );
-        })}
+        {this.props.product.attributes.length > 0 &&
+          this.props.product.attributes.map((attribute, index) => {
+            return (
+              <div key={attribute.id + index}>
+                <h3>{attribute.name}</h3>
+                <Attributes
+                  attribute={attribute}
+                  setAttributes={this.setAttributes}
+                  attributesChosen={this.state.attributesChosen}
+                  onClick={true}
+                />
+              </div>
+            );
+          })}
         <div>
           <h3>Price</h3>
           <p className="product_price">
@@ -85,19 +90,27 @@ class ProductDetails extends Component {
             {price[0].amount.toFixed(2)}
           </p>
         </div>
-        <div className="button_container">
-        <button
-        className="btn_primary"
-          onClick={() =>
-            this.addItemToCart(this.props.product, this.state.attributesChosen)
-          }
-        >
-          Add to cart
-        </button>
-        {this.state.error && <span className="error">{this.state.error}</span>}
-        </div>
-       {this.props.product.description.includes('<') && parse(this.props.product.description)}
-       {!this.props.product.description.includes('<') && <p>{this.props.product.description}</p>}
+        {this.props.product.inStock && <div className="button_container">
+          <button
+            className="btn_primary"
+            onClick={() =>
+              this.addItemToCart(
+                this.props.product,
+                this.state.attributesChosen
+              )
+            }
+          >
+            Add to cart
+          </button>
+          {this.state.error && (
+            <span className="error">{this.state.error}</span>
+          )}
+        </div>}
+        {this.props.product.description.includes("<") &&
+          parse(this.props.product.description)}
+        {!this.props.product.description.includes("<") && (
+          <p>{this.props.product.description}</p>
+        )}
       </div>
     );
   }

@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import classNames from "classnames";
 
 import { client, GET_CURRENCIES_QUERY, makeQuery } from "../../utils/queries";
-
 import { changeCurrency } from "../../redux/currencySlice";
 
 import "./_CurrencySelect.scss";
@@ -20,7 +19,6 @@ class CurrencySelect extends Component {
   }
 
   componentDidMount() {
-
     makeQuery(GET_CURRENCIES_QUERY, (res) => {
       this.setState({
         currencies: res.data.currencies.map((currency) => ({

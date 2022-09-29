@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
 import { setMinicartOpen } from "../../redux/minicartSlice";
+
+import CategoryNavbar from "../CategoryNavbar";
+import CurrencySelect from "../CurrencySelect";
 
 import "./_Header.scss";
 import { ReactComponent as Logo } from "../../assets/a-logo.svg";
 import cart from "../../assets/grey-cart.svg";
-
-import CategoryNavbar from "../CategoryNavbar";
-import CurrencySelect from "../CurrencySelect";
 
 class Header extends Component {
    constructor(props) {

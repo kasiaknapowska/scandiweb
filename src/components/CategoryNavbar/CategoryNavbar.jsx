@@ -1,5 +1,3 @@
-import "./_CategoryNavbar.scss";
-
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -9,36 +7,33 @@ import { changeCategory } from "../../redux/categorySlice";
 import { client, GET_CATEGORIES_QUERY, makeQuery } from "../../utils/queries";
 import withRouter from "../../utils/router";
 
+import "./_CategoryNavbar.scss";
+
 class CategoryNavbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       categories: [],
     };
-
-    // this.onChooseCategory = this.onChooseCategory.bind(this);
   }
 
   componentDidMount() {
-    console.log("navbar mounted");
-
     makeQuery(GET_CATEGORIES_QUERY, (res) => {
+      const categories = res.data.categories.map((category) => category.name);
       this.setState({
-        categories: res.data.categories.map((category) => category.name),
+        categories,
       });
 
-      
       if (this.props.router.location.pathname === "/") {
         this.props.changeCategory(res.data.categories[0].name);
         this.props.router.navigate(`/${res.data.categories[0].name}`);
+      } else if (!categories.includes(this.props.router.params.category)) {
+        this.props.router.navigate("/not-found");
       }
     });
   }
 
   componentDidUpdate() {
-    console.log("navbar updated");
-    // console.log(this.props.router.location.pathname)
-
     const paramsCategory = this.props.router.params.category;
 
     if (
@@ -46,20 +41,18 @@ class CategoryNavbar extends Component {
       this.props.category !== paramsCategory
     ) {
       this.props.changeCategory(paramsCategory);
-    } 
+    }
   }
 
   componentWillUnmount() {
     client.stop();
   }
 
-  onChooseCategory(e, category) {
+  onChooseCategory(category) {
     this.props.changeCategory(category);
   }
 
   render() {
-    console.log("navbar render");
-    console.log("router", this.props.router.params)
     return (
       <nav className="category_navbar">
         {this.state.categories.length > 0 &&
@@ -69,7 +62,7 @@ class CategoryNavbar extends Component {
                 is_active: category === this.props.category,
               })}
               key={`${category}_${index}`}
-              onClick={(e) => this.onChooseCategory(e, category)}
+              onClick={() => this.onChooseCategory(category)}
               to={`/${category}`}
             >
               {category}
