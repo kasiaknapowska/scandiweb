@@ -27,7 +27,7 @@ class CategoryNavbar extends Component {
       if (this.props.router.location.pathname === "/") {
         this.props.changeCategory(res.data.categories[0].name);
         this.props.router.navigate(`/${res.data.categories[0].name}`);
-      } else if (!categories.includes(this.props.router.params.category)) {
+      }  else if (this.props.router.location.pathname !== "/cart" && !categories.includes(this.props.router.params.category)) {
         this.props.router.navigate("/not-found");
       }
     });
