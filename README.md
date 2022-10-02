@@ -1,70 +1,61 @@
-# Getting Started with Create React App
+# Entry React developer test assignment (Scandiweb)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+The goal of this task was to create a shop website with a basic functionalities implemented exactly as-per-design provided by Scandiweb ([Figma project](https://www.figma.com/file/MSyCAqVy1UgNap0pvqH6H3/Junior-Frontend-Test-Designs-(Public)?node-id=150%3A747)). Products data had to be fetched from GraphQL endpoint.
 
-In the project directory, you can run:
+The task have not required responsiveness, however basic RWD was implemented.
 
-### `npm start`
+## Tech stack requirements
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Required
+1. React [Create React App](https://github.com/facebook/create-react-app)
+2. Class Components
+3. Any GraphQL client
+4. Less 3rd party libraries as possible
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Allowed
+1. State management libraries (e.g. Redux)
+2. Styled components, CSS preprocessors (e.g. SCSS)
 
-### `npm test`
+### Prohibited
+1. UI libraries (e.g. Tailwind, Material UI, Ant Design)
+2. Functional components
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Functionalities required
 
-### `npm run build`
+PLP - product listing page, a.k.a. category page
+PDP - product description page, a.k.a. product page
+Cart page + Cart overlay (minicart)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Details
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Ability to add/remove products and change their amounts in cart - on the cart page itself, PLP and PDP should be provided.
+- For products that have various options (attributes) - the options should be selected.
+- The selected options of added to cart products should be visible in cart overlay and in cart page.
+- If an attribute is a swatch attribute (type = swatch), a representation of the value should be rendered on PDP and PLP, rather than text description (e.g. the color itself, not "Blue" or "0000FF")
+- Filtering products by category name for all of the categories from BE
+- The descriptions provided in HTML format should be parsed and presented as HTML, not as plain text
+- Ability to change the currency of the store to one of the available currencies
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Tech stack used
 
-### `npm run eject`
+1. [Create React App](https://github.com/facebook/create-react-app)
+2. [SCSS](https://sass-lang.com/)
+3. [Apollo Client](https://www.apollographql.com/docs/react/)
+4. [Redux toolkit](https://redux-toolkit.js.org/introduction/getting-started)
+5. [React Router](https://reactrouter.com/en/main)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## How to start app
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Endpoint
+1. Fork and clone [junior-react-endpoint](https://github.com/scandiweb/junior-react-endpoint) provided by Scandiweb.
+2. In the endpoint directory install dependencies - yarn install
+3. Build the project - yarn build
+4. Start the project - yarn start
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### React App
+1. Fork and clone this repository
+2. In the project directory install dependencies - npm install
+3. Run the app in development mode - npm start
+4. Open [http://localhost:3000](http://localhost:3000) to view it in your browser
