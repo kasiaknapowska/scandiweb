@@ -24,9 +24,9 @@ The task have not required responsiveness, however basic RWD was implemented.
 
 ## Functionalities required
 
-PLP - product listing page, a.k.a. category page
-PDP - product description page, a.k.a. product page
-Cart page + Cart overlay (minicart)
+- PLP - product listing page, a.k.a. category page
+- PDP - product description page, a.k.a. product page
+- Cart page + Cart overlay (minicart)
 
 ## Details
 
