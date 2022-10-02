@@ -1,5 +1,6 @@
-import React, { Component } from "react";
 import "./_Attributes.scss";
+
+import React, { Component } from "react";
 import classNames from "classnames";
 
 class Attributes extends Component {

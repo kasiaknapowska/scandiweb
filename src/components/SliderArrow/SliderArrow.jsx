@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import classNames from "classnames";
 import "./_SliderArrow.scss";
 
+import React, { Component } from "react";
+import classNames from "classnames";
 
 class SliderArrow extends Component {
 

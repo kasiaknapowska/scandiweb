@@ -1,12 +1,14 @@
+import "./_ProductCard.scss";
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import classNames from "classnames";
 
 import { addToCart } from "../../redux/cartSlice";
 import { addCount } from "../../redux/counterSlice";
+
 import withRouter from "../../utils/router";
 
-import "./_ProductCard.scss";
 import cart from "../../assets/white-cart.svg";
 
 class ProductCard extends Component {

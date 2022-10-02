@@ -1,11 +1,14 @@
-import classNames from "classnames";
+import "./_CartItem.scss";
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import classNames from "classnames";
+
 import { substractFromCart, addToCart } from "../../redux/cartSlice";
 import { addCount, substractCount } from "../../redux/counterSlice";
+
 import Attributes from "../Attributes";
 import SliderArrow from "../SliderArrow/SliderArrow";
-import "./_CartItem.scss";
 
 class CartItem extends Component {
   constructor(props) {

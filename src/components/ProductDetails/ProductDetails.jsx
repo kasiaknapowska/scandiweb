@@ -1,3 +1,5 @@
+import "./_ProductDetails.scss";
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import parse from "html-react-parser";
@@ -6,8 +8,6 @@ import { addCount } from "../../redux/counterSlice";
 import { addToCart } from "../../redux/cartSlice";
 
 import Attributes from "../Attributes";
-
-import "./_ProductDetails.scss";
 
 class ProductDetails extends Component {
   constructor(props) {

@@ -1,3 +1,5 @@
+import "./_CategoryNavbar.scss";
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -5,12 +7,7 @@ import classNames from "classnames";
 
 import { changeCategory } from "../../redux/categorySlice";
 
-import "./_CategoryNavbar.scss";
-
 class CategoryNavbar extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (

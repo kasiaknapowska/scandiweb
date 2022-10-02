@@ -1,11 +1,13 @@
+import "./_CurrencySelect.scss";
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import classNames from "classnames";
 
-import { client, GET_CURRENCIES_QUERY, makeQuery } from "../../utils/queries";
 import { changeCurrency } from "../../redux/currencySlice";
 
-import "./_CurrencySelect.scss";
+import { client, GET_CURRENCIES_QUERY, makeQuery } from "../../utils/queries";
+
 
 class CurrencySelect extends Component {
   constructor(props) {

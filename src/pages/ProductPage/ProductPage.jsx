@@ -1,15 +1,19 @@
+import "./_ProductPage.scss";
+
 import React, { Component } from "react";
+import classNames from "classnames";
+
 import withRouter from "../../utils/router";
+
 import {
   client,
   GET_PRODUCT_DETAILS_QUERY,
   GET_PRODUCTS_QUERY,
   makeQuery,
 } from "../../utils/queries";
+
 import ProductDetails from "../../components/ProductDetails";
 
-import "./_ProductPage.scss";
-import classNames from "classnames";
 
 class ProductPage extends Component {
   constructor(props) {

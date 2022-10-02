@@ -4,8 +4,8 @@
 .cart_element {
   display: flex;
   justify-content: space-between;
-  .item_details {
-    flex-shrink: 0;
+  @media screen and (max-width: 700px) {
+    flex-wrap: wrap;
   }
   .swatch,
   .text {
@@ -139,7 +139,7 @@
       bottom: 1rem;
       right: 1rem;
       display: flex;
-      gap: .5rem;
+      gap: 0.5rem;
     }
   }
 }

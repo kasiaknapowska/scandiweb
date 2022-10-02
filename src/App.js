@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 import { Outlet } from "react-router-dom";
 
 import { changeCategory, setCategories } from "./redux/categorySlice";
-import { setCartItems } from "./redux/cartSlice";
-import { setCount } from "./redux/counterSlice";
+import { setInitialCartItems } from "./redux/cartSlice";
+import { setInitialCount } from "./redux/counterSlice";
+
 import { client, GET_CATEGORIES_QUERY, makeQuery } from "./utils/queries";
 import withRouter from "./utils/router";
 
@@ -13,9 +14,6 @@ import Header from "./components/Header/Header";
 import Minicart from "./components/Minicart";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     makeQuery(GET_CATEGORIES_QUERY, (res) => {
@@ -33,9 +31,8 @@ class App extends Component {
       }
     });
 
-    localStorage.getItem("cart") && this.props.setCartItems(JSON.parse(localStorage.getItem("cart")));
-    localStorage.getItem("count") && this.props.setCount(+localStorage.getItem("count"))
-    console.log(JSON.parse(localStorage.getItem("cart")))
+    localStorage.getItem("cart") && this.props.setInitialCartItems(JSON.parse(localStorage.getItem("cart")));
+    localStorage.getItem("count") && this.props.setInitialCount(+localStorage.getItem("count"))
   }
 
   componentDidUpdate(prevProps) {
@@ -61,8 +58,7 @@ class App extends Component {
   }
 
   render() {
-console.log(this.props.cart)
-console.log(this.props.totalPrice)
+
     return (
       <div className="App">
         <Header />
@@ -82,6 +78,6 @@ const mapStateToProps = (state) => ({
   count: state.cartCounter.count,
 });
 
-const mapDispatchToProps = { changeCategory, setCategories, setCartItems, setCount };
+const mapDispatchToProps = { changeCategory, setCategories, setInitialCartItems, setInitialCount };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

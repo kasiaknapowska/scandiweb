@@ -48,7 +48,7 @@ export const cartSlice = createSlice({
 
       cartSlice.caseReducers.setTotalPrice(state);
     },
-    setCartItems: (state, action) => {
+    setInitialCartItems: (state, action) => {
       state.items = action.payload;
       cartSlice.caseReducers.setTotalPrice(state);
     },
@@ -80,5 +80,5 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, substractFromCart, setCartItems } = cartSlice.actions;
+export const { addToCart, substractFromCart, setInitialCartItems } = cartSlice.actions;
 export default cartSlice.reducer;

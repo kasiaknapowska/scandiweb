@@ -1,20 +1,34 @@
 @use "../../scss/variables" as *;
 @use "../../scss/placeholders";
 .product_page {
- 
   .flex_container {
-    display: flex;
+    @media screen and (min-width: 800px) {
+      display: flex;
+    }
   }
   .images {
     display: flex;
-    width: 60vw;
+    margin-bottom: 3rem;
+    @media screen and (min-width: 800px) {
+      width: 60vw;
+      margin-bottom: 0;
+    }
+
     .preview_container {
-      max-height: 40vw;
+      @media screen and (max-width: 500px) {
+        max-height: 65vw;
+      }
+      @media screen and (min-width: 500px) {
+        max-height: 50vw;
+      }
+      @media screen and (min-width: 800px) {
+        max-height: 40vw;
+      }
+
       direction: rtl;
       overflow-y: auto;
       overflow-x: hidden;
       @extend %scrollbar;
- 
     }
     .thumbnail {
       width: 10vw;
@@ -27,11 +41,22 @@
       direction: ltr;
     }
     .preview {
-      height: 40vw;
-      width: 40vw;
       object-fit: cover;
       object-position: center top;
-      margin: 0 3rem 0 2rem;
+      margin: 0 0 0 2rem;
+      width: 65vw;
+      height: 65vw;
+
+      @media screen and (min-width: 500px) {
+        height: 50vw;
+        width: 50vw;
+      }
+
+      @media screen and (min-width: 800px) {
+        height: 40vw;
+        width: 40vw;
+        margin: 0 3rem 0 2rem;
+      }
     }
   }
   .out_of_stock {

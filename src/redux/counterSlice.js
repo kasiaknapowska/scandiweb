@@ -13,12 +13,12 @@ export const counterSlice = createSlice({
       if (state.count === 0) return;
       state.count -= 1;
     },
-    setCount: (state, action) => {
+    setInitialCount: (state, action) => {
       state.count = action.payload;
     }
   },
 });
 
 
-export const { addCount, substractCount, setCount } = counterSlice.actions;
+export const { addCount, substractCount, setInitialCount } = counterSlice.actions;
 export default counterSlice.reducer;

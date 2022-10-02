@@ -1,9 +1,14 @@
+import "./_Minicart.scss";
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import withRouter from "../../utils/router";
+
 import { setMinicartOpen } from "../../redux/minicartSlice";
+
+import withRouter from "../../utils/router";
+
 import CartItem from "../CartItem";
-import "./_Minicart.scss";
+
 
 class Minicart extends Component {
   constructor(props) {

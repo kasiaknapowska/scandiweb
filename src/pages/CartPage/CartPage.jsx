@@ -1,7 +1,10 @@
+import "./_CartPage.scss";
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
 import CartItem from "../../components/CartItem";
-import "./_CartPage.scss";
+
 
 class CartPage extends Component {
   render() {

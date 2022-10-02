@@ -1,13 +1,16 @@
+import "./_CategoryPage.scss";
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
+import withRouter from "../../utils/router";
+
 import {
   client,
   GET_PRODUCTS_BY_CATEGORY_QUERY,
   makeQuery,
 } from "../../utils/queries";
-import withRouter from "../../utils/router";
 
-import "./_CategoryPage.scss";
 import ProductCard from "../../components/ProductCard";
 
 class CategoryPage extends Component {
