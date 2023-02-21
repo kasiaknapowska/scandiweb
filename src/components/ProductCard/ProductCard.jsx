@@ -1,6 +1,6 @@
 import "./_ProductCard.scss";
 
-import React, { PureComponent  } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import classNames from "classnames";
 
@@ -11,9 +11,7 @@ import withRouter from "../../utils/router";
 
 import cart from "../../assets/white-cart.svg";
 
-class ProductCard extends PureComponent  {
-
-
+class ProductCard extends PureComponent {
   addItemToCart(e, { id, name, brand, gallery, prices, attributes }) {
     e.stopPropagation();
     const item = {
@@ -40,17 +38,32 @@ class ProductCard extends PureComponent  {
     return (
       <div
         className={classNames("product_card", { out_of_stock: !inStock })}
+        // onClick={() =>
+        //   inStock
+        //     ? this.props.router.navigate(
+        //         `${this.props.router.location.pathname}/${this.props.product.id}`
+        //       )
+        //     : null
+        // }
         onClick={() =>
-          inStock
-            ? this.props.router.navigate(
-                `${this.props.router.location.pathname}/${this.props.product.id}`
-              )
-            : null
+          this.props.router.navigate(
+            `${this.props.router.location.pathname}/${this.props.product.id}`
+          )
         }
       >
         <div className="product_img_container">
           {!inStock && <p>out of stock</p>}
-          {this.props.product.attributes.length === 0 && inStock && (
+          {/* {this.props.product.attributes.length === 0 && inStock && (
+            <div className="circle">
+              <img
+                src={cart}
+                className="add_to_cart_icon"
+                alt="add to cart"
+                onClick={(e) => this.addItemToCart(e, this.props.product)}
+              />
+            </div>
+          )} */}
+          {inStock && (
             <div className="circle">
               <img
                 src={cart}
@@ -60,7 +73,7 @@ class ProductCard extends PureComponent  {
               />
             </div>
           )}
-          <img src={image} alt={this.props.product.name}/>
+          <img src={image} alt={this.props.product.name} />
         </div>
         <h2 className="product_name">
           {this.props.product.name} {this.props.product.brand}

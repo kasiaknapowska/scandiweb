@@ -11,10 +11,20 @@
   padding: 1rem;
   font-size: 1.125rem;
   cursor: pointer;
-  &:hover:not(.out_of_stock) {
+  // &:hover:not(.out_of_stock) {
+  //   -webkit-box-shadow: 0px 0px 30px 0px rgba(29, 31, 34, 0.075);
+  //   -moz-box-shadow: 0px 0px 30px 0px rgba(29, 31, 34, 0.075);
+  //   box-shadow: 0px 0px 30px 0px rgba(29, 31, 34, 0.075);
+  //   .circle {
+  //     display: block;
+  //   }
+  // }
+  &:hover {
     -webkit-box-shadow: 0px 0px 30px 0px rgba(29, 31, 34, 0.075);
     -moz-box-shadow: 0px 0px 30px 0px rgba(29, 31, 34, 0.075);
     box-shadow: 0px 0px 30px 0px rgba(29, 31, 34, 0.075);
+  }
+  &:hover:not(.out_of_stock) {
     .circle {
       display: block;
     }
