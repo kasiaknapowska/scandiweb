@@ -12,12 +12,16 @@ body {
   @include mixins.font(400, $colorNeutral);
 }
 .container {
-  padding: 17rem 1rem 5rem 1rem;
-  @media screen and (min-width: 500px) {
-    padding: 17rem 6.25rem 5rem 6.25rem;
-  }
+  // padding: 17rem 1rem 5rem 1rem;
+  // @media screen and (min-width: 500px) {
+  //   padding: 17rem 6.25rem 5rem 6.25rem;
+  // }
+  width: 90%;
+  margin: 0 auto;
+  max-width: $sizeContent;
   @media screen and (min-width: 800px) {
-    padding-top: 12rem;
+    width: 80%;
+    // padding-top: 12rem;
   }
 }
 button {
