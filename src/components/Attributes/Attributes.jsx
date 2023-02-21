@@ -1,9 +1,9 @@
 import "./_Attributes.scss";
 
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import classNames from "classnames";
 
-class Attributes extends Component {
+class Attributes extends PureComponent {
 
   render() {
     return (

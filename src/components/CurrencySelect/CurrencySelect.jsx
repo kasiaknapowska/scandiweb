@@ -1,6 +1,6 @@
 import "./_CurrencySelect.scss";
 
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import classNames from "classnames";
 
@@ -9,7 +9,7 @@ import { changeCurrency } from "../../redux/currencySlice";
 import { client, GET_CURRENCIES_QUERY, makeQuery } from "../../utils/queries";
 
 
-class CurrencySelect extends Component {
+class CurrencySelect extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

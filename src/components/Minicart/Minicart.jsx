@@ -1,6 +1,6 @@
 import "./_Minicart.scss";
 
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 
 import { setMinicartOpen } from "../../redux/minicartSlice";
@@ -10,7 +10,7 @@ import withRouter from "../../utils/router";
 import CartItem from "../CartItem";
 
 
-class Minicart extends Component {
+class Minicart extends PureComponent {
 
 
   viewBag() {

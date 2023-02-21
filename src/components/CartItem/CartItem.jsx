@@ -1,6 +1,6 @@
 import "./_CartItem.scss";
 
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import classNames from "classnames";
 
@@ -10,7 +10,7 @@ import { addCount, substractCount } from "../../redux/counterSlice";
 import Attributes from "../Attributes";
 import SliderArrow from "../SliderArrow/SliderArrow";
 
-class CartItem extends Component {
+class CartItem extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

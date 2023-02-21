@@ -1,6 +1,6 @@
 import "./_CategoryPage.scss";
 
-import React, { Component } from "react";
+import React, { PureComponent  } from "react";
 import { connect } from "react-redux";
 
 import withRouter from "../../utils/router";
@@ -13,7 +13,7 @@ import {
 
 import ProductCard from "../../components/ProductCard";
 
-class CategoryPage extends Component {
+class CategoryPage extends PureComponent  {
   constructor(props) {
     super(props);
     this.state = {

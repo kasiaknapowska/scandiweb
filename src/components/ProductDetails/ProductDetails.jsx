@@ -1,6 +1,6 @@
 import "./_ProductDetails.scss";
 
-import React, { Component } from "react";
+import React, { PureComponent  } from "react";
 import { connect } from "react-redux";
 import parse from "html-react-parser";
 
@@ -9,7 +9,7 @@ import { addToCart } from "../../redux/cartSlice";
 
 import Attributes from "../Attributes";
 
-class ProductDetails extends Component {
+class ProductDetails extends PureComponent  {
   constructor(props) {
     super(props);
     this.state = {

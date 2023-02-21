@@ -1,6 +1,6 @@
 import "./_ProductPage.scss";
 
-import React, { Component } from "react";
+import React, { PureComponent  } from "react";
 import classNames from "classnames";
 
 import withRouter from "../../utils/router";
@@ -15,7 +15,7 @@ import {
 import ProductDetails from "../../components/ProductDetails";
 
 
-class ProductPage extends Component {
+class ProductPage extends PureComponent  {
   constructor(props) {
     super(props);
     this.state = {

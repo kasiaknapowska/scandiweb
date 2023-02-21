@@ -1,13 +1,13 @@
 import "./_CartPage.scss";
 import "../../App.scss";
 
-import React, { Component } from "react";
+import React, { PureComponent  } from "react";
 import { connect } from "react-redux";
 
 import CartItem from "../../components/CartItem";
 
 
-class CartPage extends Component {
+class CartPage extends PureComponent  {
   render() {
     if (this.props.totalPrice.length > 0 && this.props.count > 0) {
       const price = this.props.totalPrice.filter(

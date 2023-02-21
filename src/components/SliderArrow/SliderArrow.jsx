@@ -1,9 +1,9 @@
 import "./_SliderArrow.scss";
 
-import React, { Component } from "react";
+import React, { PureComponent  } from "react";
 import classNames from "classnames";
 
-class SliderArrow extends Component {
+class SliderArrow extends PureComponent  {
   
   render() {
     return (

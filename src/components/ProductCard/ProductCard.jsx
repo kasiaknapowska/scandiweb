@@ -1,6 +1,6 @@
 import "./_ProductCard.scss";
 
-import React, { Component } from "react";
+import React, { PureComponent  } from "react";
 import { connect } from "react-redux";
 import classNames from "classnames";
 
@@ -11,7 +11,7 @@ import withRouter from "../../utils/router";
 
 import cart from "../../assets/white-cart.svg";
 
-class ProductCard extends Component {
+class ProductCard extends PureComponent  {
 
 
   addItemToCart(e, { id, name, brand, gallery, prices, attributes }) {
