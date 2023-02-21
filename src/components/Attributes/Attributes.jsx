@@ -4,9 +4,6 @@ import React, { Component } from "react";
 import classNames from "classnames";
 
 class Attributes extends Component {
-  constructor(props) {
-    super(props)
-  }
 
   render() {
     return (

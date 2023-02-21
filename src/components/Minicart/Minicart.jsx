@@ -11,9 +11,7 @@ import CartItem from "../CartItem";
 
 
 class Minicart extends Component {
-  constructor(props) {
-    super(props);
-  }
+
 
   viewBag() {
     this.props.router.navigate("/cart");

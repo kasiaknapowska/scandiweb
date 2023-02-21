@@ -12,9 +12,7 @@ import withRouter from "../../utils/router";
 import cart from "../../assets/white-cart.svg";
 
 class ProductCard extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+
 
   addItemToCart(e, { id, name, brand, gallery, prices, attributes }) {
     e.stopPropagation();

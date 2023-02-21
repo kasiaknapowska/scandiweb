@@ -12,9 +12,7 @@ import { ReactComponent as Logo } from "../../assets/a-logo.svg";
 import cart from "../../assets/grey-cart.svg";
 
 class Header extends Component {
-   constructor(props) {
-    super(props)
-  }
+
   render() {
     return (
       <header className="container">

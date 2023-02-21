@@ -95,7 +95,10 @@ class CartItem extends Component {
         {this.props.type === "minicart" && (
           <div
             className="item_img"
-            style={{ backgroundImage: `url(${this.props.item.gallery[0]})` }}
+            style={{
+              backgroundImage: `url(${this.props.item.gallery[0]})`,
+              backgroundSize: "contain",
+            }}
           ></div>
         )}
         {this.props.type === "cart" && (
@@ -105,6 +108,7 @@ class CartItem extends Component {
               backgroundImage: `url(${
                 this.props.item.gallery[this.state.currentImageIndex]
               })`,
+              backgroundSize: "contain",
             }}
           >
             {this.props.item.gallery.length > 1 && (
