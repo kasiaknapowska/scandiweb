@@ -1,4 +1,5 @@
 import "./_CartPage.scss";
+import "../../App.scss";
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
@@ -14,7 +15,7 @@ class CartPage extends Component {
       )[0].amount;
 
       return (
-        <main className="container cart_page">
+        <main className="container cart_page page_container">
           <h1>Cart</h1>
           <div className="line"></div>
           <>
@@ -60,7 +61,7 @@ class CartPage extends Component {
     }
 
     return (
-      <main className="container cart_page">
+      <main className="container cart_page page_container">
         <h1>Cart</h1>
         <p>Your cart is empty</p>
       </main>

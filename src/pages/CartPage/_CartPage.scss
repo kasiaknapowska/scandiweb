@@ -2,6 +2,7 @@
 @use "../../scss/mixins";
 
 .cart_page {
+  padding-bottom: 4rem;
     h1 {
         @include mixins.font(700, $colorNeutral, 2rem) {
             text-transform: uppercase;

@@ -52,7 +52,7 @@ class ProductPage extends Component {
 
   render() {
     return (
-      <main className="container product_page">
+      <main className="container product_page page_container">
         {this.state.loading && <p>Loading...</p>}
         {this.state.product && (
           <div
@@ -79,6 +79,7 @@ class ProductPage extends Component {
               </div>
               <img
                 className="preview"
+                alt="product thumbnail"
                 src={this.state.product.gallery[this.state.currentImageIndex]}
               />
             </div>

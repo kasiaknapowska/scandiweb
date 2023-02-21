@@ -12,9 +12,9 @@ import withRouter from "../../utils/router";
 import cart from "../../assets/white-cart.svg";
 
 class ProductCard extends Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   addItemToCart(e, { id, name, brand, gallery, prices, attributes }) {
     e.stopPropagation();
@@ -57,11 +57,12 @@ class ProductCard extends Component {
               <img
                 src={cart}
                 className="add_to_cart_icon"
+                alt="add to cart"
                 onClick={(e) => this.addItemToCart(e, this.props.product)}
               />
             </div>
           )}
-          <img src={image} />
+          <img src={image} alt={this.props.product.name}/>
         </div>
         <h2 className="product_name">
           {this.props.product.name} {this.props.product.brand}

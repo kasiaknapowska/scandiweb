@@ -56,7 +56,7 @@ class CategoryPage extends Component {
 
   render() {
     return (
-      <main className="container category_page">
+      <main className="container category_page page_container">
         <h1>{this.props.category}</h1>
         <div className="products">
           {this.state.loading && <p>Loading...</p>}
