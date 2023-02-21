@@ -34,7 +34,6 @@ class CurrencySelect extends PureComponent {
 
   componentWillUnmount() {
     document.removeEventListener("mousedown", this.handleClickOutside);
-    client.stop();
   }
 
   onChooseCurrency(e, currency) {

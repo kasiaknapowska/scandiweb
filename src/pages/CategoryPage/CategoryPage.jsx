@@ -50,9 +50,6 @@ class CategoryPage extends PureComponent  {
     );
   }
 
-  componentWillUnmount() {
-    client.stop();
-  }
 
   render() {
     return (

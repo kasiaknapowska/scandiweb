@@ -46,9 +46,6 @@ class ProductPage extends PureComponent  {
       }
     });
   }
-  componentWillUnmount() {
-    client.stop();
-  }
 
   render() {
     return (
