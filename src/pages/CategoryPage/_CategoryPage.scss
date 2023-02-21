@@ -1,3 +1,4 @@
+@use "../../scss/variables" as *;
 .category_page {
  
   h1 {
@@ -8,10 +9,9 @@
     padding: 7rem 0;
     display: grid;
     justify-content: center; 
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); 
-    grid-gap: 40px;
-    @media screen and (min-width: 1300px) {
-        grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    @media screen and ($tablet) {
+      grid-template-columns: repeat(auto-fill, 360px);
     }
 }
 }
