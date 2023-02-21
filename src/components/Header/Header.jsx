@@ -30,7 +30,7 @@ class Header extends PureComponent {
           <div
             className="cart"
             onClick={() =>
-              this.props.setMinicartOpen(this.props.minicart ? false : true)
+              this.props.setMinicartOpen(!this.props.minicart)
             }
           >
             <img src={cart} className="cart_icon" />

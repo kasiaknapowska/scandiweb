@@ -53,7 +53,6 @@ class ProductDetails extends PureComponent  {
       this.props.addCount();
       this.props.addToCart(item);
     } else {
-      // this.setState({error: `Choose ${this.props.product.attributes.map(attribute => ` ${attribute.id} `)}`.replaceAll(',', '&' )}) //this print all attributes that have to be choosen
       this.setState({ error: `Choose options` });
     }
   }
@@ -106,11 +105,7 @@ class ProductDetails extends PureComponent  {
             <span className="error">{this.state.error}</span>
           )}
         </div>}
-        {this.props.product.description.includes("<") &&
-          parse(this.props.product.description)}
-        {!this.props.product.description.includes("<") && (
-          <p>{this.props.product.description}</p>
-        )}
+        {this.props.product.description.includes("<") ? parse(this.props.product.description) : <p>{this.props.product.description}</p>}
       </div>
     );
   }
