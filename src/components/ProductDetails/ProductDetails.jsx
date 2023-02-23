@@ -77,7 +77,7 @@ class ProductDetails extends PureComponent  {
                   attribute={attribute}
                   setAttributes={this.setAttributes}
                   attributesChosen={this.state.attributesChosen}
-                  onClick={true}
+                  isClickable={true}
                 />
               </div>
             );

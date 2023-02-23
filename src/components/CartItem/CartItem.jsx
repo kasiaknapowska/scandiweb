@@ -69,7 +69,7 @@ class CartItem extends PureComponent {
                   <Attributes
                     attribute={attribute}
                     attributesChosen={this.props.item.attributesChosen}
-                    onClick={false}
+                    isClickable={false}
                   />
                 </div>
               );
