@@ -5,14 +5,13 @@ import React, { PureComponent  } from "react";
 import { connect } from "react-redux";
 
 import CartItem from "../../components/CartItem";
-
+import { getPrice } from "../../utils/functions";
 
 class CartPage extends PureComponent  {
   render() {
+
     if (this.props.totalPrice.length > 0 && this.props.count > 0) {
-      const price = this.props.totalPrice.filter(
-        (price) => price.currency.symbol === this.props.currency
-      )[0].amount;
+      const totalPrice = getPrice(this.props.totalPrice, this.props.currency)
 
       return (
         <main className="container cart_page page_container">
@@ -33,7 +32,7 @@ class CartPage extends PureComponent  {
                   <td>
                     {this.props.currency}
                     &nbsp;
-                    {(price * 0.21).toFixed(2)}
+                    {(totalPrice * 0.21).toFixed(2)}
                   </td>
                 </tr>
                 <tr>
@@ -45,11 +44,12 @@ class CartPage extends PureComponent  {
                   <td>
                     {this.props.currency}
                     &nbsp;
-                    {this.props.totalPrice
+                    {/* {this.props.totalPrice
                       .filter(
                         (price) => price.currency.symbol === this.props.currency
                       )[0]
-                      .amount.toFixed(2)}
+                      .amount.toFixed(2)} */}
+                      {totalPrice}
                   </td>
                 </tr>
               </tbody>

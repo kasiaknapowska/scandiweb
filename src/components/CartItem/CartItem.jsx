@@ -10,6 +10,8 @@ import { addCount, substractCount } from "../../redux/counterSlice";
 import Attributes from "../Attributes";
 import SliderArrow from "../SliderArrow/SliderArrow";
 
+import { getPrice } from "../../utils/functions";
+
 class CartItem extends PureComponent {
   constructor(props) {
     super(props);
@@ -41,6 +43,7 @@ class CartItem extends PureComponent {
   }
 
   render() {
+    const price = getPrice(this.props.item.prices, this.props.currency);
     return (
       <div
         className={classNames("cart_element", {
@@ -55,17 +58,8 @@ class CartItem extends PureComponent {
             {this.props.item.brand}
           </h2>
           <p>
-            {
-              this.props.item.prices.filter(
-                (price) => price.currency.symbol === this.props.currency
-              )[0].currency.symbol
-            }{" "}
-            <span style={{ width: "2px" }}></span>
-            {this.props.item.prices
-              .filter(
-                (price) => price.currency.symbol === this.props.currency
-              )[0]
-              .amount.toFixed(2)}
+            {this.props.currency} <span style={{ width: "2px" }}></span>
+            {price}
           </p>
           <div>
             {this.props.item.attributes.map((attribute, index) => {

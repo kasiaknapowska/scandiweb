@@ -8,6 +8,7 @@ import { addCount } from "../../redux/counterSlice";
 import { addToCart } from "../../redux/cartSlice";
 
 import Attributes from "../Attributes";
+import { getPrice } from "../../utils/functions"
 
 class ProductDetails extends PureComponent  {
   constructor(props) {
@@ -59,10 +60,7 @@ class ProductDetails extends PureComponent  {
   }
 
   render() {
-    const price = this.props.product.prices.filter(
-      (price) => price.currency.symbol === this.props.currency
-    );
-    
+    const price = getPrice(this.props.product.prices, this.props.currency)
     return (
       <div className="product_details">
           {!this.props.product.inStock && <p>Out of stock</p>}
@@ -87,8 +85,8 @@ class ProductDetails extends PureComponent  {
         <div>
           <h3>Price</h3>
           <p className="product_price">
-            {price[0].currency.symbol} <span style={{ width: "2px" }}></span>
-            {price[0].amount.toFixed(2)}
+            {this.props.currency} <span style={{ width: "2px" }}></span>
+            {price}
           </p>
         </div>
         {this.props.product.inStock && <div className="button_container">

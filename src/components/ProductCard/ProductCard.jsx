@@ -8,7 +8,7 @@ import { addToCart } from "../../redux/cartSlice";
 import { addCount } from "../../redux/counterSlice";
 
 import withRouter from "../../utils/router";
-
+import { getPrice } from "../../utils/functions"
 import cart from "../../assets/white-cart.svg";
 
 class ProductCard extends PureComponent {
@@ -41,9 +41,7 @@ class ProductCard extends PureComponent {
 
   render() {
     const image = this.props.product.gallery[0];
-    const price = this.props.product.prices.filter(
-      (price) => price.currency.symbol === this.props.currency
-    );
+    const price = getPrice(this.props.product.prices, this.props.currency)
     const inStock = this.props.product.inStock;
 
     return (
@@ -71,8 +69,8 @@ class ProductCard extends PureComponent {
           {this.props.product.name} {this.props.product.brand}
         </h2>
         <p className="product_price">
-          {price[0].currency.symbol} <span style={{ width: "2px" }}></span>
-          {price[0].amount.toFixed(2)}
+          {this.props.currency} <span style={{ width: "2px" }}></span>
+          {price}
         </p>
       </div>
     );
