@@ -11,15 +11,36 @@ import { getPrice } from "../../utils/functions";
 import CartItem from "../CartItem";
 
 class Minicart extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.wrapperRef = React.createRef();
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+  }
   viewBag() {
     this.props.router.navigate("/cart");
     this.props.setMinicartOpen(false);
   }
+  handleClickOutside(e) {
+    if (
+      this.props.minicart &&
+      this.wrapperRef &&
+      !this.wrapperRef.current.contains(e.target)
+    ) {
+      this.props.setMinicartOpen(false);
+    }
+  }
+  componentDidMount() {
+    document.addEventListener("mousedown", this.handleClickOutside);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  }
+
   render() {
     const totalPrice = getPrice(this.props.totalPrice, this.props.currency);
     return (
       <div className="minicart_bg">
-        <div className="minicart">
+        <div className="minicart" ref={this.wrapperRef}>
           <h1>
             My Bag, <span>{this.props.count} items</span>
           </h1>
@@ -63,6 +84,7 @@ const mapStateToProps = (state) => ({
   count: state.cartCounter.count,
   currency: state.currency.currency,
   totalPrice: state.cart.totalPrice,
+  minicart: state.minicart.isOpen,
 });
 const mapDispatchToProps = {
   setMinicartOpen,
