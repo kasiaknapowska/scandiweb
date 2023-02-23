@@ -23,6 +23,17 @@ class ProductCard extends PureComponent {
       attributes,
       attributesChosen: {},
     };
+    if (attributes.length > 0) {
+      console.log(attributes);
+      attributes.forEach((attribute) => {
+        item.attributesChosen = {
+          ...item.attributesChosen,
+          [attribute.id.toLowerCase().replaceAll(" ", "-")]:
+            attribute.items[0].value,
+        };
+      });
+    }
+    console.log(item);
     this.props.addToCart(item);
     this.props.addCount();
     this.props.router.navigate(`${this.props.router.location.pathname}`);
@@ -38,13 +49,6 @@ class ProductCard extends PureComponent {
     return (
       <div
         className={classNames("product_card", { out_of_stock: !inStock })}
-        // onClick={() =>
-        //   inStock
-        //     ? this.props.router.navigate(
-        //         `${this.props.router.location.pathname}/${this.props.product.id}`
-        //       )
-        //     : null
-        // }
         onClick={() =>
           this.props.router.navigate(
             `${this.props.router.location.pathname}/${this.props.product.id}`
@@ -53,24 +57,12 @@ class ProductCard extends PureComponent {
       >
         <div className="product_img_container">
           {!inStock && <p>out of stock</p>}
-          {/* {this.props.product.attributes.length === 0 && inStock && (
-            <div className="circle">
-              <img
-                src={cart}
-                className="add_to_cart_icon"
-                alt="add to cart"
-                onClick={(e) => this.addItemToCart(e, this.props.product)}
-              />
-            </div>
-          )} */}
           {inStock && (
-            <div className="circle">
-              <img
-                src={cart}
-                className="add_to_cart_icon"
-                alt="add to cart"
-                onClick={(e) => this.addItemToCart(e, this.props.product)}
-              />
+            <div
+              className="circle"
+              onClick={(e) => this.addItemToCart(e, this.props.product)}
+            >
+              <img src={cart} className="add_to_cart_icon" alt="add to cart" />
             </div>
           )}
           <img src={image} alt={this.props.product.name} />

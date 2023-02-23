@@ -50,6 +50,7 @@ class ProductDetails extends PureComponent  {
     };
     if (areAttributesChosen) {
       this.setState({ error: null });
+     console.log(item)
       this.props.addCount();
       this.props.addToCart(item);
     } else {
@@ -61,6 +62,7 @@ class ProductDetails extends PureComponent  {
     const price = this.props.product.prices.filter(
       (price) => price.currency.symbol === this.props.currency
     );
+    
     return (
       <div className="product_details">
           {!this.props.product.inStock && <p>Out of stock</p>}
