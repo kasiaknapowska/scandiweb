@@ -12,11 +12,13 @@ body {
   @include mixins.font(400, $colorNeutral);
 }
 .container {
+  padding-top: calc($mobileHeaderH + 3rem);
   width: 90%;
   margin: 0 auto;
   max-width: $sizeContent;
-  @media screen and (min-width: $desktop) {
+  @media screen and ($desktop) {
     width: 80%;
+    padding-top: calc($desktopHeaderH + 3rem);
   }
 }
 .page_container {
