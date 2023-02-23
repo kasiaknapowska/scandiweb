@@ -16,7 +16,7 @@ import cart from "../../assets/grey-cart.svg";
 class Header extends PureComponent {
   render() {
     return (
-      <header className="container">
+      <header>
         <CategoryNavbar />
         <NavLink
           onClick={() => this.props.changeCategory(this.props.categories[0])}
