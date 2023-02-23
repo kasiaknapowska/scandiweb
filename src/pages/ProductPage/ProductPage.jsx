@@ -6,7 +6,6 @@ import classNames from "classnames";
 import withRouter from "../../utils/router";
 
 import {
-  client,
   GET_PRODUCT_DETAILS_QUERY,
   GET_PRODUCTS_QUERY,
   makeQuery,

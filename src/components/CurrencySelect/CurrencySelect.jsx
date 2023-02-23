@@ -6,7 +6,7 @@ import classNames from "classnames";
 
 import { changeCurrency } from "../../redux/currencySlice";
 
-import { client, GET_CURRENCIES_QUERY, makeQuery } from "../../utils/queries";
+import { GET_CURRENCIES_QUERY, makeQuery } from "../../utils/queries";
 
 
 class CurrencySelect extends PureComponent {

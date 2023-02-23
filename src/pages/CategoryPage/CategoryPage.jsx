@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import withRouter from "../../utils/router";
 
 import {
-  client,
   GET_PRODUCTS_BY_CATEGORY_QUERY,
   makeQuery,
 } from "../../utils/queries";
