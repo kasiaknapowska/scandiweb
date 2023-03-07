@@ -3,39 +3,63 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Outlet } from "react-router-dom";
 
-import { changeCategory, setCategories } from "./redux/categorySlice";
+import {
+  changeCategory,
+  setCategories,
+  fetchCategories,
+} from "./redux/categorySlice";
 import { setInitialCartItems } from "./redux/cartSlice";
 import { setInitialCount } from "./redux/counterSlice";
 
-import { client, GET_CATEGORIES_QUERY, makeQuery } from "./utils/queries";
+import { client, GET_CATEGORIES_QUERY, makeQuery, query } from "./utils/queries";
 import withRouter from "./utils/router";
 
 import Header from "./components/Header/Header";
 import Minicart from "./components/Minicart";
 
 class App extends Component {
-
   componentDidMount() {
-    makeQuery(GET_CATEGORIES_QUERY, (res) => {
-      const categories = res.data.categories.map((category) => category.name);
-      this.props.setCategories(categories)
+    this.props.fetchCategories()
+   
+    console.log("fetch", this.props.categories);
 
-      if (this.props.router.location.pathname === "/") {
-        this.props.changeCategory(res.data.categories[0].name);
-        this.props.router.navigate(`/${res.data.categories[0].name}`);
-      } else if (
-        this.props.router.location.pathname !== "/cart" &&
-        !categories.includes(this.props.router.params.category)
-      ) {
-        this.props.router.navigate("/not-found");
-      }
-    });
+    // makeQuery(GET_CATEGORIES_QUERY, (res) => {
+    //   const categories = res.data.categories.map((category) => category.name);
+    //   this.props.setCategories(categories)
 
-    localStorage.getItem("cart") && this.props.setInitialCartItems(JSON.parse(localStorage.getItem("cart")));
-    localStorage.getItem("count") && this.props.setInitialCount(+localStorage.getItem("count"))
+    //   if (this.props.router.location.pathname === "/") {
+    //     this.props.changeCategory(res.data.categories[0].name);
+    //     this.props.router.navigate(`/${res.data.categories[0].name}`);
+    //   } else if (
+    //     this.props.router.location.pathname !== "/cart" &&
+    //     !categories.includes(this.props.router.params.category)
+    //   ) {
+    //     this.props.router.navigate("/not-found");
+    //   }
+    // });
+
+    localStorage.getItem("cart") &&
+      this.props.setInitialCartItems(JSON.parse(localStorage.getItem("cart")));
+    localStorage.getItem("count") &&
+      this.props.setInitialCount(+localStorage.getItem("count"));
   }
 
   componentDidUpdate(prevProps) {
+    console.log("updated", this.props.categories);
+
+    // const categories = this.props.categories
+    // console.log(categories);
+    // if (this.props.router.location.pathname === "/") {
+    //   this.props.changeCategory(this.props.categories[0].name);
+    //   this.props.router.navigate(`/${this.props.categories[0].name}`);
+    // } else if (
+    //   this.props.router.location.pathname !== "/cart" &&
+    //   !categories.includes(this.props.router.params.category)
+    // ) {
+    //   this.props.router.navigate("/not-found");
+    // }
+
+
     const paramsCategory = this.props.router.params.category;
 
     if (
@@ -45,12 +69,10 @@ class App extends Component {
       this.props.changeCategory(paramsCategory);
     }
 
-   if (prevProps.count !== this.props.count) {
-    localStorage.setItem("cart", JSON.stringify(this.props.cart))
-    localStorage.setItem("count", this.props.count.toString())
-   } 
-   
-
+    if (prevProps.count !== this.props.count) {
+      localStorage.setItem("cart", JSON.stringify(this.props.cart));
+      localStorage.setItem("count", this.props.count.toString());
+    }
   }
 
   componentWillUnmount() {
@@ -58,7 +80,6 @@ class App extends Component {
   }
 
   render() {
-
     return (
       <div className="App">
         <Header />
@@ -78,6 +99,12 @@ const mapStateToProps = (state) => ({
   count: state.cartCounter.count,
 });
 
-const mapDispatchToProps = { changeCategory, setCategories, setInitialCartItems, setInitialCount };
+const mapDispatchToProps = {
+  fetchCategories,
+  changeCategory,
+  setCategories,
+  setInitialCartItems,
+  setInitialCount,
+};
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

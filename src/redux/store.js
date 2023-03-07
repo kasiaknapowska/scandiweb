@@ -14,5 +14,5 @@ export const store = configureStore({
     cart: cartSlice,
     minicart: minicartSlice,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  // middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });

@@ -19,6 +19,15 @@ export const makeQuery = (query, successcallback, variables) => {
   }
 };
 
+export const query = async (query, variables) => {
+ try {
+  const response = await client.query({ query: query, variables: variables })
+ return response.data
+ } catch (error) {
+  console.error(error);
+}
+};
+
 //queries
 export const GET_CATEGORIES_QUERY = gql`
   {
