@@ -21,8 +21,7 @@ class App extends Component {
   componentDidMount() {
     this.props.fetchCategories().then(() => {
       if (this.props.router.location.pathname === "/") {
-        this.props.changeCategory(this.props.categories[0]);
-        this.props.router.navigate(`/${this.props.categories[0]}`);
+        this.props.router.navigate(`/${this.props.category}`);
       } else if (
         this.props.router.location.pathname !== "/cart" &&
         !this.props.categories.includes(this.props.router.params.category)
@@ -72,15 +71,12 @@ const mapStateToProps = (state) => ({
   minicart: state.minicart.isOpen,
   categories: state.category.categories,
   category: state.category.category,
-  // cart: state.cart.items,
-  // totalPrice: state.cart.totalPrice,
   count: state.cartCounter.count,
 });
 
 const mapDispatchToProps = {
   fetchCategories,
   changeCategory,
-  // setCategories,
   setInitialCartItems,
   setInitialCount,
 };

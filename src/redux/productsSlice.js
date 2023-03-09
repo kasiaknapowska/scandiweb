@@ -9,7 +9,6 @@ const initialState = {
 
 export const fetchProducts = createAsyncThunk("products/fetchProducts", async (title) => {
   const response = await query(GET_PRODUCTS_BY_CATEGORY_QUERY, {title: title})
-//   console.log(response.category.products)
   return response.category.products
 });
 
