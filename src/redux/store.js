@@ -4,6 +4,7 @@ import categorySlice from "./categorySlice";
 import currencySlice from "./currencySlice";
 import cartSlice from "./cartSlice";
 import minicartSlice from "./minicartSlice";
+import productsSlice from "./productsSlice";
 
 
 export const store = configureStore({
@@ -13,6 +14,7 @@ export const store = configureStore({
     currency: currencySlice,
     cart: cartSlice,
     minicart: minicartSlice,
+    products: productsSlice,
   },
   // middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });

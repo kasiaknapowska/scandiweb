@@ -1,63 +1,31 @@
 import "./_CategoryPage.scss";
 
-import React, { PureComponent  } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 
 import withRouter from "../../utils/router";
 
-import {
-  GET_PRODUCTS_BY_CATEGORY_QUERY,
-  makeQuery,
-} from "../../utils/queries";
+import { fetchProducts } from "../../redux/productsSlice";
 
 import ProductCard from "../../components/ProductCard";
 
-class CategoryPage extends PureComponent  {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: undefined,
-      products: null,
-    };
-  }
-
-  componentDidMount() {
-    if (
-      this.props.router.params.category &&
-      this.props.categories.includes(this.props.router.params.category)
-    ) {
-      this.getProductsByCategory(this.props.router.params.category);
-    }
-  }
-
+class CategoryPage extends PureComponent {
   componentDidUpdate(prevProps) {
     if (prevProps.category !== this.props.category) {
-      this.getProductsByCategory(this.props.category);
+      this.props.fetchProducts(
+        this.props.router.params.category || this.props.category
+      );
     }
   }
-
-  getProductsByCategory(category) {
-    makeQuery(
-      GET_PRODUCTS_BY_CATEGORY_QUERY,
-      (res) => {
-        this.setState({
-          loading: res.loading,
-          products: res.data.category.products.map((product) => product),
-        });
-      },
-      { title: category }
-    );
-  }
-
 
   render() {
     return (
       <main className="container category_page page_container">
         <h1>{this.props.category}</h1>
         <div className="products">
-          {this.state.loading && <p>Loading...</p>}
-          {this.state.products &&
-            this.state.products.map((product) => (
+          {/* {this.state.loading && <p>Loading...</p>} */}
+          {this.props.products &&
+            this.props.products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
         </div>
@@ -67,9 +35,15 @@ class CategoryPage extends PureComponent  {
 }
 
 const mapStateToProps = (state) => ({
+  products: state.products.products,
   category: state.category.category,
   categories: state.category.categories,
   currency: state.currency.currency,
 });
+const mapDispatchToProps = {
+  fetchProducts,
+};
 
-export default withRouter(connect(mapStateToProps)(CategoryPage));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(CategoryPage)
+);

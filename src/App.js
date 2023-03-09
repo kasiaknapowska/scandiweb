@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 
 import {
   changeCategory,
-  setCategories,
+  // setCategories,
   fetchCategories,
 } from "./redux/categorySlice";
 import { setInitialCartItems } from "./redux/cartSlice";
@@ -32,7 +32,8 @@ class App extends Component {
     });
 
     localStorage.getItem("cart") &&
-      this.props.setInitialCartItems(JSON.parse(localStorage.getItem("cart")));
+      // this.props.setInitialCartItems(JSON.parse(localStorage.getItem("cart")));
+      this.props.setInitialCartItems(+localStorage.getItem("cart"));
     localStorage.getItem("count") &&
       this.props.setInitialCount(+localStorage.getItem("count"));
   }
@@ -71,15 +72,15 @@ const mapStateToProps = (state) => ({
   minicart: state.minicart.isOpen,
   categories: state.category.categories,
   category: state.category.category,
-  cart: state.cart.items,
-  totalPrice: state.cart.totalPrice,
+  // cart: state.cart.items,
+  // totalPrice: state.cart.totalPrice,
   count: state.cartCounter.count,
 });
 
 const mapDispatchToProps = {
   fetchCategories,
   changeCategory,
-  setCategories,
+  // setCategories,
   setInitialCartItems,
   setInitialCount,
 };

@@ -9,7 +9,6 @@ export const cartSlice = createSlice({
   },
   reducers: {
     addToCart: (state, action) => {
-
       const isItemInCart = state.items.find(
         (prod) =>
           prod.id === action.payload.id &&
@@ -53,32 +52,35 @@ export const cartSlice = createSlice({
       cartSlice.caseReducers.setTotalPrice(state);
     },
     setTotalPrice: (state) => {
-    if (state.items.length === 0) return
-    const pricesMultipliedByQuantity = state.items.map((item) => {
-      return item.prices.map((price) => ({
-        currency: { symbol: price.currency.symbol },
-        amount: price.amount * item.quantity,
-      }));
-    });
+      if (!state.items) return
+      if (state.items.length > 0) {
+        const pricesMultipliedByQuantity = state.items.map((item) => {
+          return item.prices.map((price) => ({
+            currency: { symbol: price.currency.symbol },
+            amount: price.amount * item.quantity,
+          }));
+        });
 
-    const currencySymbols = pricesMultipliedByQuantity[0].map(
-      (el) => el.currency.symbol
-    );
-    const filtered = currencySymbols.map((symbol) =>
-      pricesMultipliedByQuantity
-        .flat()
-        .filter((el) => el.currency.symbol === symbol)
-    );
+        const currencySymbols = pricesMultipliedByQuantity[0].map(
+          (el) => el.currency.symbol
+        );
+        const filtered = currencySymbols.map((symbol) =>
+          pricesMultipliedByQuantity
+            .flat()
+            .filter((el) => el.currency.symbol === symbol)
+        );
 
-    state.totalPrice = filtered.map((el) =>
-      el.reduce((total, item) => ({
-        currency: el[0].currency,
-        amount: total.amount + item.amount,
-      }))
-    );
+        state.totalPrice = filtered.map((el) =>
+          el.reduce((total, item) => ({
+            currency: el[0].currency,
+            amount: total.amount + item.amount,
+          }))
+        );
+      }
     },
   },
 });
 
-export const { addToCart, substractFromCart, setInitialCartItems } = cartSlice.actions;
+export const { addToCart, substractFromCart, setInitialCartItems } =
+  cartSlice.actions;
 export default cartSlice.reducer;
