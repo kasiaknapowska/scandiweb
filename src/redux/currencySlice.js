@@ -11,8 +11,7 @@ export const fetchCurrencies = createAsyncThunk(
   "currency/fetchCurrencies",
   async () => {
     const response = await query(GET_CURRENCIES_QUERY);
-    console.log(response.currencies);
-    return response.currencies;
+    return response;
   }
 );
 
@@ -30,10 +29,10 @@ export const currencySlice = createSlice({
     });
     builder.addCase(fetchCurrencies.fulfilled, (state, action) => {
       state.loading = false;
-      state.currencies = action.payload.map((currency) => {
+      state.currencies = action.payload.currencies.map((currency) => {
         return { label: currency.label, symbol: currency.symbol };
       });
-      state.currency = action.payload[0].symbol;
+      state.currency = action.payload.currencies[0].symbol;
       state.error = "";
     });
     builder.addCase(fetchCurrencies.rejected, (state, action) => {

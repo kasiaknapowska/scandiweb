@@ -5,14 +5,21 @@ import { connect } from "react-redux";
 
 import withRouter from "../../utils/router";
 
-import { fetchProducts } from "../../redux/productsSlice";
+import { fetchProductsByCategory } from "../../redux/productsSlice";
 
 import ProductCard from "../../components/ProductCard";
 
 class CategoryPage extends PureComponent {
+
+  componentDidMount() {
+    this.props.fetchProductsByCategory(
+      this.props.router.params.category || this.props.category
+    );
+  }
+
   componentDidUpdate(prevProps) {
     if (prevProps.category !== this.props.category) {
-      this.props.fetchProducts(
+      this.props.fetchProductsByCategory(
         this.props.router.params.category || this.props.category
       );
     }
@@ -41,7 +48,7 @@ const mapStateToProps = (state) => ({
   currency: state.currency.currency,
 });
 const mapDispatchToProps = {
-  fetchProducts,
+  fetchProductsByCategory,
 };
 
 export default withRouter(

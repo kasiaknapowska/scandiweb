@@ -12,7 +12,7 @@ export const fetchCategories = createAsyncThunk(
   "category/fetchCategories",
   async () => {
     const response = await query(GET_CATEGORIES_QUERY);
-    return response.categories;
+    return response;
   }
 );
 
@@ -30,8 +30,8 @@ export const categorySlice = createSlice({
     });
     builder.addCase(fetchCategories.fulfilled, (state, action) => {
       state.loading = false;
-      state.categories = action.payload.map((category) => category.name);
-      state.category = action.payload[0].name;
+      state.categories = action.payload.categories.map((category) => category.name);
+      state.category = action.payload.categories[0].name;
       state.error = "";
     });
     builder.addCase(fetchCategories.rejected, (state, action) => {

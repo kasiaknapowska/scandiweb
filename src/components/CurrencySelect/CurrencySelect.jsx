@@ -6,8 +6,6 @@ import classNames from "classnames";
 
 import { changeCurrency, fetchCurrencies } from "../../redux/currencySlice";
 
-import { GET_CURRENCIES_QUERY, makeQuery } from "../../utils/queries";
-
 class CurrencySelect extends PureComponent {
   constructor(props) {
     super(props);
