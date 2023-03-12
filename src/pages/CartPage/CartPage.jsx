@@ -44,11 +44,6 @@ class CartPage extends PureComponent  {
                   <td>
                     {this.props.currency}
                     &nbsp;
-                    {/* {this.props.totalPrice
-                      .filter(
-                        (price) => price.currency.symbol === this.props.currency
-                      )[0]
-                      .amount.toFixed(2)} */}
                       {totalPrice}
                   </td>
                 </tr>

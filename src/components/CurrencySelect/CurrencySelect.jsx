@@ -4,16 +4,12 @@ import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import classNames from "classnames";
 
-import { changeCurrency } from "../../redux/currencySlice";
-
-import { GET_CURRENCIES_QUERY, makeQuery } from "../../utils/queries";
-
+import { changeCurrency, fetchCurrencies } from "../../redux/currencySlice";
 
 class CurrencySelect extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      currencies: [],
       isOpen: false,
     };
     this.wrapperRef = React.createRef();
@@ -21,14 +17,7 @@ class CurrencySelect extends PureComponent {
   }
 
   componentDidMount() {
-    makeQuery(GET_CURRENCIES_QUERY, (res) => {
-      this.setState({
-        currencies: res.data.currencies.map((currency) => ({
-          label: currency.label,
-          symbol: currency.symbol,
-        })),
-      });
-    });
+    this.props.fetchCurrencies();
     document.addEventListener("mousedown", this.handleClickOutside);
   }
 
@@ -71,7 +60,7 @@ class CurrencySelect extends PureComponent {
         </div>
         {this.state.isOpen && (
           <ul className="currency_select_list">
-            {this.state.currencies.map((currency) => (
+            {this.props.currencies.map((currency) => (
               <li
                 className={classNames("currency_select_item", {
                   is_active: currency.symbol === this.props.currency,
@@ -91,8 +80,9 @@ class CurrencySelect extends PureComponent {
 
 const mapStateToProps = (state) => ({
   currency: state.currency.currency,
+  currencies: state.currency.currencies,
 });
 
-const mapDispatchToProps = { changeCurrency };
+const mapDispatchToProps = { changeCurrency, fetchCurrencies };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrencySelect);
