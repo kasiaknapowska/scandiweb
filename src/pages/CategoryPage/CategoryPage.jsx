@@ -15,6 +15,7 @@ class CategoryPage extends PureComponent {
     this.props.fetchProductsByCategory(
       this.props.router.params.category || this.props.category
     );
+    console.log(this.props.products)
   }
 
   componentDidUpdate(prevProps) {

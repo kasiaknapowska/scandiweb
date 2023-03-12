@@ -52,7 +52,7 @@ export const cartSlice = createSlice({
       cartSlice.caseReducers.setTotalPrice(state);
     },
     setTotalPrice: (state) => {
-      if (!state.items) return
+      if (state.items.length === 0) return
       if (state.items.length > 0) {
         const pricesMultipliedByQuantity = state.items.map((item) => {
           return item.prices.map((price) => ({

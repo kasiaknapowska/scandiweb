@@ -16,8 +16,6 @@ class ProductPage extends PureComponent  {
   constructor(props) {
     super(props);
     this.state = {
-      // loading: undefined,
-      // product: null,
       currentImageIndex: 0,
     };
   }
@@ -26,7 +24,6 @@ class ProductPage extends PureComponent  {
     this.props.fetchAllProductsId().then(() => {
       if(this.props.allProductsId.includes(this.props.router.params.productId)) {
         this.props.fetchProductDetails(this.props.router.params.productId)
-        console.log(this.props.allProductsId)
       } else {
         this.props.router.navigate("/not-found");
       }

@@ -8,17 +8,6 @@ export const client = new ApolloClient({
 
 //query function
 
-export const makeQuery = (query, successcallback, variables) => {
-  try {
-    client.query({ query: query, variables: variables }).then((res) => {
-      if (res.errors) console.error(res.errors.map((error) => error.message));
-      successcallback(res);
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 export const query = async (query, variables) => {
  try {
   const response = await client.query({ query: query, variables: variables })

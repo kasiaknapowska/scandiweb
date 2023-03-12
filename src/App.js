@@ -29,10 +29,10 @@ class App extends Component {
         this.props.router.navigate("/not-found");
       }
     });
-
     localStorage.getItem("cart") &&
-      // this.props.setInitialCartItems(JSON.parse(localStorage.getItem("cart")));
-      this.props.setInitialCartItems(+localStorage.getItem("cart"));
+      this.props.setInitialCartItems(JSON.parse(localStorage.getItem("cart")));
+      // this.props.setInitialCartItems(+localStorage.getItem("cart"));
+
     localStorage.getItem("count") &&
       this.props.setInitialCount(+localStorage.getItem("count"));
   }
@@ -57,6 +57,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props.cart)
     return (
       <div className="App">
         <Header />
@@ -72,6 +73,7 @@ const mapStateToProps = (state) => ({
   categories: state.category.categories,
   category: state.category.category,
   count: state.cartCounter.count,
+  cart: state.cart.items,
 });
 
 const mapDispatchToProps = {
