@@ -7,11 +7,10 @@ import { changeCategory, fetchCategories } from "./redux/categorySlice";
 import { setInitialCartItems } from "./redux/cartSlice";
 import { setInitialCount } from "./redux/counterSlice";
 
-import { client, TEST_QUERY } from "./utils/queries";
+import { client } from "./utils/queries";
 import withRouter from "./utils/router";
 
 import Header from "./components/Header/Header";
-import Minicart from "./components/Minicart";
 
 class App extends Component {
   componentDidMount() {
@@ -57,14 +56,12 @@ class App extends Component {
       <div className="App">
         <Header />
         <Outlet />
-        {this.props.minicart && <Minicart />}
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  minicart: state.minicart.isOpen,
   categories: state.category.categories,
   category: state.category.category,
   count: state.cartCounter.count,

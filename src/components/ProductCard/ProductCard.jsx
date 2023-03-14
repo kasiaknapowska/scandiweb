@@ -7,15 +7,12 @@ import classNames from "classnames";
 import { addToCart } from "../../redux/cartSlice";
 import { addCount } from "../../redux/counterSlice";
 
-
 import withRouter from "../../utils/router";
-import { getPrice } from "../../utils/functions"
+import { getPrice } from "../../utils/functions";
 import cart from "../../assets/white-cart.svg";
 
 class ProductCard extends PureComponent {
-
   addItemToCart(e, { id, name, brand, gallery, prices, attributes }) {
-
     e.stopPropagation();
     const item = {
       id,
@@ -27,7 +24,6 @@ class ProductCard extends PureComponent {
       attributesChosen: {},
     };
     if (attributes.length > 0) {
-      // console.log(attributes[0].items);
       attributes.forEach((attribute) => {
         item.attributesChosen = {
           ...item.attributesChosen,
@@ -36,20 +32,16 @@ class ProductCard extends PureComponent {
         };
       });
     }
-    // console.log(item);
     this.props.addToCart(item);
     this.props.addCount();
     this.props.router.navigate(`${this.props.router.location.pathname}`);
   }
 
-
   render() {
-    
     const image = this.props.product.gallery[0];
-    const price = getPrice(this.props.product.prices, this.props.currency)
+    const price = getPrice(this.props.product.prices, this.props.currency);
     const inStock = this.props.product.inStock;
 
- 
     return (
       <div
         className={classNames("product_card", { out_of_stock: !inStock })}
