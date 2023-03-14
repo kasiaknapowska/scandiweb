@@ -29,6 +29,12 @@ class ProductPage extends PureComponent  {
       }
     });
   }
+  // componentDidUpdate() {
+ 
+  //       this.props.fetchProductDetails(this.props.router.params.productId)
+    
+   
+  // }
 
   render() {
     return (

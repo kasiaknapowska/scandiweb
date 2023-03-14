@@ -9,12 +9,13 @@ export const client = new ApolloClient({
 //query function
 
 export const query = async (query, variables) => {
- try {
-  const response = await client.query({ query: query, variables: variables })
- return response.data
- } catch (error) {
-  console.error(error);
-}
+  try {
+    const response = await client.query({ query: query, variables: variables });
+    // console.log(response.data)
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 //queries
@@ -65,16 +66,6 @@ export const GET_PRODUCTS_BY_CATEGORY_QUERY = gql`
   }
 `;
 
-export const GET_PRODUCTS_QUERY = gql`
-  query {
-    categories {
-      products {
-        id
-      }
-    }
-  }
-`;
-
 export const GET_PRODUCTS_ID_QUERY = gql`
   query {
     categories {
@@ -84,6 +75,8 @@ export const GET_PRODUCTS_ID_QUERY = gql`
     }
   }
 `;
+
+
 
 export const GET_PRODUCT_DETAILS_QUERY = gql`
   query GetProductDetails($id: String!) {
@@ -114,4 +107,23 @@ export const GET_PRODUCT_DETAILS_QUERY = gql`
       category
     }
   }
+`;
+
+export const TEST_QUERY = gql`
+query {
+  category {
+    products {
+      id
+      attributes {
+        id
+        items {
+          id
+          displayValue
+          value
+        }
+      }
+
+    }
+  }
+}
 `;

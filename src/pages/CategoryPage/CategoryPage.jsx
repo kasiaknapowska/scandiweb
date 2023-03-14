@@ -15,16 +15,18 @@ class CategoryPage extends PureComponent {
     this.props.fetchProductsByCategory(
       this.props.router.params.category || this.props.category
     );
-    console.log(this.props.products)
+    // console.log(this.props.products)
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.category !== this.props.category) {
+    // if (prevProps.category !== this.props.category) {
       this.props.fetchProductsByCategory(
         this.props.router.params.category || this.props.category
       );
-    }
+    // }
   }
+
+
 
   render() {
     return (
@@ -34,7 +36,7 @@ class CategoryPage extends PureComponent {
           {/* {this.state.loading && <p>Loading...</p>} */}
           {this.props.products &&
             this.props.products.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} productInfo={product} />
             ))}
         </div>
       </main>

@@ -13,6 +13,9 @@ import cart from "../../assets/white-cart.svg";
 
 class ProductCard extends PureComponent {
   addItemToCart(e, { id, name, brand, gallery, prices, attributes }) {
+
+console.log(id)
+
     e.stopPropagation();
     const item = {
       id,
@@ -24,7 +27,7 @@ class ProductCard extends PureComponent {
       attributesChosen: {},
     };
     if (attributes.length > 0) {
-      console.log(attributes);
+      console.log(attributes[0].items);
       attributes.forEach((attribute) => {
         item.attributesChosen = {
           ...item.attributesChosen,
@@ -40,16 +43,18 @@ class ProductCard extends PureComponent {
   }
 
   render() {
-    const image = this.props.product.gallery[0];
-    const price = getPrice(this.props.product.prices, this.props.currency)
-    const inStock = this.props.product.inStock;
+    
+    const image = this.props.productInfo.gallery[0];
+    const price = getPrice(this.props.productInfo.prices, this.props.currency)
+    const inStock = this.props.productInfo.inStock;
 
+ 
     return (
       <div
         className={classNames("product_card", { out_of_stock: !inStock })}
         onClick={() =>
           this.props.router.navigate(
-            `${this.props.router.location.pathname}/${this.props.product.id}`
+            `${this.props.router.location.pathname}/${this.props.productInfo.id}`
           )
         }
       >
@@ -58,15 +63,15 @@ class ProductCard extends PureComponent {
           {inStock && (
             <div
               className="circle"
-              onClick={(e) => this.addItemToCart(e, this.props.product)}
+              onClick={(e) => this.addItemToCart(e, this.props.productInfo)}
             >
               <img src={cart} className="add_to_cart_icon" alt="add to cart" />
             </div>
           )}
-          <img src={image} alt={this.props.product.name} />
+          <img src={image} alt={this.props.productInfo.name} />
         </div>
         <h2 className="product_name">
-          {this.props.product.name} {this.props.product.brand}
+          {this.props.productInfo.name} {this.props.productInfo.brand}
         </h2>
         <p className="product_price">
           {this.props.currency} <span style={{ width: "2px" }}></span>
