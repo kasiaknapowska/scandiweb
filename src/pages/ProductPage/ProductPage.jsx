@@ -1,18 +1,17 @@
 import "./_ProductPage.scss";
 
-import React, { PureComponent  } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import classNames from "classnames";
 
 import withRouter from "../../utils/router";
 
-import { fetchProductDetails } from "../../redux/productSlice";
+import { fetchProductDetails, resetProduct } from "../../redux/productSlice";
 import { fetchAllProductsId } from "../../redux/productsSlice";
 
 import ProductDetails from "../../components/ProductDetails";
 
-
-class ProductPage extends PureComponent  {
+class ProductPage extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,20 +21,18 @@ class ProductPage extends PureComponent  {
 
   componentDidMount() {
     this.props.fetchAllProductsId().then(() => {
-      if(this.props.allProductsId.includes(this.props.router.params.productId)) {
-        this.props.fetchProductDetails(this.props.router.params.productId)
+      if (
+        this.props.allProductsId.includes(this.props.router.params.productId)
+      ) {
+        this.props.fetchProductDetails(this.props.router.params.productId);
       } else {
         this.props.router.navigate("/not-found");
       }
     });
   }
-  // componentDidUpdate() {
- 
-  //       this.props.fetchProductDetails(this.props.router.params.productId)
-    
-   
-  // }
-
+  componentWillUnmount() {
+    this.props.resetProduct();
+  }
   render() {
     return (
       <main className="container product_page page_container">
@@ -84,6 +81,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   fetchProductDetails,
   fetchAllProductsId,
+  resetProduct,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProductPage));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(ProductPage)
+);

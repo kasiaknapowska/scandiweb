@@ -7,6 +7,7 @@ import classNames from "classnames";
 import { addToCart } from "../../redux/cartSlice";
 import { addCount } from "../../redux/counterSlice";
 
+
 import withRouter from "../../utils/router";
 import { getPrice } from "../../utils/functions"
 import cart from "../../assets/white-cart.svg";
@@ -41,6 +42,7 @@ console.log(id)
     this.props.addCount();
     this.props.router.navigate(`${this.props.router.location.pathname}`);
   }
+
 
   render() {
     
