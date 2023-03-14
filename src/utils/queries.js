@@ -10,7 +10,7 @@ export const client = new ApolloClient({
 
 export const query = async (query, variables) => {
   try {
-    const response = await client.query({ query: query, variables: variables });
+    const response = await client.query({ query: query, variables: variables, fetchPolicy: "no-cache", });
     // console.log(response.data)
     return response.data;
   } catch (error) {
