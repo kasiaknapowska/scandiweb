@@ -37,7 +37,6 @@ class Minicart extends PureComponent {
   }
 
   render() {
-    const totalPrice = getPrice(this.props.totalPrice, this.props.currency);
     return (
       <div className="minicart_bg">
         <div className="minicart" ref={this.wrapperRef}>
@@ -56,7 +55,7 @@ class Minicart extends PureComponent {
                   <span>Total</span>
                   <h1>
                     {this.props.currency} <span style={{ width: "2px" }}></span>{" "}
-                    {totalPrice}
+                    {getPrice(this.props.totalPrice, this.props.currency)}
                   </h1>
                 </div>
                 <div className="buttons_container">

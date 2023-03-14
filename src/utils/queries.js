@@ -7,11 +7,9 @@ export const client = new ApolloClient({
 });
 
 //query function
-
 export const query = async (query, variables) => {
   try {
     const response = await client.query({ query: query, variables: variables, fetchPolicy: "no-cache", });
-    // console.log(response.data)
     return response.data;
   } catch (error) {
     console.error(error);
@@ -107,23 +105,4 @@ export const GET_PRODUCT_DETAILS_QUERY = gql`
       category
     }
   }
-`;
-
-export const TEST_QUERY = gql`
-query {
-  category {
-    products {
-      id
-      attributes {
-        id
-        items {
-          id
-          displayValue
-          value
-        }
-      }
-
-    }
-  }
-}
 `;

@@ -13,9 +13,8 @@ import { getPrice } from "../../utils/functions"
 import cart from "../../assets/white-cart.svg";
 
 class ProductCard extends PureComponent {
-  addItemToCart(e, { id, name, brand, gallery, prices, attributes }) {
 
-console.log(id)
+  addItemToCart(e, { id, name, brand, gallery, prices, attributes }) {
 
     e.stopPropagation();
     const item = {
@@ -28,7 +27,7 @@ console.log(id)
       attributesChosen: {},
     };
     if (attributes.length > 0) {
-      console.log(attributes[0].items);
+      // console.log(attributes[0].items);
       attributes.forEach((attribute) => {
         item.attributesChosen = {
           ...item.attributesChosen,
@@ -37,7 +36,7 @@ console.log(id)
         };
       });
     }
-    console.log(item);
+    // console.log(item);
     this.props.addToCart(item);
     this.props.addCount();
     this.props.router.navigate(`${this.props.router.location.pathname}`);
@@ -46,9 +45,9 @@ console.log(id)
 
   render() {
     
-    const image = this.props.productInfo.gallery[0];
-    const price = getPrice(this.props.productInfo.prices, this.props.currency)
-    const inStock = this.props.productInfo.inStock;
+    const image = this.props.product.gallery[0];
+    const price = getPrice(this.props.product.prices, this.props.currency)
+    const inStock = this.props.product.inStock;
 
  
     return (
@@ -56,7 +55,7 @@ console.log(id)
         className={classNames("product_card", { out_of_stock: !inStock })}
         onClick={() =>
           this.props.router.navigate(
-            `${this.props.router.location.pathname}/${this.props.productInfo.id}`
+            `${this.props.router.location.pathname}/${this.props.product.id}`
           )
         }
       >
@@ -65,15 +64,15 @@ console.log(id)
           {inStock && (
             <div
               className="circle"
-              onClick={(e) => this.addItemToCart(e, this.props.productInfo)}
+              onClick={(e) => this.addItemToCart(e, this.props.product)}
             >
               <img src={cart} className="add_to_cart_icon" alt="add to cart" />
             </div>
           )}
-          <img src={image} alt={this.props.productInfo.name} />
+          <img src={image} alt={this.props.product.name} />
         </div>
         <h2 className="product_name">
-          {this.props.productInfo.name} {this.props.productInfo.brand}
+          {this.props.product.name} {this.props.product.brand}
         </h2>
         <p className="product_price">
           {this.props.currency} <span style={{ width: "2px" }}></span>

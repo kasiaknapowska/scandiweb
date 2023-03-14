@@ -20,7 +20,6 @@ export const fetchProductsByCategory = createAsyncThunk(
     const response = await query(GET_PRODUCTS_BY_CATEGORY_QUERY, {
       title: title,
     });
-    // console.log(response.category.products)
     return response;
   }
 );
@@ -37,7 +36,6 @@ export const productsSlice = createSlice({
   name: "products",
   initialState,
   extraReducers: (builder) => {
-
     //fetch products by category
     builder.addCase(fetchProductsByCategory.pending, (state) => {
       state.loading = true;
@@ -53,8 +51,7 @@ export const productsSlice = createSlice({
       state.error = action.error.message;
     });
 
-
-//fetch all products id
+    //fetch all products id
     builder.addCase(fetchAllProductsId.pending, (state) => {
       state.idLoading = true;
     });

@@ -15,9 +15,6 @@ import Minicart from "./components/Minicart";
 
 class App extends Component {
   componentDidMount() {
-    // client.query({ query: TEST_QUERY }).then((res) => {
-    //   console.log(res.data)
-    // });
 
     this.props.fetchCategories().then(() => {
       if (this.props.router.location.pathname === "/") {
@@ -31,7 +28,6 @@ class App extends Component {
     });
     localStorage.getItem("cart") &&
       this.props.setInitialCartItems(JSON.parse(localStorage.getItem("cart")));
-    // this.props.setInitialCartItems(+localStorage.getItem("cart"));
 
     localStorage.getItem("count") &&
       this.props.setInitialCount(+localStorage.getItem("count"));

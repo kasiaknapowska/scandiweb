@@ -11,7 +11,6 @@ export const fetchProductDetails = createAsyncThunk(
   "product/fetchProductDetails",
   async (id) => {
     const response = await query(GET_PRODUCT_DETAILS_QUERY, { id: id });
-    console.log(response.product);
     return response;
   }
 );
