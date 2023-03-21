@@ -5,6 +5,10 @@ import {
   add,
   substract,
   filterItemsArray,
+  createCartPricesMultipliedByQuantityArr,
+  getCurrencySymbols,
+  filterCartPricesArrBySymbols,
+  setPrices,
 } from "../utils/functions";
 
 export const cartSlice = createSlice({
@@ -59,36 +63,17 @@ export const cartSlice = createSlice({
     setTotalPrice: (state) => {
       if (state.items.length === 0) return;
       if (state.items.length) {
-        const pricesMultipliedByQuantity = state.items.map((item) => {
-          return item.prices.map((price) => ({
-            currency: { symbol: price.currency.symbol },
-            amount: price.amount * item.quantity,
-          }));
-        });
-// state.totalPrice = pricesMultipliedByQuantity[0]
-        const currencySymbols = pricesMultipliedByQuantity[0].map(
-          (el) => el.currency.symbol
+        const pricesMultipliedByQuantity =
+          createCartPricesMultipliedByQuantityArr(state.items);
+        const currencySymbols = getCurrencySymbols(
+          pricesMultipliedByQuantity[0]
         );
-        const filtered = currencySymbols.map((symbol) =>
-          pricesMultipliedByQuantity
-            .flat()
-            .filter((el) => el.currency.symbol === symbol)
+        const filtered = filterCartPricesArrBySymbols(
+          pricesMultipliedByQuantity,
+          currencySymbols
         );
-
-        state.totalPrice = filtered.map((el) =>
-          el.reduce((total, item) => ({
-            currency: el[0].currency,
-            amount: total.amount + item.amount,
-          }))
-        );
-
-      console.log(state.items)
-      console.log(pricesMultipliedByQuantity)
-      console.log(currencySymbols)
-      console.log(filtered)
-      console.log(state.totalPrice)
+        state.totalPrice = setPrices(filtered);
       }
-      
     },
   },
 });
