@@ -47,7 +47,7 @@ class Minicart extends PureComponent {
       <>
         <div
           style={{ display: !this.state.isOpen && "none" }}
-          className={this.state.isOpen && "minicart_bg"}
+          className={this.state.isOpen ? "minicart_bg" : undefined}
         ></div>
 
         <div ref={this.wrapperRef}>
@@ -55,7 +55,7 @@ class Minicart extends PureComponent {
             className="cart"
             onClick={() => this.setState({ isOpen: !this.state.isOpen })}
           >
-            <img src={cart} className="cart_icon" />
+            <img src={cart} className="cart_icon" alt="add to cart"/>
             {this.props.count > 0 && (
               <div className="cart_count">{this.props.count}</div>
             )}

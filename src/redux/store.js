@@ -16,5 +16,5 @@ export const store = configureStore({
     products: productsSlice,
     product: productSlice,
   },
-  // middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });

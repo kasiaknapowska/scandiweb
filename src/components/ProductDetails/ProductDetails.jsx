@@ -1,6 +1,6 @@
 import "./_ProductDetails.scss";
 
-import React, { PureComponent  } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import parse from "html-react-parser";
 
@@ -8,9 +8,9 @@ import { addCount } from "../../redux/counterSlice";
 import { addToCart } from "../../redux/cartSlice";
 
 import Attributes from "../Attributes";
-import { getPrice } from "../../utils/functions"
+import { getPrice, createcartItem } from "../../utils/functions";
 
-class ProductDetails extends PureComponent  {
+class ProductDetails extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,29 +29,36 @@ class ProductDetails extends PureComponent  {
     }));
   }
 
+  checkAttributesChosen(attributes, attributesChosen) {
+    const areAttributesChosen = attributes.every((attribute) =>
+      Object.keys(attributesChosen).includes(
+        attribute.id.toLowerCase().replaceAll(" ", "-")
+      )
+    );
+    return areAttributesChosen;
+  }
+
   addItemToCart(
     { id, name, brand, gallery, prices, attributes },
     attributesChosen
   ) {
-    const areAttributesChosen = this.props.product.attributes.every(
-      (attribute) =>
-        Object.keys(attributesChosen).includes(
-          attribute.id.toLowerCase().replaceAll(" ", "-")
-        )
+    const areAttributesChosen = this.checkAttributesChosen(
+      this.props.product.attributes,
+      attributesChosen
     );
 
-    const item = {
-      id,
-      name,
-      brand,
-      gallery,
-      prices,
-      attributes,
-      attributesChosen,
-    };
     if (areAttributesChosen) {
+      const item = createcartItem(
+        id,
+        name,
+        brand,
+        gallery,
+        prices,
+        attributes,
+        attributesChosen
+      );
       this.setState({ error: null });
-     console.log(item)
+      console.log(item);
       this.props.addCount();
       this.props.addToCart(item);
     } else {
@@ -60,15 +67,15 @@ class ProductDetails extends PureComponent  {
   }
 
   render() {
-    const price = getPrice(this.props.product.prices, this.props.currency)
+    const price = getPrice(this.props.product.prices, this.props.currency);
     return (
       <div className="product_details">
-          {!this.props.product.inStock && <p>Out of stock</p>}
+        {!this.props.product.inStock && <p>Out of stock</p>}
         <div>
           <h1>{this.props.product.name}</h1>
           <h2>{this.props.product.brand}</h2>
         </div>
-        {this.props.product.attributes.length > 0 &&
+        {this.props.product.attributes.length &&
           this.props.product.attributes.map((attribute, index) => {
             return (
               <div key={attribute.id + index}>
@@ -89,23 +96,29 @@ class ProductDetails extends PureComponent  {
             {price}
           </p>
         </div>
-        {this.props.product.inStock && <div className="button_container">
-          <button
-            className="btn_primary"
-            onClick={() =>
-              this.addItemToCart(
-                this.props.product,
-                this.state.attributesChosen
-              )
-            }
-          >
-            Add to cart
-          </button>
-          {this.state.error && (
-            <span className="error">{this.state.error}</span>
-          )}
-        </div>}
-        {this.props.product.description.includes("<") ? parse(this.props.product.description) : <p>{this.props.product.description}</p>}
+        {this.props.product.inStock && (
+          <div className="button_container">
+            <button
+              className="btn_primary"
+              onClick={() =>
+                this.addItemToCart(
+                  this.props.product,
+                  this.state.attributesChosen
+                )
+              }
+            >
+              Add to cart
+            </button>
+            {this.state.error && (
+              <span className="error">{this.state.error}</span>
+            )}
+          </div>
+        )}
+        {this.props.product.description.includes("<") ? (
+          parse(this.props.product.description)
+        ) : (
+          <p>{this.props.product.description}</p>
+        )}
       </div>
     );
   }

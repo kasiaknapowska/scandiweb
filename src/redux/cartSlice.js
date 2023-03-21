@@ -1,5 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import _ from "lodash";
+import {
+  isItemInCart,
+  createItemsArray,
+  add,
+  substract,
+  filterItemsArray,
+} from "../utils/functions";
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -9,17 +15,18 @@ export const cartSlice = createSlice({
   },
   reducers: {
     addToCart: (state, action) => {
-      const isItemInCart = state.items.find(
-        (prod) =>
-          prod.id === action.payload.id &&
-          _.isEqual(prod.attributesChosen, action.payload.attributesChosen)
+      const isInCart = isItemInCart(
+        state.items,
+        action.payload.id,
+        action.payload.attributesChosen
       );
-      if (isItemInCart) {
-        state.items = state.items.map((prod) =>
-          prod.id === action.payload.id &&
-          _.isEqual(prod.attributesChosen, action.payload.attributesChosen)
-            ? { ...prod, quantity: prod.quantity + 1 }
-            : prod
+
+      if (isInCart) {
+        state.items = createItemsArray(
+          state.items,
+          action.payload.id,
+          action.payload.attributesChosen,
+          add
         );
       } else {
         state.items = [...state.items, { ...action.payload, quantity: 1 }];
@@ -29,19 +36,17 @@ export const cartSlice = createSlice({
     },
     substractFromCart: (state, action) => {
       if (action.payload.quantity > 1) {
-        state.items = state.items.map((prod) =>
-          prod.id === action.payload.id &&
-          _.isEqual(prod.attributesChosen, action.payload.attributesChosen)
-            ? { ...prod, quantity: prod.quantity - 1 }
-            : prod
+        state.items = createItemsArray(
+          state.items,
+          action.payload.id,
+          action.payload.attributesChosen,
+          substract
         );
       } else {
-        state.items = state.items.filter(
-          (item) =>
-            !_.isEqual(
-              item.attributesChosen,
-              action.payload.attributesChosen
-            ) || item.id !== action.payload.id
+        state.items = filterItemsArray(
+          state.items,
+          action.payload.id,
+          action.payload.attributesChosen
         );
       }
 
@@ -52,15 +57,15 @@ export const cartSlice = createSlice({
       cartSlice.caseReducers.setTotalPrice(state);
     },
     setTotalPrice: (state) => {
-      if (state.items.length === 0) return
-      if (state.items.length > 0) {
+      if (state.items.length === 0) return;
+      if (state.items.length) {
         const pricesMultipliedByQuantity = state.items.map((item) => {
           return item.prices.map((price) => ({
             currency: { symbol: price.currency.symbol },
             amount: price.amount * item.quantity,
           }));
         });
-
+// state.totalPrice = pricesMultipliedByQuantity[0]
         const currencySymbols = pricesMultipliedByQuantity[0].map(
           (el) => el.currency.symbol
         );
@@ -76,7 +81,14 @@ export const cartSlice = createSlice({
             amount: total.amount + item.amount,
           }))
         );
+
+      console.log(state.items)
+      console.log(pricesMultipliedByQuantity)
+      console.log(currencySymbols)
+      console.log(filtered)
+      console.log(state.totalPrice)
       }
+      
     },
   },
 });
