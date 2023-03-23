@@ -3,69 +3,11 @@ import "./_ProductDetails.scss";
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import parse from "html-react-parser";
-
-import { addCount } from "../../redux/counterSlice";
-import { addToCart } from "../../redux/cartSlice";
-
+import withBusinessLogic from "../../utils/hoc/withBusinessLogic";
+import { getPrice } from "../../utils/functions";
 import Attributes from "../Attributes";
-import { getPrice, createcartItem } from "../../utils/functions";
 
 class ProductDetails extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      attributesChosen: {},
-      error: null,
-    };
-    this.setAttributes = this.setAttributes.bind(this);
-  }
-
-  setAttributes(id, value) {
-    this.setState((prevState) => ({
-      attributesChosen: {
-        ...prevState.attributesChosen,
-        [id.toLowerCase().replaceAll(" ", "-")]: value,
-      },
-    }));
-  }
-
-  checkAttributesChosen(attributes, attributesChosen) {
-    const areAttributesChosen = attributes.every((attribute) =>
-      Object.keys(attributesChosen).includes(
-        attribute.id.toLowerCase().replaceAll(" ", "-")
-      )
-    );
-    return areAttributesChosen;
-  }
-
-  addItemToCart(
-    { id, name, brand, gallery, prices, attributes },
-    attributesChosen
-  ) {
-    const areAttributesChosen = this.checkAttributesChosen(
-      this.props.product.attributes,
-      attributesChosen
-    );
-
-    if (areAttributesChosen) {
-      const item = createcartItem(
-        id,
-        name,
-        brand,
-        gallery,
-        prices,
-        attributes,
-        attributesChosen
-      );
-      this.setState({ error: null });
-      console.log(item);
-      this.props.addCount();
-      this.props.addToCart(item);
-    } else {
-      this.setState({ error: `Choose options` });
-    }
-  }
-
   render() {
     const price = getPrice(this.props.product.prices, this.props.currency);
     return (
@@ -75,15 +17,15 @@ class ProductDetails extends PureComponent {
           <h1>{this.props.product.name}</h1>
           <h2>{this.props.product.brand}</h2>
         </div>
-        {this.props.product.attributes.length &&
+        {this.props.product.attributes.length > 0 &&
           this.props.product.attributes.map((attribute, index) => {
             return (
               <div key={attribute.id + index}>
                 <h3>{attribute.name}</h3>
                 <Attributes
                   attribute={attribute}
-                  setAttributes={this.setAttributes}
-                  attributesChosen={this.state.attributesChosen}
+                  setAttributes={this.props.setAttributes}
+                  attributesChosen={this.props.attributesChosen}
                   isClickable={true}
                 />
               </div>
@@ -101,16 +43,13 @@ class ProductDetails extends PureComponent {
             <button
               className="btn_primary"
               onClick={() =>
-                this.addItemToCart(
-                  this.props.product,
-                  this.state.attributesChosen
-                )
+                this.props.addItemWithChosenAttributes(this.props.product)
               }
             >
               Add to cart
             </button>
-            {this.state.error && (
-              <span className="error">{this.state.error}</span>
+            {this.props.attributesError && (
+              <span className="error">{this.props.attributesError}</span>
             )}
           </div>
         )}
@@ -130,9 +69,4 @@ const mapStateToProps = (state) => ({
   cart: state.cart.items,
 });
 
-const mapDispatchToProps = {
-  addCount,
-  addToCart,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);
+export default withBusinessLogic(connect(mapStateToProps)(ProductDetails));

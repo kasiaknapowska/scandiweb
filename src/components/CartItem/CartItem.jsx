@@ -3,14 +3,10 @@ import "./_CartItem.scss";
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import classNames from "classnames";
-
-import { substractFromCart, addToCart } from "../../redux/cartSlice";
-import { addCount, substractCount } from "../../redux/counterSlice";
-
+import withBusinessLogic from "../../utils/hoc/withBusinessLogic";
+import { getPrice } from "../../utils/functions";
 import Attributes from "../Attributes";
 import SliderArrow from "../SliderArrow/SliderArrow";
-
-import { getPrice } from "../../utils/functions";
 
 class CartItem extends PureComponent {
   constructor(props) {
@@ -18,15 +14,6 @@ class CartItem extends PureComponent {
     this.state = {
       currentImageIndex: 0,
     };
-  }
-
-  addItem(item) {
-    this.props.addToCart(item);
-    this.props.addCount();
-  }
-  substractItem(item) {
-    this.props.substractFromCart(item);
-    this.props.substractCount();
   }
 
   goToPrevious(gallery) {
@@ -77,11 +64,11 @@ class CartItem extends PureComponent {
           </div>
         </div>
         <div className="item_quantity">
-          <div onClick={() => this.addItem(this.props.item)}>+</div>
+          <div onClick={() => this.props.addItem(this.props.item)}>+</div>
           <span>{this.props.item.quantity}</span>
           <div
             className="substract"
-            onClick={() => this.substractItem(this.props.item)}
+            onClick={() => this.props.substractItem(this.props.item)}
           >
             -
           </div>
@@ -129,11 +116,4 @@ const mapStateToProps = (state) => ({
   currency: state.currency.currency,
 });
 
-const mapDispatchToProps = {
-  substractFromCart,
-  addToCart,
-  addCount,
-  substractCount,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CartItem);
+export default withBusinessLogic(connect(mapStateToProps)(CartItem));

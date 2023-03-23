@@ -8,59 +8,36 @@ import { getPrice } from "../../utils/functions";
 
 import CartItem from "../CartItem";
 import cart from "../../assets/grey-cart.svg";
+import withCloseOnClickOutside from "../../utils/hoc/withCloseOnClickOutside";
 
 class Minicart extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpen: false,
-    };
-    this.wrapperRef = React.createRef();
-    this.handleClickOutside = this.handleClickOutside.bind(this);
-  }
+
   viewBag() {
     this.props.router.navigate("/cart");
-    this.setState({
+    this.props.setIsOpen({
       isOpen: false,
     });
-  }
-  handleClickOutside(e) {
-    if (
-      this.state.isOpen &&
-      this.wrapperRef &&
-      !this.wrapperRef.current.contains(e.target)
-    ) {
-      this.setState({
-        isOpen: false,
-      });
-    }
-  }
-  componentDidMount() {
-    document.addEventListener("mousedown", this.handleClickOutside);
-  }
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
   render() {
     return (
       <>
         <div
-          style={{ display: !this.state.isOpen && "none" }}
-          className={this.state.isOpen ? "minicart_bg" : undefined}
+          style={{ display: !this.props.isOpen && "none" }}
+          className={this.props.isOpen ? "minicart_bg" : undefined}
         ></div>
 
-        <div ref={this.wrapperRef}>
+        <div className="minicart_select" ref={this.props.wrapperRef}>
           <div
             className="cart"
-            onClick={() => this.setState({ isOpen: !this.state.isOpen })}
+            onClick={() => this.props.setIsOpen()}
           >
             <img src={cart} className="cart_icon" alt="add to cart"/>
             {this.props.count > 0 && (
               <div className="cart_count">{this.props.count}</div>
             )}
           </div>
-          {this.state.isOpen && (
+          {this.props.isOpen && (
             <div className="minicart">
               <h1>
                 My Bag, <span>{this.props.count} items</span>
@@ -114,4 +91,4 @@ const mapStateToProps = (state) => ({
   totalPrice: state.cart.totalPrice,
 });
 
-export default withRouter(connect(mapStateToProps)(Minicart));
+export default withCloseOnClickOutside(withRouter(connect(mapStateToProps)(Minicart))) ;

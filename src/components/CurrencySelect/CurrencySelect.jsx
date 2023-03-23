@@ -5,60 +5,38 @@ import { connect } from "react-redux";
 import classNames from "classnames";
 
 import { changeCurrency, fetchCurrencies } from "../../redux/currencySlice";
+import withCloseOnClickOutside from "../../utils/hoc/withCloseOnClickOutside";
 
 class CurrencySelect extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpen: false,
-    };
-    this.wrapperRef = React.createRef();
-    this.handleClickOutside = this.handleClickOutside.bind(this);
-  }
-
+  
   componentDidMount() {
     this.props.fetchCurrencies();
-    document.addEventListener("mousedown", this.handleClickOutside);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
   onChooseCurrency(e, currency) {
     this.props.changeCurrency(currency);
-    this.setState({
+    this.props.setIsOpen({
       isOpen: false,
     });
   }
 
-  handleClickOutside(e) {
-    if (
-      this.state.isOpen &&
-      this.wrapperRef &&
-      !this.wrapperRef.current.contains(e.target)
-    ) {
-      this.setState({ isOpen: false });
-    }
-  }
-
   render() {
     return (
-      <div className="currency_select" ref={this.wrapperRef}>
+      <div className="currency_select" ref={this.props.wrapperRef}>
         <div
           className="currency_select_header"
-          onClick={() => this.setState({ isOpen: !this.state.isOpen })}
+          onClick={() => this.props.setIsOpen()}
         >
           {" "}
           {this.props.currency}{" "}
           <div
             className={classNames("arrow", {
-              arrow_down: !this.state.isOpen,
-              arrow_up: this.state.isOpen,
+              arrow_down: !this.props.isOpen,
+              arrow_up: this.props.isOpen,
             })}
           ></div>
         </div>
-        {this.state.isOpen && (
+        {this.props.isOpen && (
           <ul className="currency_select_list">
             {this.props.currencies.map((currency) => (
               <li
@@ -85,4 +63,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = { changeCurrency, fetchCurrencies };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CurrencySelect);
+export default withCloseOnClickOutside(
+  connect(mapStateToProps, mapDispatchToProps)(CurrencySelect)
+);
