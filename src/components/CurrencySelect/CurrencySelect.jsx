@@ -8,10 +8,7 @@ import { changeCurrency, fetchCurrencies } from "../../redux/currencySlice";
 import withCloseOnClickOutside from "../../utils/hoc/withCloseOnClickOutside";
 
 class CurrencySelect extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
+  
   componentDidMount() {
     this.props.fetchCurrencies();
   }
@@ -22,7 +19,6 @@ class CurrencySelect extends PureComponent {
       isOpen: false,
     });
   }
-
 
   render() {
     return (
@@ -57,7 +53,6 @@ class CurrencySelect extends PureComponent {
         )}
       </div>
     );
- 
   }
 }
 
@@ -68,4 +63,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = { changeCurrency, fetchCurrencies };
 
-export default withCloseOnClickOutside(connect(mapStateToProps, mapDispatchToProps)(CurrencySelect));
+export default withCloseOnClickOutside(
+  connect(mapStateToProps, mapDispatchToProps)(CurrencySelect)
+);

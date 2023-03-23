@@ -18,7 +18,6 @@ class Minicart extends PureComponent {
       isOpen: false,
     });
   }
- 
 
   render() {
     return (

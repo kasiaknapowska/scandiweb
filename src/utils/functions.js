@@ -6,13 +6,13 @@ export const getPrice = (pricesArray, currencyChosen) => {
     .amount.toFixed(2);
 };
 
-export const createcartItem = (
-  id,
+export const createCartItem = (
+{ id,
   name,
   brand,
   gallery,
   prices,
-  attributes,
+  attributes},
   attributesChosen = {}
 ) => {
   const item = {
