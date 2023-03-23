@@ -48,8 +48,7 @@ export default function withBusinessLogic(Component) {
       const basicItem = createCartItem(product);
       const item = this.setDefaultAttributes(product.attributes, basicItem);
 
-      this.props.addToCart(item);
-      this.props.addCount();
+      this.addItem(item)
     }
 
     //add to cart with chosen attributes
@@ -80,8 +79,7 @@ export default function withBusinessLogic(Component) {
       if (areAttributesChosen) {
         const item = createCartItem(product, this.state.attributesChosen);
         this.setState({ attributesError: null });
-        this.props.addCount();
-        this.props.addToCart(item);
+        this.addItem(item)
       } else {
         this.setState({ attributesError: `Choose options` });
       }
