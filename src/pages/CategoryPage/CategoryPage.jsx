@@ -3,7 +3,7 @@ import "./_CategoryPage.scss";
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 
-import withRouter from "../../utils/router";
+import withRouter from "../../utils/hoc/withRouter";
 
 import { fetchProductsByCategory } from "../../redux/productsSlice";
 
@@ -32,7 +32,8 @@ class CategoryPage extends PureComponent {
       <main className="container category_page page_container">
         <h1>{this.props.category}</h1>
         <div className="products">
-          {/* {this.state.loading && <p>Loading...</p>} */}
+          {this.props.loading && <p>Loading...</p>}
+          {this.props.error && <p>Error: {this.props.error}</p>}
           {this.props.products &&
             this.props.products.map((product) => (
               <ProductCard key={product.id} product={product} />
@@ -45,6 +46,8 @@ class CategoryPage extends PureComponent {
 
 const mapStateToProps = (state) => ({
   products: state.products.products,
+  loading: state.products.loading,
+  error: state.products.error,
   category: state.category.category,
   categories: state.category.categories,
   currency: state.currency.currency,

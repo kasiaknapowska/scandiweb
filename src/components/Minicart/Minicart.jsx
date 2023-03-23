@@ -3,7 +3,7 @@ import "./_Minicart.scss";
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 
-import withRouter from "../../utils/router";
+import withRouter from "../../utils/hoc/withRouter";
 import { getPrice } from "../../utils/functions";
 
 import CartItem from "../CartItem";

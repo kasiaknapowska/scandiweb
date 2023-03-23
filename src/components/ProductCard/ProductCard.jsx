@@ -7,7 +7,7 @@ import classNames from "classnames";
 import { addToCart } from "../../redux/cartSlice";
 import { addCount } from "../../redux/counterSlice";
 
-import withRouter from "../../utils/router";
+import withRouter from "../../utils/hoc/withRouter";
 import { getPrice, createcartItem } from "../../utils/functions";
 import cart from "../../assets/white-cart.svg";
 

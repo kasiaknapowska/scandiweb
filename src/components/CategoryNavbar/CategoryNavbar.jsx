@@ -13,7 +13,7 @@ class CategoryNavbar extends PureComponent {
 
     return (
       <nav className="category_navbar">
-        {this.props.categories.length &&
+        {this.props.categories.length > 0 &&
           this.props.categories.map((category, index) => (
             <NavLink
               className={classNames("nav_link", {

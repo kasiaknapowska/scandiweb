@@ -4,7 +4,7 @@ import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import classNames from "classnames";
 
-import withRouter from "../../utils/router";
+import withRouter from "../../utils/hoc/withRouter";
 
 import { fetchProductDetails, resetProduct } from "../../redux/productSlice";
 import { fetchAllProductsId } from "../../redux/productsSlice";

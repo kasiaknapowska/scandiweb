@@ -8,13 +8,12 @@ import { setInitialCartItems } from "./redux/cartSlice";
 import { setInitialCount } from "./redux/counterSlice";
 
 import { client } from "./utils/queries";
-import withRouter from "./utils/router";
+import withRouter from "./utils/hoc/withRouter";
 
 import Header from "./components/Header/Header";
 
 class App extends Component {
   componentDidMount() {
-
     this.props.fetchCategories().then(() => {
       if (this.props.router.location.pathname === "/") {
         this.props.router.navigate(`/${this.props.category}`);
