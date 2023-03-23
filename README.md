@@ -44,7 +44,9 @@ The task have not required responsiveness, however basic RWD was implemented.
 2. [SCSS](https://sass-lang.com/)
 3. [Apollo Client](https://www.apollographql.com/docs/react/)
 4. [Redux toolkit](https://redux-toolkit.js.org/introduction/getting-started)
-5. [React Router](https://reactrouter.com/en/main)
+5. [createAsyncThunk Redux Toolkit](https://redux-toolkit.js.org/api/createAsyncThunk)
+6. [React Router](https://reactrouter.com/en/main)
+7. [HOC](https://legacy.reactjs.org/docs/higher-order-components)
 
 ## How to start app
 
