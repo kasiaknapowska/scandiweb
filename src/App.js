@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom";
 
 import { changeCategory, fetchCategories } from "./redux/categorySlice";
 import { fetchCurrencies } from "./redux/currencySlice";
+import { fetchAllProductsId } from "./redux/productsSlice";
 import { setInitialCartItems } from "./redux/cartSlice";
 import { setInitialCount } from "./redux/counterSlice";
 
@@ -19,13 +20,39 @@ class App extends Component {
     this.props.fetchCategories().then(() => {
       if (this.props.router.location.pathname === "/") {
         this.props.router.navigate(`/${this.props.category}`);
+      } else if (this.props.router.location.pathname === "/cart") {
+        this.props.router.navigate("/cart");
       } else if (
-        this.props.router.location.pathname !== "/cart" &&
-        !this.props.categories.includes(this.props.router.params.category)
+        this.props.router.location.pathname.includes(
+          `/${this.props.router.params.category}/${this.props.router.params.productId}`
+        )
       ) {
+        this.props.fetchAllProductsId().then(() => {
+          if (
+            this.props.category.includes(this.props.router.params.category) &&
+            this.props.allProductsId.includes(
+              this.props.router.params.productId
+            )
+          ) {
+            this.props.router.navigate(
+              `/${this.props.router.params.category}/${this.props.router.params.productId}`
+            );
+          } else {
+            this.props.router.navigate("/not-found");
+          }
+        });
+      } else if (
+        this.props.category.includes(this.props.router.params.category) &&
+        this.props.router.location.pathname.endsWith(
+          `/${this.props.router.params.category}`
+        )
+      ) {
+        this.props.router.navigate(`/${this.props.router.params.category}`);
+      } else {
         this.props.router.navigate("/not-found");
       }
     });
+
     localStorage.getItem("cart") &&
       this.props.setInitialCartItems(JSON.parse(localStorage.getItem("cart")));
 
@@ -42,6 +69,7 @@ class App extends Component {
     ) {
       this.props.changeCategory(paramsCategory);
     }
+
     if (prevProps.count !== this.props.count) {
       localStorage.setItem("cart", JSON.stringify(this.props.cart));
       localStorage.setItem("count", this.props.count.toString());
@@ -55,20 +83,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.props.currencyLoading || this.props.categoryLoading ? (
-          <div>Loading...</div>
-        ) : null}
-        {!this.props.currencyLoading &&
-          !this.props.categoryLoading &&
-          (this.props.categoryError || this.props.currencyError) && (
-            <div className="error">
-              <p><span>Error!</span> {this.props.categoryError || this.props.currencyError}</p>
-            </div>
-          )}
-        {!this.props.currencyLoading &&
-          !this.props.categoryLoading &&
-          !this.props.categoryError &&
-          !this.props.currencyError &&
+        {this.props.isLoading && <div>Loading...</div>}
+        {!this.props.isLoading && this.props.error && (
+          <div className="error">
+            <p>
+              <span>Error!</span> {this.props.error}
+            </p>
+          </div>
+        )}
+        {!this.props.isLoading &&
+          !this.props.error &&
           this.props.categories &&
           this.props.currencies && (
             <>
@@ -85,17 +109,20 @@ const mapStateToProps = (state) => ({
   categories: state.category.categories,
   category: state.category.category,
   currencies: state.currency.currencies,
+  allProductsId: state.products.allProductsId,
   count: state.cartCounter.count,
   cart: state.cart.items,
-  categoryLoading: state.category.isLoading,
-  categoryError: state.category.error,
-  currencyLoading: state.currency.isLoading,
-  currencyError: state.currency.error,
+  error: state.category.error || state.currency.error || state.products.idError,
+  isLoading:
+    state.category.isLoading ||
+    state.currency.isLoading ||
+    state.products.isIdLoading,
 });
 
 const mapDispatchToProps = {
   fetchCategories,
   fetchCurrencies,
+  fetchAllProductsId,
   changeCategory,
   setInitialCartItems,
   setInitialCount,

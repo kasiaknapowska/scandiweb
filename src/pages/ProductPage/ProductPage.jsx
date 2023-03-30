@@ -7,7 +7,6 @@ import classNames from "classnames";
 import withRouter from "../../utils/hoc/withRouter";
 
 import { fetchProductDetails, resetProduct } from "../../redux/productSlice";
-import { fetchAllProductsId } from "../../redux/productsSlice";
 
 import ProductDetails from "../../components/ProductDetails";
 
@@ -20,24 +19,18 @@ class ProductPage extends PureComponent {
   }
 
   componentDidMount() {
-    this.props.fetchAllProductsId().then(() => {
-      if (
-        this.props.allProductsId.includes(this.props.router.params.productId)
-      ) {
-        this.props.fetchProductDetails(this.props.router.params.productId);
-      } else {
-        this.props.router.navigate("/not-found");
-      }
-    });
+    this.props.fetchProductDetails(this.props.router.params.productId);
   }
+
   componentWillUnmount() {
     this.props.resetProduct();
   }
   render() {
     return (
       <main className="container product_page page_container">
-        {/* {this.state.loading && <p>Loading...</p>} */}
-        {this.props.product && (
+        {this.props.isLoading && <p>Loading...</p>}
+        {!this.props.isLoading && this.props.error ? <div className="error"><span>Error!</span>{this.props.error}</div> : null}
+        {!this.props.isLoading && !this.props.error && this.props.product && (
           <div
             className={classNames("flex_container", {
               out_of_stock: !this.props.product.inStock,
@@ -76,11 +69,11 @@ class ProductPage extends PureComponent {
 
 const mapStateToProps = (state) => ({
   product: state.product.product,
-  allProductsId: state.products.allProductsId,
+  isLoading: state.product.isLoading,
+  error: state.product.error,
 });
 const mapDispatchToProps = {
   fetchProductDetails,
-  fetchAllProductsId,
   resetProduct,
 };
 

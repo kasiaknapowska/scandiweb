@@ -28,6 +28,7 @@ export const fetchProductsByCategory = createAsyncThunk(
 export const fetchAllProductsId = createAsyncThunk(
   "products/fetchAllProductsId",
   async () => {
+    // throw new Error("An error occured when fetching product")
     const response = await query(GET_PRODUCTS_ID_QUERY);
     return response;
   }
@@ -59,7 +60,7 @@ export const productsSlice = createSlice({
     });
     builder.addCase(fetchAllProductsId.fulfilled, (state, action) => {
       state.isIdLoading = false;
-      state.allProductsId = action.payload.categories ? action.payload.categories
+      state.allProductsId = action.payload ? action.payload.categories
         .map((category) => category.products.map((product) => product.id))
         .flat() : [];
       state.idError = "";

@@ -8,19 +8,7 @@ const initialState = {
   error: "",
   status: "init"
 };
-// export const fetchCurrencies = createAsyncThunk(
-//   "currency/fetchCurrencies",
-//   async (param, thunkAPI) => {
-//   try {
-//       throw new Error("currency error");
-//       const response = await query(GET_CURRENCIES_QUERY);
-//       return response;
-//   } catch (err) {
-//     console.log(err)
-//     return thunkAPI.rejectWithValue("An error occured")
-//   }
-//   }
-// );
+
 export const fetchCurrencies = createAsyncThunk(
   "currency/fetchCurrencies",
   async () => {
