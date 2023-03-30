@@ -2,16 +2,32 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { GET_CURRENCIES_QUERY, query } from "../utils/queries";
 
 const initialState = {
-  loading: false,
+  isLoading: false,
   currencies: [],
   currency: "$",
   error: "",
+  status: "init"
 };
+// export const fetchCurrencies = createAsyncThunk(
+//   "currency/fetchCurrencies",
+//   async (param, thunkAPI) => {
+//   try {
+//       throw new Error("currency error");
+//       const response = await query(GET_CURRENCIES_QUERY);
+//       return response;
+//   } catch (err) {
+//     console.log(err)
+//     return thunkAPI.rejectWithValue("An error occured")
+//   }
+//   }
+// );
 export const fetchCurrencies = createAsyncThunk(
   "currency/fetchCurrencies",
   async () => {
-    const response = await query(GET_CURRENCIES_QUERY);
-    return response;
+
+      // throw new Error("Fail to fetch currency");
+      const response = await query(GET_CURRENCIES_QUERY);
+      return response;
   }
 );
 
@@ -25,18 +41,18 @@ export const currencySlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCurrencies.pending, (state) => {
-      state.loading = true;
+      state.isLoading = true;
     });
     builder.addCase(fetchCurrencies.fulfilled, (state, action) => {
-      state.loading = false;
-      state.currencies = action.payload.currencies.map((currency) => {
+      state.isLoading = false;
+      state.currencies = action.payload ? action.payload.currencies.map((currency) => {
         return { label: currency.label, symbol: currency.symbol };
-      });
-      state.currency = action.payload.currencies[0].symbol;
+      }) : [];
+      state.currency = action.payload ? action.payload.currencies[0].symbol : "$";
       state.error = "";
     });
     builder.addCase(fetchCurrencies.rejected, (state, action) => {
-      state.loading = false;
+      state.isLoading = false;
       state.currencies = [];
       state.error = action.error.message;
     });

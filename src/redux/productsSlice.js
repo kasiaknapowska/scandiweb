@@ -6,10 +6,10 @@ import {
 } from "../utils/queries";
 
 const initialState = {
-  loading: false,
+  isLoading: false,
   products: [],
   error: "",
-  idLoading: false,
+  isIdLoading: false,
   allProductsId: [],
   idError: "",
 };
@@ -17,6 +17,7 @@ const initialState = {
 export const fetchProductsByCategory = createAsyncThunk(
   "products/fetchProductsByCategory",
   async (title) => {
+    // throw new Error("An error occured when fetching products")
     const response = await query(GET_PRODUCTS_BY_CATEGORY_QUERY, {
       title: title,
     });
@@ -38,32 +39,33 @@ export const productsSlice = createSlice({
   extraReducers: (builder) => {
     //fetch products by category
     builder.addCase(fetchProductsByCategory.pending, (state) => {
-      state.loading = true;
+      state.isLoading = true;
     });
     builder.addCase(fetchProductsByCategory.fulfilled, (state, action) => {
-      state.loading = false;
-      state.products = action.payload.category.products;
+      state.isLoading = false;
+      // console.log(action.payload)
+      state.products = action.payload ? action.payload.category.products : [];
       state.error = "";
     });
     builder.addCase(fetchProductsByCategory.rejected, (state, action) => {
-      state.loading = false;
+      state.isLoading = false;
       state.products = [];
       state.error = action.error.message;
     });
 
     //fetch all products id
     builder.addCase(fetchAllProductsId.pending, (state) => {
-      state.idLoading = true;
+      state.isIdLoading = true;
     });
     builder.addCase(fetchAllProductsId.fulfilled, (state, action) => {
-      state.idLoading = false;
-      state.allProductsId = action.payload.categories
+      state.isIdLoading = false;
+      state.allProductsId = action.payload.categories ? action.payload.categories
         .map((category) => category.products.map((product) => product.id))
-        .flat();
+        .flat() : [];
       state.idError = "";
     });
     builder.addCase(fetchAllProductsId.rejected, (state, action) => {
-      state.idLoading = false;
+      state.isIdLoading = false;
       state.allProductsId = [];
       state.idError = action.error.message;
     });

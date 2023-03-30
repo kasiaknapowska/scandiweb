@@ -31,10 +31,10 @@ class CategoryPage extends PureComponent {
     return (
       <main className="container category_page page_container">
         <h1>{this.props.category}</h1>
+          {this.props.loading && <div>Loading...</div>}
+          {!this.props.loading && this.props.error ? <div className="error"><span>Error!</span>{this.props.error}</div> : null}
         <div className="products">
-          {this.props.loading && <p>Loading...</p>}
-          {this.props.error && <p>Error: {this.props.error}</p>}
-          {this.props.products &&
+          {!this.props.loading && !this.props.error && this.props.products &&
             this.props.products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}

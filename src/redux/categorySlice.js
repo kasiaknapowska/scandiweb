@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { GET_CATEGORIES_QUERY, query } from "../utils/queries";
 
 const initialState = {
-  loading: false,
+  isLoading: false,
   categories: [],
   category: "",
   error: "",
@@ -11,6 +11,7 @@ const initialState = {
 export const fetchCategories = createAsyncThunk(
   "category/fetchCategories",
   async () => {
+    // throw new Error("Fail to fetch category")
     const response = await query(GET_CATEGORIES_QUERY);
     return response;
   }
@@ -26,18 +27,19 @@ export const categorySlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCategories.pending, (state) => {
-      state.loading = true;
+      state.isLoading = true;
     });
     builder.addCase(fetchCategories.fulfilled, (state, action) => {
-      state.loading = false;
-      state.categories = action.payload.categories.map((category) => category.name);
-      state.category = action.payload.categories[0].name;
+      state.isLoading = false;
+      state.categories = action.payload ? action.payload.categories.map((category) => category.name) : [];
+      state.category = action.payload ? action.payload.categories[0].name : "";
       state.error = "";
     });
     builder.addCase(fetchCategories.rejected, (state, action) => {
-      state.loading = false;
+      state.isLoading = false;
       state.categories = [];
       state.error = action.error.message;
+      
     });
   },
 });

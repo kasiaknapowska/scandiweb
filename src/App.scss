@@ -30,7 +30,6 @@ button {
   text-transform: uppercase;
   font-weight: 600;
   margin: 1rem 0;
- 
 }
 .btn_primary {
   background-color: $colorPrimary;
@@ -45,7 +44,47 @@ button {
   color: $colorNeutral;
   &:hover {
     background-color: $colorNeutralLight;
-    border-color: $colorNeutralLight;;
+    border-color: $colorNeutralLight;
     color: white;
+  }
+}
+.error {
+  min-height: 5rem;
+  margin: 2rem 1rem;
+  padding: 2rem;
+  padding-left: calc(2rem + 30px);
+  color: white;
+  background-color: $colorError;
+  @media screen and ($tablet) {
+    text-align: center;
+  }
+
+  span {
+    display: inline-block;
+    margin-right: 0.5rem;
+    text-transform: uppercase;
+    position: relative;
+    &::before,
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 30px;
+      height: 2px;
+      border-radius: 5px;
+      background-color: white;
+      top: 10px;
+      left: -40px;
+    }
+    &::before {
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+    &::after {
+      -webkit-transform: rotate(-45deg);
+      -moz-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+    }
   }
 }

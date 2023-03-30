@@ -13,7 +13,9 @@ class CategoryNavbar extends PureComponent {
 
     return (
       <nav className="category_navbar">
-        {this.props.categories.length > 0 &&
+        {/* {this.props.loading && <p>Loading...</p>}
+        {!this.props.loading && this.props.error ? <p>Error: {this.props.error.message}</p> : null} */}
+        {!this.props.loading && this.props.categories.length > 0 &&
           this.props.categories.map((category, index) => (
             <NavLink
               className={classNames("nav_link", {
@@ -26,6 +28,7 @@ class CategoryNavbar extends PureComponent {
               {category}
             </NavLink>
           ))}
+          
       </nav>
     );
   }
@@ -34,6 +37,8 @@ class CategoryNavbar extends PureComponent {
 const mapStateToProps = (state) => ({
   category: state.category.category,
   categories: state.category.categories,
+  loading: state.category.loading,
+  error: state.category.error,
 });
 
 const mapDispatchToProps = { changeCategory };

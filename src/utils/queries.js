@@ -8,17 +8,14 @@ export const client = new ApolloClient({
 
 //query function
 export const query = async (query, variables) => {
-  try {
+    // throw new Error("Fail to fetch data");
     const response = await client.query({ query: query, variables: variables, fetchPolicy: "no-cache", });
     return response.data;
-  } catch (error) {
-    console.error(error);
-  }
 };
 
 //queries
 export const GET_CATEGORIES_QUERY = gql`
-  {
+ query {
     categories {
       name
     }

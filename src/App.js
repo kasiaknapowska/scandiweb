@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Outlet } from "react-router-dom";
 
 import { changeCategory, fetchCategories } from "./redux/categorySlice";
+import { fetchCurrencies } from "./redux/currencySlice";
 import { setInitialCartItems } from "./redux/cartSlice";
 import { setInitialCount } from "./redux/counterSlice";
 
@@ -14,6 +15,7 @@ import Header from "./components/Header/Header";
 
 class App extends Component {
   componentDidMount() {
+    this.props.fetchCurrencies();
     this.props.fetchCategories().then(() => {
       if (this.props.router.location.pathname === "/") {
         this.props.router.navigate(`/${this.props.category}`);
@@ -53,8 +55,27 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
-        <Outlet />
+        {this.props.currencyLoading || this.props.categoryLoading ? (
+          <div>Loading...</div>
+        ) : null}
+        {!this.props.currencyLoading &&
+          !this.props.categoryLoading &&
+          (this.props.categoryError || this.props.currencyError) && (
+            <div className="error">
+              <p><span>Error!</span> {this.props.categoryError || this.props.currencyError}</p>
+            </div>
+          )}
+        {!this.props.currencyLoading &&
+          !this.props.categoryLoading &&
+          !this.props.categoryError &&
+          !this.props.currencyError &&
+          this.props.categories &&
+          this.props.currencies && (
+            <>
+              <Header />
+              <Outlet />
+            </>
+          )}
       </div>
     );
   }
@@ -63,12 +84,18 @@ class App extends Component {
 const mapStateToProps = (state) => ({
   categories: state.category.categories,
   category: state.category.category,
+  currencies: state.currency.currencies,
   count: state.cartCounter.count,
   cart: state.cart.items,
+  categoryLoading: state.category.isLoading,
+  categoryError: state.category.error,
+  currencyLoading: state.currency.isLoading,
+  currencyError: state.currency.error,
 });
 
 const mapDispatchToProps = {
   fetchCategories,
+  fetchCurrencies,
   changeCategory,
   setInitialCartItems,
   setInitialCount,
