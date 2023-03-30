@@ -31,6 +31,7 @@ class CartItem extends PureComponent {
 
   render() {
     const price = getPrice(this.props.item.prices, this.props.currency);
+    const item = this.props.item;
     return (
       <div
         className={classNames("cart_element", {
@@ -40,22 +41,22 @@ class CartItem extends PureComponent {
       >
         <div className="item_details">
           <h2>
-            <span>{this.props.item.name}</span>
+            <span>{item.name}</span>
             <br></br>
-            {this.props.item.brand}
+            {item.brand}
           </h2>
           <p>
             {this.props.currency} <span style={{ width: "2px" }}></span>
             {price}
           </p>
           <div>
-            {this.props.item.attributes.map((attribute, index) => {
+            {item.attributes.map((attribute, index) => {
               return (
                 <div key={attribute.id + index}>
                   <h3>{attribute.name}</h3>
                   <Attributes
                     attribute={attribute}
-                    attributesChosen={this.props.item.attributesChosen}
+                    attributesChosen={item.attributesChosen}
                     isClickable={false}
                   />
                 </div>
@@ -64,11 +65,11 @@ class CartItem extends PureComponent {
           </div>
         </div>
         <div className="item_quantity">
-          <div onClick={() => this.props.addItem(this.props.item)}>+</div>
-          <span>{this.props.item.quantity}</span>
+          <div onClick={() => this.props.addItem(item)}>+</div>
+          <span>{item.quantity}</span>
           <div
             className="substract"
-            onClick={() => this.props.substractItem(this.props.item)}
+            onClick={() => this.props.substractItem(item)}
           >
             -
           </div>
@@ -77,7 +78,7 @@ class CartItem extends PureComponent {
           <div
             className="item_img"
             style={{
-              backgroundImage: `url(${this.props.item.gallery[0]})`,
+              backgroundImage: `url(${item.gallery[0]})`,
               backgroundSize: "contain",
             }}
           ></div>
@@ -87,21 +88,21 @@ class CartItem extends PureComponent {
             className="item_img"
             style={{
               backgroundImage: `url(${
-                this.props.item.gallery[this.state.currentImageIndex]
+                item.gallery[this.state.currentImageIndex]
               })`,
               backgroundSize: "contain",
             }}
           >
-            {this.props.item.gallery.length > 1 && (
+            {item.gallery.length > 1 && (
               <div className="arrows_container">
                 {" "}
                 <SliderArrow
                   direction="previous"
-                  onClick={() => this.goToNext(this.props.item.gallery)}
+                  onClick={() => this.goToNext(item.gallery)}
                 />
                 <SliderArrow
                   direction="next"
-                  onClick={() => this.goToPrevious(this.props.item.gallery)}
+                  onClick={() => this.goToPrevious(item.gallery)}
                 />
               </div>
             )}

@@ -8,15 +8,13 @@ import withRouter from "../../utils/hoc/withRouter";
 import { fetchProductsByCategory } from "../../redux/productsSlice";
 
 import ProductCard from "../../components/ProductCard";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 class CategoryPage extends PureComponent {
-
   componentDidMount() {
-    if (this.props.categories.includes(this.props.router.params.category)) {
-      this.props.fetchProductsByCategory(
-        this.props.router.params.category || this.props.category
-      );
-    }
+    this.props.fetchProductsByCategory(
+      this.props.router.params.category || this.props.category
+    );
   }
 
   componentDidUpdate(prevProps) {
@@ -27,17 +25,25 @@ class CategoryPage extends PureComponent {
     }
   }
 
-
-
   render() {
+    const isLoading = this.props.isLoading;
+    const error = this.props.error;
+    const products = this.props.products;
     return (
       <main className="container category_page page_container">
         <h1>{this.props.category}</h1>
-          {this.props.isLoading && <div>Loading...</div>}
-          {!this.props.isLoading && this.props.error ? <div className="error"><span>Error!</span>{this.props.error}</div> : null}
+        {isLoading && <LoadingSpinner />}
+        {!isLoading && error ? (
+          <div className="error">
+            <span>Error!</span>
+            {error}
+          </div>
+        ) : null}
         <div className="products">
-          {!this.props.isLoading && !this.props.error && this.props.products &&
-            this.props.products.map((product) => (
+          {!isLoading &&
+            !error &&
+            products &&
+            products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
         </div>

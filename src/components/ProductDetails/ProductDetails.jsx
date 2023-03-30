@@ -10,15 +10,16 @@ import Attributes from "../Attributes";
 class ProductDetails extends PureComponent {
   render() {
     const price = getPrice(this.props.product.prices, this.props.currency);
+    const product = this.props.product;
     return (
       <div className="product_details">
-        {!this.props.product.inStock && <p>Out of stock</p>}
+        {!product.inStock && <p>Out of stock</p>}
         <div>
-          <h1>{this.props.product.name}</h1>
-          <h2>{this.props.product.brand}</h2>
+          <h1>{product.name}</h1>
+          <h2>{product.brand}</h2>
         </div>
-        {this.props.product.attributes.length > 0 &&
-          this.props.product.attributes.map((attribute, index) => {
+        {product.attributes.length > 0 &&
+          product.attributes.map((attribute, index) => {
             return (
               <div key={attribute.id + index}>
                 <h3>{attribute.name}</h3>
@@ -38,12 +39,12 @@ class ProductDetails extends PureComponent {
             {price}
           </p>
         </div>
-        {this.props.product.inStock && (
+        {product.inStock && (
           <div className="button_container">
             <button
               className="btn_primary"
               onClick={() =>
-                this.props.addItemWithChosenAttributes(this.props.product)
+                this.props.addItemWithChosenAttributes(product)
               }
             >
               Add to cart
@@ -53,10 +54,10 @@ class ProductDetails extends PureComponent {
             )}
           </div>
         )}
-        {this.props.product.description.includes("<") ? (
-          parse(this.props.product.description)
+        {product.description.includes("<") ? (
+          parse(product.description)
         ) : (
-          <p>{this.props.product.description}</p>
+          <p>{product.description}</p>
         )}
       </div>
     );
@@ -65,8 +66,6 @@ class ProductDetails extends PureComponent {
 
 const mapStateToProps = (state) => ({
   currency: state.currency.currency,
-  count: state.cartCounter.count,
-  cart: state.cart.items,
 });
 
 export default withBusinessLogic(connect(mapStateToProps)(ProductDetails));

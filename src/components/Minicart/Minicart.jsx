@@ -20,11 +20,15 @@ class Minicart extends PureComponent {
   }
 
   render() {
+    const isOpen = this.props.isOpen;
+    const count = this.props.count;
+    const currency = this.props.currency;
+
     return (
       <>
         <div
-          style={{ display: !this.props.isOpen && "none" }}
-          className={this.props.isOpen ? "minicart_bg" : undefined}
+          style={{ display: !isOpen && "none" }}
+          className={isOpen ? "minicart_bg" : undefined}
         ></div>
 
         <div className="minicart_select" ref={this.props.wrapperRef}>
@@ -33,16 +37,16 @@ class Minicart extends PureComponent {
             onClick={() => this.props.setIsOpen()}
           >
             <img src={cart} className="cart_icon" alt="add to cart"/>
-            {this.props.count > 0 && (
-              <div className="cart_count">{this.props.count}</div>
+            {count > 0 && (
+              <div className="cart_count">{count}</div>
             )}
           </div>
-          {this.props.isOpen && (
+          {isOpen && (
             <div className="minicart">
               <h1>
-                My Bag, <span>{this.props.count} items</span>
+                My Bag, <span>{count} items</span>
               </h1>
-              {this.props.count > 0 && (
+              {count > 0 && (
                 <>
                   <div className="minicart_items_container">
                     {this.props.cart.map((item, index) => (
@@ -57,9 +61,9 @@ class Minicart extends PureComponent {
                     <div className="total">
                       <span>Total</span>
                       <h1>
-                        {this.props.currency}{" "}
+                        {currency}{" "}
                         <span style={{ width: "2px" }}></span>{" "}
-                        {getPrice(this.props.totalPrice, this.props.currency)}
+                        {getPrice(this.props.totalPrice, currency)}
                       </h1>
                     </div>
                     <div className="buttons_container">

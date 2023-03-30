@@ -6,20 +6,21 @@ import classNames from "classnames";
 class Attributes extends PureComponent {
 
   render() {
+    const attribute = this.props.attribute;
     return (
-        <div className={this.props.attribute.type}>
-          {this.props.attribute.items.map((item) => (
+        <div className={attribute.type}>
+          {attribute.items.map((item) => (
             <div
               style={
-                this.props.attribute.type === "swatch"
+                attribute.type === "swatch"
                   ? { backgroundColor: `${item.value}` }
                   : null
               }
               key={item.id}
-              onClick={this.props.isClickable ? () => this.props.setAttributes(this.props.attribute.id, item.value) : null}
-              className={classNames({is_active: this.props.attributesChosen[this.props.attribute.id.toLowerCase().replaceAll(" ", "-")] === item.value})}
+              onClick={this.props.isClickable ? () => this.props.setAttributes(attribute.id, item.value) : null}
+              className={classNames({is_active: this.props.attributesChosen[attribute.id.toLowerCase().replaceAll(" ", "-")] === item.value})}
             >
-              {this.props.attribute.type === "text" ? item.value : null}
+              {attribute.type === "text" ? item.value : null}
             </div>
           ))}
         </div>

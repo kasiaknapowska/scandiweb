@@ -13,41 +13,36 @@ import { client } from "./utils/queries";
 import withRouter from "./utils/hoc/withRouter";
 
 import Header from "./components/Header/Header";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 class App extends Component {
   componentDidMount() {
+    const pathname = this.props.router.location.pathname;
+    const paramsCategory = this.props.router.params.category;
+    const paramsProductId = this.props.router.params.productId;
+
     this.props.fetchCurrencies();
     this.props.fetchCategories().then(() => {
-      if (this.props.router.location.pathname === "/") {
+      if (pathname === "/") {
         this.props.router.navigate(`/${this.props.category}`);
-      } else if (this.props.router.location.pathname === "/cart") {
+      } else if (pathname === "/cart") {
         this.props.router.navigate("/cart");
-      } else if (
-        this.props.router.location.pathname.includes(
-          `/${this.props.router.params.category}/${this.props.router.params.productId}`
-        )
-      ) {
+      } else if (pathname.includes(`/${paramsCategory}/${paramsProductId}`)) {
         this.props.fetchAllProductsId().then(() => {
           if (
-            this.props.category.includes(this.props.router.params.category) &&
-            this.props.allProductsId.includes(
-              this.props.router.params.productId
-            )
+            this.props.category.includes(paramsCategory) &&
+            this.props.allProductsId.includes(paramsProductId)
           ) {
-            this.props.router.navigate(
-              `/${this.props.router.params.category}/${this.props.router.params.productId}`
-            );
+            this.props.router.navigate(`/${paramsCategory}/${paramsProductId}`);
           } else {
             this.props.router.navigate("/not-found");
           }
         });
       } else if (
-        this.props.category.includes(this.props.router.params.category) &&
-        this.props.router.location.pathname.endsWith(
-          `/${this.props.router.params.category}`
-        )
+        this.props.category.includes(paramsCategory) &&
+        pathname.endsWith(`/${paramsCategory}`)
       ) {
-        this.props.router.navigate(`/${this.props.router.params.category}`);
+        this.props.router.navigate(`/${paramsCategory}`);
       } else {
         this.props.router.navigate("/not-found");
       }
@@ -81,18 +76,20 @@ class App extends Component {
   }
 
   render() {
+    const isLoading = this.props.isLoading;
+    const error = this.props.error;
+
     return (
       <div className="App">
-        {this.props.isLoading && <div>Loading...</div>}
-        {!this.props.isLoading && this.props.error && (
+        {isLoading && <LoadingSpinner />}
+        {!isLoading && error && (
           <div className="error">
             <p>
-              <span>Error!</span> {this.props.error}
+              <span>Error!</span> {error}
             </p>
           </div>
         )}
-        {!this.props.isLoading &&
-          !this.props.error &&
+        {!isLoading && !error &&
           this.props.categories &&
           this.props.currencies && (
             <>

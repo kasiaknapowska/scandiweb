@@ -9,6 +9,7 @@ import withRouter from "../../utils/hoc/withRouter";
 import { fetchProductDetails, resetProduct } from "../../redux/productSlice";
 
 import ProductDetails from "../../components/ProductDetails";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 class ProductPage extends PureComponent {
   constructor(props) {
@@ -26,19 +27,23 @@ class ProductPage extends PureComponent {
     this.props.resetProduct();
   }
   render() {
+    const isLoading = this.props.isLoading;
+    const error = this.props.error;
+    const product = this.props.product;
+
     return (
       <main className="container product_page page_container">
-        {this.props.isLoading && <p>Loading...</p>}
-        {!this.props.isLoading && this.props.error ? <div className="error"><span>Error!</span>{this.props.error}</div> : null}
-        {!this.props.isLoading && !this.props.error && this.props.product && (
+        {isLoading && <LoadingSpinner/>}
+        {!isLoading && error ? <div className="error"><span>Error!</span>{error}</div> : null}
+        {!isLoading && !error && product && (
           <div
             className={classNames("flex_container", {
-              out_of_stock: !this.props.product.inStock,
+              out_of_stock: !product.inStock,
             })}
           >
             <div className="images">
               <div className="preview_container">
-                {this.props.product.gallery.map((url, index) => {
+                {product.gallery.map((url, index) => {
                   return (
                     <div
                       key={index}
@@ -56,10 +61,10 @@ class ProductPage extends PureComponent {
               <img
                 className="preview"
                 alt="product thumbnail"
-                src={this.props.product.gallery[this.state.currentImageIndex]}
+                src={product.gallery[this.state.currentImageIndex]}
               />
             </div>
-            <ProductDetails product={this.props.product} />
+            <ProductDetails product={product} />
           </div>
         )}
       </main>

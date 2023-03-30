@@ -9,16 +9,19 @@ import { getPrice } from "../../utils/functions";
 
 class CartPage extends PureComponent  {
   render() {
+const currency = this.props.currency;
+const count = this.props.count;
+const cart = this.props.cart;
 
-    if (this.props.totalPrice.length > 0 && this.props.count > 0) {
-      const totalPrice = getPrice(this.props.totalPrice, this.props.currency)
+    if (this.props.totalPrice.length > 0 && count > 0) {
+      const totalPrice = getPrice(this.props.totalPrice, currency)
 
       return (
         <main className="container cart_page page_container">
           <h1>Cart</h1>
           <div className="line"></div>
           <>
-            {this.props.cart.map((item, index) => (
+            {cart.map((item, index) => (
               <div key={item.id + index}>
                 <CartItem item={item} type="cart" />
                 <div className="line"></div>
@@ -30,19 +33,19 @@ class CartPage extends PureComponent  {
                 <tr>
                   <th>Tax 21%:</th>
                   <td>
-                    {this.props.currency}
+                    {currency}
                     &nbsp;
                     {(totalPrice * 0.21).toFixed(2)}
                   </td>
                 </tr>
                 <tr>
                   <th>Quantity:</th>
-                  <td>{this.props.count}</td>
+                  <td>{count}</td>
                 </tr>
                 <tr>
                   <th>Total:</th>
                   <td>
-                    {this.props.currency}
+                    {currency}
                     &nbsp;
                       {totalPrice}
                   </td>

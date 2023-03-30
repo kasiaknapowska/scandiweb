@@ -44,8 +44,7 @@ export const productsSlice = createSlice({
     });
     builder.addCase(fetchProductsByCategory.fulfilled, (state, action) => {
       state.isLoading = false;
-      // console.log(action.payload)
-      state.products = action.payload ? action.payload.category.products : [];
+      state.products = action.payload ? action.payload.category?.products : [];
       state.error = "";
     });
     builder.addCase(fetchProductsByCategory.rejected, (state, action) => {
